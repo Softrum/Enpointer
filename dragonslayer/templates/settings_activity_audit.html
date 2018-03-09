@@ -1,0 +1,11 @@
+{% extends 'settings_base.html' %}
+
+{% block content2 %}
+
+{% for e in events %}
+
+{{e.created}} : {{e.issue.title}} <b>{{e.action}}</b> by {{e.actor}} <br>
+
+{% endfor %}
+
+{% endblock %}

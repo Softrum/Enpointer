@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %} <br>
+
+{{events}}
+
+{% for e in events %}
+
+{{e.action}}<br>
+
+{% endfor %}
+
+
+
+{% endblock %}

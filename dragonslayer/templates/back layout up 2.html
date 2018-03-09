@@ -1,0 +1,258 @@
+
+
+{% if layout.layout_type == 'none' %}
+
+<script type="text/javascript">
+  function quick_create() {
+
+    if ($(event.target).attr('class') != 'list-card-details panel panel-default content ui-sortable-handle' && $(event.target).attr('class') !=undefined) {
+  
+
+var div = $('#quick_create').css({
+        'left': event.pageX + 'px',
+        'top': event.pageY + 'px',
+        'visibility': 'visible',
+        'z-index' :'20000000',
+
+      })
+
+div.appendTo(document.body);
+
+$('#beta').css({'overflow': 'hidden'});
+
+
+  var overlay = jQuery('<div id="overlay"> </div>');
+$('#main').append(overlay);
+
+
+
+
+};
+
+  }
+</script>
+
+
+
+
+<div style="visibility: hidden; position: fixed; padding: 5px; width: 360px;" id="quick_create" class="panel panel-default">
+
+<h4>Create Issue</h4>
+
+        <div class="form-group"s>
+          <input id="quicki_create_input" class="form-control autofocus" name="title" placeholder="Add Title">
+        </div>
+
+
+<button class="btn btn-default"> Create </button>
+
+
+
+<button onclick=" $(this).parent().hide() ; $('#beta').css({'overflow': 'scroll'}); $('#overlay').remove();" class="btn btn-default"> Close </button>
+  
+</div>
+
+
+<div onclick=" quick_create()" style="background-color: #E2E4E6; min-width: 360px; width: 100%; "    class=" listwrapper      " >
+
+<!--style="background-color: #E2E4E6;"--> 
+<div style="width: 100%; "  class="listcontent   connectedSortable   ">
+
+
+
+<div id={{layout.status.uid}} style="width: 100%;"  class="list-cards connectedSortable   " >
+
+
+
+{% for i in layout.status.issues.all reversed %}
+
+{% if i.sprint == sprint %}
+
+<!-- card html -->
+
+<!-- card.................................................................................-->
+
+
+<div  id="{{i.uid}}" style="padding:10px;  z-index: 200000; width: 350px;  display: inline-block;margin-left: 5px; font-size: 95%;   "  class="list-card-details panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+
+ <div class="pull-right">
+
+{% if i.issue_id %}
+{% if i.resolved == True %} <strike class="x" > {% endif %}{{i.issue_id}} {% if i.resolved == True %} </strike>  {% endif %}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+</div>
+
+
+
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><p style="font-size: 120%; margin-top: 10px; color: #333333;height: 3em; overflow:hidden;">{{i.title}}</p></a> 
+
+
+     
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+ <!--
+ <form action="/show_transition_screen/{{project.uid}}/{{i.uid}}/" method="post">
+      {% csrf_token %}
+
+
+ <select name="status">
+{% for s in status %}
+  <option value={{s.uid}}>{{s.title}}</option>
+ {% endfor %}
+ </select>
+
+   <button class="btn btn-bold  btn-primary" type="submit">Go</button>
+   </form>
+    -->
+
+
+     </div> <!-- card......................................................................................-->
+
+<!-- /card html -->
+{% endif %}
+
+{% endfor %}
+
+</div> <!-- list cards -->
+
+
+
+</div> <!-- listcontent -->
+
+
+
+
+</div> <!-- for container -->
+
+
+{% endif %}
+
+
+
+{% if layout.layout_type == 'horizontal' %}
+
+
+
+<!--
+
+<div style="margin: 0px 0px 0px 0px; height: 30px;" class="well well-sm" align="center">{{layout.title}} </div> -->
+
+
+
+{% for k in layout.children.all %}
+
+<div class="well well-sm  " style="margin: 0px 0px 0px 0px; height: 30px;  " align="center">{{k.status.title}} </div>
+
+
+<div class=""  style="display: block;">
+{% with layout=k %}
+{% include "layout_template.html" %}
+{% endwith %}
+</div>
+
+{% endfor %}
+
+
+
+{% endif %}
+
+
+
+{% if layout.layout_type == 'vertical' %}
+
+
+<!--
+<div class="well well-sm  " style="margin: 0px 0px 0px 0px; height: 30px;  " align="center">{{layout.title}} </div>
+-->
+
+
+<div class="row" style="display: flex; width: 100% ;" >
+
+
+
+{% for k in layout.children.all %}
+
+<div style="vertical-align: top; width: 100%;">
+
+
+
+
+
+<div class="well well-sm  " style="margin: 0px 0px 0px 0px; height: 30px;  " align="center">{{k.status.title}} </div>
+
+
+<div class=" "  style="display: flex; flex-direction: columns;  float: none;  box-sizing: border-box; width: 100%;" >
+
+
+
+
+
+
+{% with layout=k %}
+{% include "layout_template.html" %}
+{% endwith %}
+</div>
+           </div>         
+{% endfor %}
+
+</div>
+
+
+{% endif %}
+
+
+ 
+ <!--  
+   <div> </div>
+
+    {%if node.has_childs %}
+        <ul>
+         {%for ch in node.all_childs %}
+              {%with node=ch template_name="tree_view_template.html" %}
+                   {%include template_name%}
+              {%endwith%}
+         {%endfor%}
+         </ul>
+    {%endif%}
+</li
+
+-->

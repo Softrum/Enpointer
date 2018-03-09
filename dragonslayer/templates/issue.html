@@ -1,0 +1,1165 @@
+{% extends 'base_modal.html' %}
+{% block content %}
+
+
+
+<style type="text/css">
+
+
+
+
+</style>
+
+
+
+<script type="">
+	$(document).ready(function(){
+
+   $("#task_form").hide();
+
+});
+</script>
+
+
+
+
+<!--
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+-->
+
+
+<!-- Modal -->
+<div id="clone" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+     
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Clone Issue</h4>
+      </div>
+
+
+
+
+      <div class="modal-body">
+
+         <form action="/issue/clone/{{project.uid}}/{{issue.uid/" method="post">
+      {% csrf_token %}
+
+        
+   <div class="form-group"> Issue title for new issue :
+          <input  type="text" class="form-control" name="title" value="{{issue.title}}">
+        </div>
+ 
+
+
+
+
+
+
+         
+
+
+
+
+         <div class="form-group">Add to :
+
+   <select name="add_to"> 
+
+  <option value={{backlog.uid}}>Backlog</option>
+
+  {% for s in project.sprints.all %}
+
+  <option value={{s.uid}}>{{s.title}}</option>
+
+
+  {% endfor %}
+
+  </select>
+
+ </div>
+
+
+<button class="btn btn-bold btn-default" type="submit">create</button>
+
+
+
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div id="move" class="modal fade"  role="dialog" data-backdrop="false" >
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content" >
+      <div class="modal-header">
+
+     
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Move Issue</h4>
+      </div>
+
+
+
+
+      <div class="modal-body">
+
+         <form action="/issue/move/{{project.uid}}/{{issue.uid}}/" method="post">
+      {% csrf_token %}
+
+        
+
+
+
+         <div class="form-group">Add to Project :
+
+   <select name="add_to_project"> 
+
+
+  {% for p in project.org.projects.all %}
+
+  <option value={{p.uid}}>{{p.title}}</option>
+
+
+  {% endfor %}
+
+  </select>
+
+ </div>
+
+
+
+
+         
+
+
+
+
+         <div class="form-group">Add to  :
+
+   <select name="add_to"> 
+
+  <option value={{backlog.uid}}>Backlog</option>
+
+  {% for s in project.sprints.all %}
+
+  <option value={{s.uid}}>{{s.title}}</option>
+
+
+  {% endfor %}
+
+  </select>
+
+ </div> 
+
+
+<button class="btn btn-bold btn-default" type="submit">move</button>
+
+
+
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default" style="padding: 10; margin-bottom: 10">
+
+
+
+<h3>{{issue.title}}</h3> 
+
+
+
+
+
+
+
+<script type="text/javascript">
+  function move_issue() {
+    $("#move_issue_window").show();
+  }
+</script>
+
+
+
+
+<div class="pull-right">
+
+<!--<a data-toggle="modal" data-target="#clone">Clone</a> | --> <!--|  <a data-toggle="modal" data-target="#move">Move</a>-->
+
+<span class="dropdown">
+    <button style="border: none" class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-option-vertical"></i></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/issue/delete/{{project.uid}}/{{issue.uid}}/">Delete Issue</a></li>
+
+            <li   role="presentation"><a  style="cursor: pointer;" onclick="move_issue()" >Move Issue</a></li>
+        
+    </ul>
+  </span>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% if issue.issue_id %}
+{{issue.issue_id}}
+{% endif %}
+
+
+
+
+
+
+<!--
+<span style="margin-left: 150px">
+Permalink : <input onClick="this.select();" style="width: 300px" value="http://127.0.0.1:8000/project/board/{{project.uid}}/{{issue.uid}}">
+</span>
+
+-->
+{% for l in issue.label.all %}
+
+
+<span class="label label-warning">{{l.title}}</span>
+
+{% endfor %} <br><br>
+
+
+</div>
+
+
+
+<div class="panel panel-default" style="display: none; padding: 10px" id="move_issue_window">
+
+<h4> Move Issue </h4>
+
+
+
+         <form action="/issue/move/{{project.uid}}/{{issue.uid}}/" method="post">
+      {% csrf_token %}
+
+        
+
+
+
+         <div class="form-group">Add to Project :
+
+   <select id="add_to_project" name="add_to_project"> 
+
+
+  {% for p in project.org.projects.all %}
+
+  {% if project.uid == p.uid %}
+
+  <option selected value={{p.uid}}>{{p.title}}</option>
+
+  {% else %}
+
+  <option  value={{p.uid}}>{{p.title}}</option>
+
+
+  {% endif %}
+
+
+  {% endfor %}
+
+  </select>
+
+ </div>
+
+
+
+
+         
+
+
+
+
+         <div class="form-group">Add to  :
+
+   <select name="add_to"> 
+
+  <option value={{backlog.uid}}>Backlog</option>
+<!--
+  {% for s in project.sprints.all %}
+
+  <option value={{s.uid}}>{{s.title}}</option>
+
+
+  {% endfor %}
+-->
+  </select>
+
+ </div> 
+
+
+<button class="btn btn-bold  btn-default" type="submit">Move Issue</button>
+
+
+
+
+
+
+</form>
+
+<button onclick="$(this).parent().hide()" class="btn btn-bold btn-default" >Cancel</button>
+
+
+
+</div>
+
+
+
+<div  class="row issue-row" style="padding:10; padding-top: 0">
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-8" style="padding-right: 0; margin-left: 0; margin-right: 0">
+
+<div style="padding:10px;margin-bottom:10;" class="panel panel-default" >
+
+<h5><div class="form-group"><img src="https://i.imgur.com/m11xW89.png" width="20" style="opacity: 0.7; margin-right: 5">Issue Details</h5>
+<div class="row"> <!-- internal row -->
+
+<div class="col-md-6">
+
+
+
+
+
+Status : {{issue.status.title}}<br>
+
+Issue Type : {{issue.issue_type.title}}<br>
+
+
+{% if field_config.priority_visible == True %}
+Priority : {{issue.priority.title}}<br>
+{% endif %}
+
+
+
+
+
+</div> <!-- col6 -->
+
+<div class="col-md-6">
+
+<!--
+{% if field_config.fix_version_visible == True %}
+Fix Version : {{issue.fix_version.title}}<br>
+{% endif %}
+
+
+
+
+
+{% if field_config.epic_visible == True %}
+Epic : {{issue.epic}}<br>
+{% endif %}
+
+
+Resolution : {{issue.resolution.title}}
+
+-->
+Resolved : {{issue.resolved}} <br>
+
+
+
+{% if field_config.points_visible == True %}
+
+Points : {{issue.points}}<br>
+
+{% endif %}
+
+
+</div>
+
+</div>
+
+</div> <!-- internal row ends -->
+
+
+
+{% if field_config.description_visible == True %}
+
+
+<script type="text/javascript">
+	function get_code() {
+		var markup = $('.click2edit').summernote('code');
+		$.ajax({
+
+			type: "POST",
+            data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, description : markup},
+
+			url: '/update_issue_description/'+ '{{project.uid}}'+'/'+'{{issue.uid}}'+'/',
+
+			success: function(response){
+
+				$('.click2edit').summernote('destroy');
+				  $("#edit").show();
+                 $("#save").hide();
+
+				
+
+			}
+
+
+			});
+	}
+</script>
+
+
+
+<div style="padding:10px; overflow-x: scroll; margin-bottom: 10px" class="panel panel-default">
+<h5> <img src="https://i.imgur.com/OWcLClG.png" width="22" style="opacity: 0.7; margin-right: 3">Description</h5>
+
+
+
+<div class="click2edit" >{{issue.description|safe}}</div>
+
+<button id="save" style="display: none;"  class="btn btn-bold btn-default" onclick="get_code()" >Save</button><button id="edit" onclick="edit()"  class="btn btn-bold btn-default" type="button">Edit</button> <br><br>
+</div>
+
+<script type="text/javascript">
+	var edit = function() {
+  $('.click2edit').summernote({focus: true, minHeight:150});
+  $("#edit").hide();
+  $("#save").show();
+};
+</script>
+
+
+
+
+
+{% endif %}
+
+
+{% if field_config.description_visible == True %}
+
+<div style="padding:10px; margin-bottom: 10px" class="panel panel-default">
+<h5><img src="https://i.imgur.com/BTF9QLR.png" width="18" style="opacity: 0.5; margin-right: 3">Tasks</h5>
+
+
+<div id="task_list">
+
+
+
+{% for t in tasks %}
+
+<script type="text/javascript">
+	$('#{{t.uid}}').change(function(){
+
+
+$.ajax({
+  url: '/complete_task/{{project.uid}}/{{t.uid}}/',
+  success: function(){
+
+  
+
+
+
+    if ($( "#{{t.uid}}" ).hasClass( "strike" )) {
+    	
+
+    	 $('#{{t.uid}}').removeClass("strike");
+
+   
+    
+}
+
+    else {
+
+    	$('#{{t.uid}}').addClass("strike");
+    	
+
+}
+
+
+  
+
+  }
+});
+
+
+
+
+
+
+		});
+</script>
+
+{% if t.checked == True %}
+
+<div  class="strike"  id="{{t.uid}}">
+<input  checked  type="checkbox"> {{t.title}} <br>
+
+</div>
+
+{% else %}
+
+<div  id="{{t.uid}}">
+
+<input  type="checkbox"> {{t.title}} <br>
+
+</div>
+
+{% endif %}
+
+
+
+
+{% endfor %}
+
+
+</div>
+<br>
+
+
+
+
+
+
+
+      {% csrf_token %}
+
+        <div class="form-group">
+          <input id="form_val"   type="text" class="form-control" name="content" placeholder="Add a task">
+        </div>
+
+ 
+
+
+       <button id="save_button" class="btn btn-bold btn-default" type="button">Save</button> 
+
+      
+       
+
+
+
+
+</div>
+
+{% endif %}
+
+
+
+
+
+
+
+<div style="padding:10px; margin-bottom: 10" class="panel panel-default">
+
+<script type="text/javascript">
+
+$('#myFile').change(function() {
+
+
+	
+
+
+    var frm = $('#file_form');
+    var data = new FormData($('#file_form').get(0));
+   
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            enctype: frm.attr('enctype'),
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+            	var x = $("#myFile").val();
+                $("#attachments").append('<a  href='+response+'>'+x.split('\\').pop()+'</a><br>')
+                $("#myFile").val("") ;
+            },
+            error: function(response) {
+                alert('hey');
+            }
+        });
+        return false;
+
+
+
+
+
+
+});
+
+</script>
+<h5><img src="https://i.imgur.com/SklOmvm.png" width="20" style="opacity: 0.7; margin-right: 2"> Attachments </h5>
+
+<div style="padding: 20" id="attachments">
+
+{% for f in issue.file_attachments.all %}
+
+<a href="{{ f.file.url }}" target="_blank">{{f.filename}}</a><br>
+{% if f.mimetype == 'image' %}
+<img src="{{ f.file.url }}" width="75%" ><br><br>
+{% else %}
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Ic_attach_file_48px.svg/2000px-Ic_attach_file_48px.svg.png"  height="100" style="opacity: 0.4"><br><br>
+{% endif %}
+
+
+{% endfor %}
+
+</div>
+
+<form id="file_form" method="POST" action="/upload_attachment/{{issue.uid}}/" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input type="file" name="myfile" id="myFile">
+
+</form>
+</div>
+
+
+
+<script type="text/javascript">
+
+function add_comment() {
+
+	
+
+	var comment = $("#comment").val();
+	
+	$.ajax({
+
+			type: "POST",
+            data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, content : comment},
+
+			url: '/comment/create/{{issue.uid}}/',
+
+			success: function(response){
+
+				
+				$("#comment_list").prepend('<b>{{request.user}}</b> wrote 0 minutes ago:<br>'+comment+'<br><br>');
+				$('#comment').val('');
+
+				
+
+			}
+
+
+			});
+
+
+}
+	
+</script>
+
+<div style="padding:10px;" class="panel panel-default">
+<h5><img src="https://i.imgur.com/7dOskT2.png" width="18" style="opacity: 0.6; margin-right: 3"> Add Comment </h5><br>
+
+        <div class="form-group">
+          <input id="comment"   type="text" class="form-control" name="content" placeholder="Write a comment">
+        </div>
+
+ 
+
+
+       <button onclick="add_comment()" class="btn btn-bold btn-default" >Add</button><br><br>
+
+
+
+<div id="comment_list">
+
+{% for c in comments %}
+
+<b> {{c.commentor}} </b> wrote {{c.created|timesince}} :<br> {{c.content}} <br><br>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+
+  function set_bg(){
+
+    
+
+
+    var url2 = $("#issue_bg_url").val();
+    $.ajax({
+      type: "POST",
+      url: '/set_issue_bg/{{issue.uid}}',
+      data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, url2: url2},
+      success: function(response){
+       
+        $("#{{issue.uid}}").css({"background-image": "url('"+url2+"')", "color": "white", "background-size":"cover", "background-position":"center"})
+        
+        $("#focus{{issue.uid}}").css({"color":"white"});
+        alert("background has been set");
+
+      }
+    })
+
+
+  }
+
+
+</script>
+
+<!--
+<div style="padding:10px;" class="panel panel-default">
+<h5> Set Issue Card Background </h5>
+
+
+
+   <div class="form-group">
+          <input id="issue_bg_url"   type="text" class="form-control" value="{{i.bg}}" name="content" placeholder="Add image url">
+        </div>
+
+        <button class="btn btn-default" onclick="set_bg()" > Save</button>
+
+    
+
+</div>
+-->
+<!--
+<div style="padding:10px;" class="panel panel-default">
+<h5> Issue Activity </h5>
+{% for e in events %}
+
+{{e.actor}} {{e.action}} at {{e.created}}<br>
+
+{% endfor %}
+
+</div>
+
+-->
+
+
+{% for cfv in cfvs %}
+
+<div style="padding:10px;" class="panel-default panel">
+
+<h5>{{cfv.title}}</h5>
+
+{{cfv.val_char}}
+
+
+</div>
+
+{% endfor %}
+
+
+</div> <!-- for  col 8 -->
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4" style="padding-left:10; ">
+
+<div style="padding:10px; margin-bottom: 10px;" class="panel-default panel">
+
+<h5><img src="https://i.imgur.com/3XDQLtU.png" width="20" style="opacity: 0.5; margin-right: 2">Actions </h5>
+
+   <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+<!-- href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}"-->
+<a  onclick="myfunc($(this).attr('href'))"  hidden id="hidden_edit_trigger" data-target="#myModal1" data-toggle="modal"  class="btn btn-default btn-block" style="display: none;" href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}" >Edit hidden</a>
+
+
+<a onclick="$('#myModal1').modal('toggle'); $('#hidden_edit_trigger').click();" class="btn btn-default btn-block" >Edit</a> <br>
+
+{% if issue.backlog == None and issue.sprint == current_sprint %}
+
+
+<script type="text/javascript">
+  $('#status_select').on('change', function() {
+  
+  $.ajax({
+    url: "/show_transition_screen/{{project.uid}}/{{issue.uid}}/"+this.value,
+    type: 'GET',
+    success: function() {
+      
+      location.reload();
+    }
+
+  })
+})
+
+</script>
+
+<p>Set status to: </p>
+
+<div class="form-group">
+
+<select id="status_select" class="form-control">
+
+<option selected="">{{issue.status.title}}</option>
+
+{% for t in transitions %}
+
+
+
+<option value="{{t.end_status.uid}}">
+  <a class="btn btn-default btn-block" style="overflow-x:hidden;  color: black; " href="/show_transition_screen/{{project.uid}}/{{issue.uid}}/{{t.end_status.uid}}/">{{t.title}}</a> </option>
+
+
+
+
+
+{% endfor %}
+</select>
+</div>
+
+
+{% endif %}
+
+</div>
+
+
+<script type="text/javascript">
+  $('#assigned_user').on('change', function() {
+
+  $.ajax({
+    url : '/assign_user/{{issue.uid}}/'+this.value,
+    success: function() {
+      alert('User Assigned');
+    }
+
+  })
+})
+</script>
+
+<div style="padding:10px; margin-bottom: 10px" class="panel panel-default">
+<h5><img src="https://i.imgur.com/nPgdVKp.png" width="19" style="opacity: 0.9; margin-right: 2">  People</h5>
+Created By :<br> <div class="panel panel-default" style="padding: 5"> {{issue.created_by}}</div><br>
+
+
+
+Assign To : 
+
+<div class="form-group">
+<select class="form-control" id="assigned_user">
+<option> None</option>
+{% for u in issue.org.org_members.all %}
+{% if issue.assigned_to == u.user %}
+  <option selected  value="{{u.uid}}">{{u}}</option>
+{% else %}
+
+  <option  value="{{u.uid}}">{{u}}</option>
+{% endif %}
+  {% endfor %}
+}
+}
+</select>
+</div>
+
+
+
+
+
+
+
+<br>
+</div>
+
+<script type="text/javascript">
+    $('#due_date').on('change', function() {
+
+
+
+$.ajax({
+  url : '/add_due_date/{{issue.uid}}/'+this.value, 
+  success : function() {
+    alert('Due Date Assigned');
+  }
+})
+
+
+
+      })
+
+</script>
+
+<div style="padding:10px;" class="panel panel-default">
+<h5><img src="https://i.imgur.com/VF9sR5o.png" width="17" style="opacity: 0.5; margin-right: 2"> Dates </h5>
+
+Created : {{issue.created}}<br>
+
+
+<!--Last updated : {{issue.last_updated}}<br> -->
+Due Date : <input value="{{issue.due_date|date:'Y-m-d'}}" id="due_date" type="date" ><br>
+
+</div>
+
+<script type="text/javascript">
+  function start_log() {
+    $("#start_log_button").hide();
+    $("#stop_log_button").show();
+    $.ajax({
+      url: '/start_time_log/{{issue.uid}}/',
+
+      success: function(response){
+        alert('time log started');
+      }
+
+       })
+
+  }
+
+    function stop_log() {
+    $("#start_log_button").show();
+    $("#stop_log_button").hide();
+        $.ajax({
+      url: '/stop_time_log/{{issue.uid}}/',
+
+      success: function(response){
+        alert('time log stopped');
+        $("#time").text(response);
+      }
+
+       })
+
+  }
+</script>
+
+
+<!--
+<div style="padding:10px;" class="panel panel-default">
+<h5>Time Logging</h5>
+<span id='time'>{{issue.timespent2}}</span> minutes logged<br><br>
+
+<button id="start_log_button" onclick="start_log()" class="btn btn-default btn-block"> Start </button>
+
+
+
+<button style="display: none; padding: 2px;" onclick="stop_log()" id="stop_log_button" onclick="log_time()" class=" btn btn-block btn-default btn-primary"><img src="https://track.bcimedia.com/scs/images/ajax-spinner.gif" width="12%"> Stop </button>
+</div>
+
+-->
+
+</div><!-- for col 4 -->
+
+
+
+</div><!-- for row -->
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+<script type="text/javascript">
+	$("#add_task_button").click(function(){
+		$("#task_form").show();
+		$("#add_task_button").hide();
+
+ 
+
+});
+
+
+	$("#cancel_button").click(function(){
+		$("#task_form").hide();
+		$("#add_task_button").show();
+ 
+
+});
+
+
+	$("#save_button").click(function(){
+
+
+
+		 var x = $('#form_val').val();
+
+	
+
+
+
+
+
+
+
+		$('#form_val').val('');
+				$("#task_form").hide();
+		$("#add_task_button").show();
+
+
+
+
+
+
+
+$.ajax({
+     type: "POST",
+     data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, title: x},
+     url: '/create_task/{{project.uid}}/{{issue.uid}}/' ,
+     success: function(response){
+
+     
+
+	$("#task_list").append("<script>$(\"#"+response+"\").change(function(){$.ajax({url:\"/complete_task/{{project.uid}}/"+response+"/\",success:function(){$(\"#"+response+"\").hasClass(\"strike\")?$(\"#"+response+"\").removeClass(\"strike\"):$(\"#"+response+"\").addClass(\"strike\")}})});<\/script><div id="+response+"><input type=\"checkbox\">   "+x+"<br></div>");
+
+
+    
+
+     	
+
+         
+
+
+
+     }
+});
+
+
+
+
+
+
+
+		
+ 
+
+});
+
+
+</script>
+
+
+
+
+
+{% endblock %}

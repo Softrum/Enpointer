@@ -1,0 +1,75 @@
+<!-- column add column class and add column uid in column id and hide the edit buttons for starting -->
+
+
+
+<div id="0_1" class="block column" style="height: 92%; overflow-y: scroll; display: inline-block;margin-right: 10px" >
+
+
+
+
+
+<!-- column header -->
+
+<div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >Column
+
+
+
+
+</div>
+
+
+<!-- column header ends -->
+
+
+<!-- block -->
+
+
+<div id="1_1" class="block connectedSortable" style="background-color: #f1f1f2; min-width: 360px; min-height: 250px; display: inline-block; vertical-align: top ;    -webkit-box-shadow:inset 0px 0px 0px 1px white;
+    -moz-box-shadow:inset 0px 0px 0px 1px white;
+    box-shadow:inset 0px 0px 0px 1px white; overflow-y: auto; "  >
+
+
+<!-- block  header -->
+
+<div id=""  class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;  " >
+
+<span class="block_title"  contenteditable="true"> Block Title</span>
+
+ <a class="edit_button number_of_issues_in_row"  data-toggle="tooltip" title="get issues"   style="cursor: pointer; color: grey; display: none" onclick="set_issues_in_row($(this) )" >N</a> 
+
+ <a class="get_block_issues_button"  data-toggle="tooltip" title="get issues"   style="cursor: pointer; color: grey; display: none" onclick="get_block_issues($(this).parent() )" >i</a> 
+
+ <a class="edit_button" data-toggle="tooltip" title="Split Vertically"   style="cursor: pointer; color: grey; display: none" onclick="split_vertically($(this).parent().parent())" >||</a> 
+
+ <a class="edit_button" data-toggle="tooltip" title="Status for this block"   style="cursor: pointer; color: grey; display: none" onclick="set_block_status($(this).parent() )" >s</a> 
+
+
+<a class="edit_button" data-toggle="tooltip" title="Split Horizontally"  style="cursor: pointer; color: grey; display: none" onclick="split_horizontally($(this).parent().parent())" >==</a> 
+
+
+
+<a class="edit_button" data-toggle="tooltip" title="Increase Number of Last Split"  class="plus" style="cursor: pointer; color: grey; display: none" onclick="add_node($(this).parent().parent())" >+</a>
+
+
+<a class="edit_button" data-toggle="tooltip" title="Increase With of Column"  class="plus" style="cursor: pointer; color: grey; display: none" onclick="increase_width($(this).parent().parent())" >W</a>
+
+<a class="edit_button" data-toggle="tooltip" title="Delete"  class="pull-right" style="color: grey; opacity: 0.5; display: none" onclick="delete_node($(this).parent().parent())" style="margin-right: 0px;"><i class="glyphicon glyphicon-remove-circle"></i></a>
+
+
+<a class="edit_button" data-toggle="tooltip" title="Auto Adjust Width"   style="color: grey; opacity: 0.5; display: none" onclick="adjust_width($(this).parent().parent())" style="margin-right: 0px;"><i class="glyphicon glyphicon-refresh"></i></a>
+
+<a class="edit_button" data-toggle="tooltip" title="Hide This Panel Bar"  class="pull-right" style="color: grey; opacity: 0.5; display: none" onclick="$(this).parent().hide();" style="margin-right: 0px;"><i class="glyphicon glyphicon-eye-close"></i></a>
+
+
+
+</div>
+
+<!-- block header -->
+
+
+</div>  <!-- for block -->
+
+
+
+
+</div>   <!-- for column -->

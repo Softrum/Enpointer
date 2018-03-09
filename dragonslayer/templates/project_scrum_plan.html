@@ -1,0 +1,781 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %} 
+
+
+<!--
+<style>
+.ui-state-highlight {
+  height: 80px;
+  width : 600px;
+   display:inline-block;
+   vertical-align: top; 
+}
+
+
+
+</style>
+
+
+-->
+<style>
+.ui-state-highlight {
+  height: 80px;
+  width : 600px;
+ /*  display:inline-block; */
+   vertical-align: top; 
+  background-image: url('https://i.imgur.com/7vvbDxe.png');
+   opacity : 0.3;
+  background-size: cover;
+  background-color: white;
+   
+}
+
+
+
+
+</style>
+
+<script type="text/javascript">
+
+
+
+
+function quick_create_issue() {
+
+  
+var uid =  $(".status_id").attr('id');
+uid = uid.slice(1);
+
+ 
+  var title = $("#ha").val();
+  var priority = $("#ha_priority").val();
+  var issuetype = $("#ha_issuetype").val();
+  var points = $("#ha_points").val();
+  
+ 
+
+  $.ajax({
+
+    type: "POST",
+    url: '/quick_create_issue_plan/'+ uid+'/',
+    data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, 
+    title: title,
+    priority: priority,
+     issuetype:issuetype,
+     points:points
+   },
+    success: function(response){
+
+        
+ 
+
+      $('#'+uid ).prepend("<br><div id="+response+"   class=\"panel panel-default content list-card-details\" style=\"width:100%;display:inline-block; padding-bottom:10px;\" >"+$('#ha_issuetype').find(":selected").text()+" <span>"+$('#ha_priority').find(":selected").text() +"</span><br><br><div><a data-target=\"#myModal1\" onclick=\"myfunc($(this).attr('href'))\" data-toggle=\"modal\" href=\"/show_view_issue_screen/{{project.uid}}/"+response+"/\"  style=\"font-size: 120%; margin-top: 30px; color: #333333;height: 3em; overflow:hidden;\">"+title+"</a><br></div></div>" );
+
+      $("#quick_create").hide() ; $('#beta').css({'overflow': 'scroll'}); $('#overlay').remove();
+      
+      
+
+
+      
+    }
+
+
+  })
+}
+
+
+
+
+  function quick_create() {
+
+
+
+      $("#ha").val("");
+
+
+ setTimeout(function(){
+    $('#ha').focus();
+});
+
+ var left = event.pageX;
+var top = event.pageY;
+
+$("#quick_create").show();
+
+
+var div = $('#quick_create').css({
+        'left': left + 'px',
+        'top': top + 'px',
+        'visibility': 'visible',
+        'z-index' :'20000000',
+
+
+      })
+
+
+
+$(".status_id").attr("id",$(event.target).attr('id'));
+
+  var overlay = jQuery('<div id="overlay"> </div>');
+$('#main').append(overlay);
+
+
+
+    }
+  
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $("#ha").keyup(function(event) {
+
+    if (event.keyCode == 13) {
+    
+        $("#create_button").click();
+    }
+
+    });
+
+});
+</script>
+
+<div style="visibility: hidden; position: fixed; padding: 10px; width: 450px;" id="quick_create" class="panel panel-default">
+
+<h4>Create Issue</h4><br>
+
+        
+          <input id="ha" type="text" class="form-control autofocus" name="title" placeholder="Add Issue Title" > <br>
+
+<img src="https://i.imgur.com/m11xW89.png" width="30" style="opacity: 0.5; margin-right: 10"> 
+Issue Type: 
+          <select id="ha_issuetype">
+          {% for i in project.issuetypes.all  %}
+            <option value="{{i.uid}}">{{i.title}}</option>
+            {% endfor %}
+          </select> <br><br>
+
+
+<img src="https://i.imgur.com/bQ556FL.png" width="30" style="opacity: 0.5; margin-right: 10"> 
+Priority : 
+          <select id="ha_priority">
+          {% for i in project.project_prioritys.all reversed  %}
+            <option value="{{i.uid}}">{{i.title}}</option>
+            {% endfor %}
+          </select> <br><br>
+
+
+<img src="https://i.imgur.com/ZvnfNDW.png" width="30" style="opacity: 0.5; margin-right: 10"> 
+Points : 
+          <select id="ha_points">
+
+            
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+       
+          </select> 
+       
+
+
+        <div id="" class="status_id" > </div><br>
+
+
+<button style="background-color: #5892e6; border: none; color: white; width: 50%" id="create_button"  onclick="quick_create_issue()" class="btn btn-default"> Create </button>
+
+
+
+<button onclick=" $(this).parent().hide() ; $('#beta').css({'overflow': 'scroll'}); $('#overlay').remove();" class="btn btn-default"> Close </button>
+
+
+  
+</div>
+
+
+
+
+<!-- Modal for adding label -->
+<div id="myModal5" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Label</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/create_label/{{project.uid}}/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+
+     
+
+      <button class="btn btn-bold btn-default" type="submit">Create </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+<div style="padding-top:0px; margin-top:0px;padding-left: 10px; " class="container-fluid">
+
+
+<div style="padding-left: 5px;" class="row">
+
+<!--
+
+<div style="padding-top:0px; margin-top:0px; height: 95%;" class="col-md-2 well">
+
+
+
+<h5>Epics</h5>
+{% for e in epics %}
+
+
+{{e.title}} : 
+
+{{ e.issues.count }}<br>
+
+
+
+
+
+
+{% endfor %}
+<a data-toggle="modal" data-target="#myModal"> Create Epic </a>
+
+
+<h5>Versions</h5>
+{% for v in versions %}
+
+{{v.title}} : {{v.issues.count}}<br>
+
+{% endfor %}
+<a data-toggle="modal" data-target="#myModal2"> Create Version </a>
+
+
+
+<h5>Labels</h5>
+{% for l in labels %}
+
+<span class="label label-warning">{{l.title}}</span> <br>
+
+{% endfor %}
+<a data-toggle="modal" data-target="#myModal5"> Create Label </a>
+
+
+
+
+</div>
+-->
+
+
+{% if issues.count == 0 %}
+
+<div class="alert alert-info alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Tip 1</strong> Start by adding issues to backlog
+</div>
+
+{% endif %}
+
+<div class="col-md-12"> <!--super -->
+
+
+<div class="row" style="padding-left: 20"> <!--for two columns of backlog and sprints -->
+<div  style="background-color: white;border: 0.5px solid #d7d7d7; width: 48%; margin:1px; text-align: center; " class="col-md-6">
+<h4 ><img src="https://i.imgur.com/ketLynm.png?1" width="28" style="opacity: 1; margin-right: 10">Backlog</h4>
+</div>
+
+<div style="background-color: white;border: 0.5px solid #d7d7d7; width: 48%;margin:1px; text-align: center;" class="col-md-6">
+<h4><img src="https://i.imgur.com/2DKTyuK.png?1" width="30" style="opacity: 0.7; margin-right: 10"> Sprints</h4>
+</div>
+
+</div>
+
+
+<div class="row" style="padding-left: 20"> <!-- this row contains the two columns -->
+
+<div class="col-md-6 connectedSortable2" style="   height: 85% ; width:48%; overflow-x: hidden !important;  position:static !important;"  >
+
+
+
+<!--
+
+<h3>{{project.title}}</h3>{{issues.count}} Issues <br>
+
+
+<h4> Backlog </h4> {{backlog_issues.count}} issues
+
+-->
+
+ <div id="block" >
+<a id='a{{backlog.uid}}' onclick="quick_create()" style="margin-left: ; color: grey; cursor: pointer;"> Add New Issue.. </a>
+
+<div  id={{backlog.uid}} class="connectedSortable2 planning_column" > <!-- backlog box -->
+
+<br> <br>
+{% for i in backlog_issues %} 
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#'+'{{i.uid}}').mouseover(function(){
+    $('#'+'{{i.uid}}').css("background-color", "#f8f8f8");
+});
+
+      $('#'+'{{i.uid}}').mouseout(function(){
+        $('#'+'{{i.uid}}').css("background-color", "");
+    });
+
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div    id={{i.uid}} style="padding:10px; vertical-align: middle;  " class="panel panel-default content list-card-details">
+
+{{i.issue_type.title}}    
+
+{{i.priority.title}}
+
+  <span class="fa fa-circle"   style="color:{{i.priority.color}}; font-size: 6"></span>
+
+
+<div class="pull-right">
+
+{% if i.issue_id %}
+{{i.issue_id}}
+{% endif %}
+
+ <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+<span class="label label-primary">{{i.epic.title}}</span>
+
+
+
+</div>
+
+<script type="text/javascript">
+	function myfunc(x) {
+
+
+   
+  
+  
+		$( "#modal-content" ).load(x);
+		
+		
+	}
+</script>
+
+<a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><p style="font-size: 120%; margin-top: 10px; color: #333333;">{% if i.resolved == True %} <strike class="x" style="font-weight: lighter;"> {% endif %}{{i.title}}{% if i.resolved == True %} </strike>  {% endif %}</p></a> 
+
+
+{% for l in i.label.all %}
+
+
+<span class="label label-warning">{{l.title}}</span>
+
+{% endfor %} 
+
+
+
+<!--
+
+<form action="/issue/shift_issue/{{project.uid}}/{{i.uid}}/" method="post">
+      {% csrf_token %}
+
+
+
+{{i.issue_type.title}}|
+{{i.epic.title}} |
+{{i.fix_version.title}}
+
+
+ Add to :    <select name="sprint">
+ {% for s in sprints %}
+
+
+  <option  value="{{s.uid}}">{{s.title}}</option>
+
+
+ {% endfor %}
+
+ </select>
+ 
+
+<button class="btn btn-bold  btn-default" type="submit">Go</button>
+ </form>
+
+-->
+
+</div>
+
+
+
+
+{% endfor %}
+
+</div>
+
+
+
+<!--  show_create_issue_screen/project.uid/context..context has to be backlog, sprint, ..not reuired..if it is there than only it should at. -->
+</div>
+<!-- for backlog box-->
+
+
+
+<!--
+
+{% for s in status %}
+
+<h3>{{s.title}}</h3>
+
+{% for i in issues %}
+
+{% if i.status == s %}
+
+<b><a href="/issue/read/{{project.uid}}/{{i.uid}}">{{i.title}}</a> </b><br>
+
+{% endif %}
+
+{% endfor %}
+
+
+{% endfor %}
+
+-->
+
+
+</div>
+
+
+
+<div id="ba" class="col-md-6 connectedSortable2 try" style="  height: 85% ; width:50%; overflow-x: hidden !important;  position:static !important; "  >
+
+{% if issues.count == 0 %}
+
+<div class="alert alert-warning alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Tip 2</strong> Create a new sprint and drag few issues from backlog. Then Start the sprint
+</div>
+
+{% endif %}
+
+<a data-toggle="modal" data-target="#myModal3" align="center" style="; margin-top:5px; margin-right: 5px; color: grey; margin-left: ; cursor: pointer;" >Create New Sprint..</a><br>
+ 
+{% for s in sprints %}
+
+<br><br>
+ 
+ <span style="font-size: 135%;" >{{s.title}}  </span> 
+
+ <!--{{s.issues.count}} issues-->
+
+ {% if s.is_Active == True %}
+
+ | Active Sprint
+
+ {% else %}
+
+ <a class="btn btn-bold btn-default" href="/start_sprint/{{s.uid}}" > Start Sprint</a>
+
+ {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal Edit Sprint-->
+<div style="z-index: 100000000" id="edit_sprint{{s.uid}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Sprint</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      <form id="myForm" action="/edit_sprint/{{s.uid}}/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" value="{{s.title}}" name="title" >
+        </div>
+
+     <!--   <div class="form-group">
+       <input type="text" class="form-control" name="description" placeholder="description">
+        </div>
+
+
+                <div class="form-group">
+       <input type="text" class="form-control" name="goal" placeholder="sprint goal">
+        </div>
+
+
+         <div class="form-group">
+       <input type="integer" class="form-control" name="duration" placeholder="sprint duration (Days)">
+        </div>
+
+-->
+       
+       Start Date  
+          <input  type="date" value="{{s.start_date| date:'Y-m-d'}}"  name="start_date" >
+       
+
+               
+       End Date  
+          <input  type="date" value="{{s.end_date|date:'Y-m-d'}}"  name="end_date" > <br><br>
+      
+
+
+         
+
+          <div hidden  class="form-group">
+          <input  type="text" class="form-control" name="project" value={{project.title}}>
+        </div>
+
+
+   
+
+     
+
+
+
+
+       <button class="btn btn-bold  btn-default" type="submit">Save</button> <br>
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+  <span class="dropdown">
+    <a style="opacity: 0.5; cursor: pointer" class=" dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-option-vertical"></i></a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a style="cursor: pointer" data-toggle="modal" data-target="#edit_sprint{{s.uid}}" >Edit Sprint</a></li>
+        
+    </ul>
+  </span>
+<br>
+ <a id='a{{s.uid}}' onclick="quick_create()" style="margin-left: ; color: grey; cursor: pointer;"> Add New Issue.. </a>
+
+ <br><br>
+
+<div id={{s.uid}}  class="connectedSortable2 planning_column">
+
+
+
+{% for i in issues %}
+
+{% if i.sprint == s %}
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#'+'{{i.uid}}').mouseover(function(){
+    $('#'+'{{i.uid}}').css("background-color", "#f8f8f8");
+});
+
+      $('#'+'{{i.uid}}').mouseout(function(){
+        $('#'+'{{i.uid}}').css("background-color", "");
+    });
+
+  });
+</script>
+
+<div id={{i.uid}} style="padding:10px;" class="panel panel-default content list-card-details">
+
+
+{{i.issue_type.title}}     
+
+{{i.priority.title}}
+
+  <span class="fa fa-circle"   style="color:{{i.priority.color}}; font-size: 6"></span>
+
+
+
+
+
+
+
+
+
+
+
+<div class="pull-right">
+
+{% if i.issue_id %}
+{{i.issue_id}}
+{% endif %}
+
+
+ <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+<span class="label label-primary">{{i.epic.title}}</span>
+
+
+
+</div>
+
+<a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><p style="font-size: 120%; margin-top: 10px; color: #333333;">{% if i.resolved == True %} <strike class="x" style="font-weight: lighter;"> {% endif %}{{i.title}}{% if i.resolved == True %} </strike>  {% endif %}</p></a> 
+
+{% for l in i.label.all %}
+
+
+<span class="label label-warning">{{l.title}}</span>
+
+{% endfor %} 
+
+
+
+<!--
+<form action="/issue/shift_issue/{{project.uid}}/{{i.uid}}/" method="post">
+      {% csrf_token %} 
+
+
+
+
+ Add to :    <select name="sprint">
+ {% for s in sprints %}
+
+
+  <option  value="{{s.uid}}">{{s.title}}</option>
+
+
+ {% endfor %}
+
+ </select>
+ 
+
+<button class="btn btn-bold  btn-default" type="submit">Go</button>
+ </form>
+-->
+
+
+</div>
+
+{% endif %}
+
+
+
+{% endfor %}
+
+
+</div> <!--spront boc -->
+
+{% endfor %}
+
+
+
+</div>
+
+</div> <!-- row which has two columns -->
+
+
+</div> <!--super col-md -10  -->
+
+
+</div> <!--row -->
+
+
+</div><!--container -->
+
+<br><br><br>
+
+
+
+{% endblock %}

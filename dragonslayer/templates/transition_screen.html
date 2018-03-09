@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Transition Screen </h3>
+
+
+
+<!--
+
+Actions : <a href="/ashow_edit_issue_screen/{{project.uid}}/{{issue.uid}}">Edit</a> | Delete | 
+
+{% for t in transitions %}
+
+<a href="/issue/transition_issue_status2/{{t.end_status.uid}}/{{issue.uid}}/">{{t.title}}</a> | 
+
+{% endfor %}
+
+
+{{issue.description}}<br><br>
+status : {{issue.status.title}}<br>
+priority : {{issue.priority.title}}<br><br>
+-->
+
+<form action="/save_transition_screen/{{project.uid}}/{{issue.uid}}/{{screen.uid}}/" method="post">
+      {% csrf_token %}
+
+
+
+
+ 
+          <input   type="hidden" class="form-control" value={{end_status.uid}} name="uid_end_status">
+
+
+
+<!--
+
+
+
+
+{% for cf in custom_fields %}
+
+
+
+{{cf.text}}
+
+
+{% if cf.field_type == 'text_field' %}
+
+
+
+        <div class="form-group">
+          <input   type="text" class="form-control" name={{cf.title}} placeholder="title">
+        </div>
+
+
+
+{% endif %}
+
+
+
+
+{% if cf.field_type == 'select'  %}
+
+
+
+<select name={{cf.title}}>
+
+
+{% for i in cf.options.all %}
+
+
+  <option value="{{i.value}}"> {{i.titile}}</option>
+
+{% endfor %}
+
+</select>
+
+
+{% endif %}
+
+
+
+
+
+{% if cf.field_type == 'select_multiple'  %}
+
+
+
+<select multiple name={{cf.title}}>
+
+
+{% for i in cf.options.all %}
+
+
+  <option value="{{i.value}}"> {{i.titile}}</option>
+
+{% endfor %}
+
+</select>
+
+
+{% endif %}
+
+
+
+
+
+{% if cf.field_type == 'checkbox'  %}
+
+
+
+
+  <input type=checkbox name={{cf.title}}> {{cf.titile}}</checkbox>
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+{% if cf.field_type == 'number' %}
+
+
+
+  <input type="number" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+{% if cf.field_type == 'date' %}
+
+
+
+  <input type="date" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+
+{% if cf.field_type == 'datetime' %}
+
+
+
+  <input type="datetime-local" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+{% if cf.field_type == 'datetime' %}
+
+
+
+  <input type="datetime-local" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+{% if cf.field_type == 'datetime' %}
+
+
+
+  <input type="datetime-local" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+{% if cf.field_type == 'time' %}
+
+
+
+  <input type="time" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+
+
+<hr>
+
+{% endfor %}
+
+-->
+
+<!--
+<a href="/issue/resolve/{{uid_project}}/{{issue.uid}}"> resolve </a>|
+
+<a href="/issue/delete/{{uid_project}}/{{issue.uid}}">delete</a>-->
+
+
+
+
+       <button class="btn" type="submit">Transition</button>
+
+</form>
+
+
+<!--
+
+<form action="/comment/create/{{issue.uid}}/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="content" placeholder="Add a comment">
+        </div>
+
+ 
+
+
+       <button class="btn btn-bold btn-block btn-primary" type="submit">Add</button>
+
+</form>
+
+
+
+{% for c in comments %}
+
+{{c.content}} <br> posted by {{c.commentor}} at {{c.created.date}}<br><br>
+
+{% endfor %}
+
+-->
+
+
+
+
+{% endblock %}

@@ -1,0 +1,614 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+
+
+
+<script type="text/javascript">
+  function show_filters() {
+    $("#filter_pane").toggle("slide", "fast");
+  }
+</script>
+
+
+
+    <script type="text/javascript">
+
+
+
+  function mylabel(value) {
+
+
+
+ $(".content:visible").filter(function() {
+        
+ $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1 )
+ 
+  });       
+    
+
+
+    
+    
+  }
+
+
+     </script>
+
+
+
+
+
+
+<!-- quick search function -->
+
+
+
+
+<!-- Modal Sprint-->
+<div style="z-index: 100000000" id="myModal3" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="background-image: url('https://i.imgur.com/BxXX7Rm.png'); background-size: cover" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create New Sprint</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      <form action="/sprint/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="title" placeholder="Sprint title">
+        </div>
+
+     <!--   <div class="form-group">
+       <input type="text" class="form-control" name="description" placeholder="description">
+        </div>
+
+
+                <div class="form-group">
+       <input type="text" class="form-control" name="goal" placeholder="sprint goal">
+        </div>
+
+
+         <div class="form-group">
+       <input type="integer" class="form-control" name="duration" placeholder="sprint duration (Days)">
+        </div>
+
+-->
+       
+       Start Date  
+          <input  type="date"  name="start_date" >
+       
+
+               
+       End Date  
+          <input  type="date"  name="end_date" > <br><br>
+      
+
+
+         
+
+          <div hidden  class="form-group">
+          <input  type="text" class="form-control" name="project" value={{project.title}}>
+        </div>
+
+
+   
+
+     
+
+
+
+
+       <button class="btn btn-bold btn-default pull-right " style="background-color: #2196F3; border: none; color: white; width: 40%; " type="submit"><b>Create</b></button> <br>
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal Version-->
+<div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Version</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      <form action="/version/create/{{project.uid}}/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="title" placeholder="version">
+        </div>
+
+        <div class="form-group">
+       <input type="text" class="form-control" name="description" placeholder="description">
+        </div>
+
+       <div class="form-group">
+       Release Date : 
+          <input  type="date" class="form-control" name="release_date" >
+        </div>
+
+
+         
+
+          <div class="form-group">
+          <input  type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+
+   
+
+     
+
+
+
+
+       <button class="btn btn-bold btn-default" type="submit">create</button>
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+
+ 
+
+
+<script type="text/javascript">
+
+window.filter = [] ; 
+window.filter2 = [] ;
+
+
+  function filter_issuetype() { // this is the general filter function which takes in two globals arrays window.filter and window.filter2. it builds the required condition from these arrays 
+
+
+
+
+$(".content").hide();  //we first hide everything and only show cards which match the filter criterion
+
+$('.content').each(function() { //loops over each card 
+
+
+
+
+ 
+issuetype = $(this).children().first().text().replace(/\s/g, ''); //weord looking code is to remove spaces ..this gets the issuetype on each card
+
+priority = $(this).children().eq(1).text().replace(/\s/g, ''); //gives color in rgb. need to convert it to hex. this gets the value on card
+//alert(priority);
+
+l1 = window.filter.length; 
+l2 = window.filter2.length;
+
+a=false;
+
+for (i = 0; i < l1; i++) {
+
+  if (i==0) {
+    a = eval("issuetype == window.filter[i]");
+  }
+  else {
+
+    a = eval("a || issuetype == window.filter[i]");
+  }
+}
+
+b = false;
+
+for (i = 0; i < l2; i++) {
+
+  if (i==0) {
+    b = eval("priority==window.filter2[i]");
+  }
+  else {
+
+    b = eval("b || priority == window.filter2[i]");
+  }
+}
+//alert('a is'+a);
+//alert('b is'+b);
+if (l1==0 && l2==0) {
+  l=true;
+
+}
+
+else if (l1==0) {
+  //alert('1');
+  l = b;
+  //alert('l=b');
+}
+
+else if (l2==0) {
+  //alert('2');
+  l=a;
+  //alert('l=a');
+}
+
+
+
+else {
+
+//alert('here2');
+l = eval("a && b");
+// alert('l =a and b');
+
+}
+
+
+//alert('the final l is'+l);
+
+
+  if ( l) {
+
+
+    $(this).show(); //or hide
+   // alert('it is shown');
+
+   
+  }
+});
+
+
+//alert('done');
+
+  }
+
+
+
+
+  function remove_filter_issuetype(k) {
+
+ //alert('remove filter issues');
+
+
+$('.content').each(function() {
+
+
+
+
+
+  if ($(this).children().first().text().replace(/\s/g, '')!=k) {
+
+
+    $(this).show(); //or hide
+
+   
+  }
+});
+
+
+
+  }
+</script>
+
+
+
+<div id="filter_pane" class="col-md-1 well" style="width: 15%;z-index: 10000; height: 95%; margin-left:5%; position: absolute; display: none; margin-top: 0px; padding-top: 0px; padding: 10px;">
+<span onclick="show_filters()" class="glyphicon glyphicon-menu-left"></span> Filters<br><br>
+
+
+
+
+<script type="text/javascript">
+
+  function select_issuetype_filter(k) {
+
+    if (k.hasClass('selected')) {
+      //alert('already selected');
+      k.css({"background-color":"", "color":"black"});
+      k.removeClass('selected');
+
+      z = k.text().replace(/\s/g, '');
+
+      var index = window.filter.indexOf(z);
+
+      if (index > -1) {
+    window.filter.splice(index, 1);
+};
+
+//alert(window.filter);
+
+    filter_issuetype();
+
+    
+
+
+
+    }
+
+    else {
+
+    k.css({"background-color":"#2196F3", "color":"white"});
+    k.addClass('selected');
+
+    z = k.text().replace(/\s/g, '');
+
+    window.filter.push(z);
+
+
+    //alert(window.filter);
+
+
+
+    filter_issuetype();
+
+  } //for else 
+  } //for select func
+
+
+  function select_priority_filter(k) {
+ 
+
+     if (k.hasClass('selected')) {
+      //alert('already selected');
+      k.css({"background-color":"", "color":"black"});
+      k.removeClass('selected');
+      z = k.text().replace(/\s/g, '');
+
+      var index = window.filter2.indexOf(z);
+
+      if (index > -1) {
+    window.filter2.splice(index, 1);
+};
+
+//alert(window.filter2);
+
+    filter_issuetype();
+
+
+
+    }
+
+    else {
+
+    k.css({"background-color":"#2196F3", "color":"white"});
+    k.addClass('selected');
+
+     z = k.text().replace(/\s/g, '');
+
+     window.filter2.push(z);
+
+
+    
+     // alert(window.filter2);
+       filter_issuetype();
+
+  } //for else 
+  }
+
+
+</script>
+
+
+
+
+<h5>Issue Type</h5>
+{% for it in project.issuetypes.all %}
+
+
+
+
+
+<span class="btn-default btn btn-block" style="cursor: pointer;" onclick="select_issuetype_filter($(this))">{{it.title}} </span>
+
+
+
+{% endfor %}
+
+<hr>
+
+
+
+<h5>Priority</h5>
+{% for p in project.project_prioritys.all %}
+
+
+<span id="{{p.color}}" class="btn-default btn btn-block" style="cursor: pointer;" onclick="select_priority_filter($(this))">{{p.title}} </span>
+
+
+
+{% endfor %}
+
+
+<!--
+
+
+<h5>Issue Types</h5>
+{% for e in epics %}
+
+
+{{e.title}} : 
+
+{{ e.issues.count }}<br>
+
+
+
+
+
+
+{% endfor %}
+<a data-toggle="modal" data-target="#myModal"> Create Epic </a>
+
+
+<h5>Versions</h5>
+{% for v in versions %}
+
+{{v.title}} : {{v.issues.count}}<br>
+
+{% endfor %}
+<a data-toggle="modal" data-target="#myModal2"> Create Version </a>
+
+
+<br>
+
+
+
+
+
+<button onclick="mylabel('home')">  Label </button><br>
+
+<button onclick="mylabel('page')">  label2 </button>
+
+<h5>Labels</h5>
+{% for l in labels %}
+
+<span class="label label-warning">{{l.title}}</span> <br>
+
+{% endfor %}
+<a data-toggle="modal" data-target="#myModal5" style="cursor: pointer"> Create Label </a>
+-->
+
+</div>
+
+<!-- modal content -->
+<div class="container-fluid" style="padding: 0px; margin:0px; padding-left: 0px !important; ">
+
+
+
+<div class="row" style="padding: 0px; margin:0px;   ">
+
+
+
+
+<div class="col-md-1" style="width:7%;  margin:0px;padding: 0px;height: 95%; padding-left: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);background-color: white;  ">
+<br>
+
+<a id="plan_menu" href="/project/read/{{project.uid}}" style="color:grey; font-size: 120%; text-align: center; text-decoration:none">
+
+<img id="plan_menuimg" src="https://i.imgur.com/1xo2NnQ.png" width="35%" style="opacity: 0.4;"><br>
+
+ Plan </a> <br><br><br>
+
+
+
+
+
+<a id="board_menu"  style="color:grey; font-size: 120%; text-decoration:none" href="/project/board/{{project.uid}}">
+
+<img id="board_menuimg" src="https://i.imgur.com/pdOHFfo.png" width="35%" style="opacity: 0.4;"> <br>
+ Board </a>
+
+<br><br><br>
+
+
+<a id="reports_menu"  style="color:grey; font-size: 125%; text-decoration:none" href="/reports/home/{{project.uid}}/100">
+
+<img id="reports_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/NqVeOrL.png" width="35%">
+
+
+
+ Reports </a><br><br><br>
+<!--
+<a id="reports_menu" style="color:black;" href="/reports/sprints/{{project.uid}}/100/"> Reports </a><br> -->
+<!--<a id="releases_menu" style="color:black;" href="/project/releases/{{project.uid}}"> Releases </a><br> -->
+<a id="project_settings_menu" style="color:grey; font-size: 120%; text-decoration:none" href="/project_settings/general/{{project.uid}}/">
+<img id="project_settings_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/zO6Ps6v.png" width="35%">
+ Settings </a><br><br>
+<br>
+{% if active == 'board_menu' %}
+<a id="filter" onclick="show_filters()" style="cursor: pointer; color: black; font-size: 120%; text-decoration:none" >
+<img style="opacity: 0.8;" src="https://i.imgur.com/YXY7gDt.png" width="50%">
+Filters..</a>
+{% endif %}
+
+</div>
+
+
+
+
+<div id="gdaddy" style="padding-top: 0px;padding: 0px; margin: 0px; width: 93%; padding-left: 10px;"   class="col-md-11" >
+
+
+
+<br>
+
+{% block content2 %}{% endblock content2 %}
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+<script type="text/javascript">
+
+  $("#{{active}}").css({"font-weight":"bold", "font-size": "125%", "color":"black"});
+
+   $("#{{active}}img").css({"opacity":"1"});
+
+ 
+</script>
+
+
+
+
+{% endblock %}

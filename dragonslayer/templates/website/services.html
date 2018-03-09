@@ -1,0 +1,188 @@
+
+
+
+
+{% extends 'website/index_base.html' %}
+{% block content %}
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Get in Touch With Us</h4>
+      </div>
+      <div class="modal-body">
+        
+    
+
+
+
+<form action="/services_enquiry/" method="post">
+      {% csrf_token %}
+
+
+              <div class="form-group">
+          <input    type="text" class="form-control" name="name" placeholder="Your Name ">
+        </div>
+
+
+        <div class="form-group">
+          <input   data-validation="email" type="text" class="form-control" name="email" placeholder="Your email">
+        </div>
+
+        <div class="form-group">
+          <input  type="text" class="form-control" name="requirement" placeholder="Tell us your requirement">
+        </div>
+
+
+       <button class="btn btn-bold btn-block btn-primary" type="submit">Submit</button>
+
+
+</form>
+
+
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="container">
+<div class="row" style="padding-top: 100; padding-bottom: 100">
+
+<div class="col-md-6">
+
+<p style="font-size: 270%"><b>Your Software Project Getting Out of Hand?</b> </p><br>
+<p style="font-size: 150%"><b>We can help you with high touch solutions tailered just for you- by providing customized tools, expert consulting, custom system integrations & development talent to help you go agile</b> </p><br>
+<br><br>
+
+
+
+<a  data-toggle="modal" data-target="#myModal"  style="color: white; background-color: #2196F3" class="btn  btn-lg btn-block" >Get in Touch </a>
+</div>
+
+<div class="col-md-6">
+
+<img style="" src="https://i.imgur.com/GrWyj6J.png"  width="100%" >
+</div>
+
+
+
+</div><!-- row -->
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="background-color: 
+#f8f8f8; padding: 100px;  " class="container-fluid " >
+
+<div class="row" style="">
+
+
+<div class="col-md-3">
+<h2>Customized Agile Tools</h2><br>
+<p style="font-size: 125%">Best in class agile tools including Enpointer Agile with workflows and configurations customized to fit your rrequirements </p>
+</div>
+
+<div class="col-md-3">
+<h2>Expert Consulting</h2><br>
+<p style="font-size: 125%">Our inhouse experts will work with you understand your requirements and craft a unique strategy tailered for your specific needs </p>
+</div>
+
+<div class="col-md-3">
+<h2>Development Talent</h2><br>
+<p style="font-size: 125%">Need to augment your team with more developers on immediate basis? We got your back! We can provide you top class inhouse developers on demand</p>
+</div>
+
+<div class="col-md-3">
+<h2>Custom Integrations</h2><br>
+<p style="font-size: 125%">Using an existing legacy issue tracker or want Enpointer to integrate your other systems? No sweat! We wil write custom integrations to help you out. </p>
+</div>
+
+
+
+
+
+</div>
+</div>
+
+
+<div style=" background-color: 
+#2196F3; padding: 35px; " class="container-fluid " >
+
+
+
+
+
+
+<div class="row" style="color: white">
+
+
+
+<div style="margin-left: 18%">
+
+<span style="font-size: 200%"> Get your trusted agile development partner  </span>
+
+
+
+<a  data-toggle="modal" data-target="#myModal"   class="btn btn-lg btn-default " style="width: 25%; margin-left: 20px">Get in Touch </a> 
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+</div>
+</div>
+
+<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us17.list-manage.com","uuid":"477bb79a0fd8c4c3d3ce5b6a5","lid":"fcf37fc18e"}) })</script>
+
+{% endblock %}

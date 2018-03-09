@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="padding-right: 0px; margin-right: 0px;" class="row">
+
+<div  class="col-md-1">
+
+<a href="/project/read/{{project.uid}}"> Board </a><br>
+<a href="/project_settings_normal/issuetype/{{project.uid}}/"> Settings </a><br>
+
+
+
+</div>
+
+
+
+<div style="padding-right: 0px; margin-right: 0px;" class="col-md-11">
+
+{% block content2 %}{% endblock content2 %}
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

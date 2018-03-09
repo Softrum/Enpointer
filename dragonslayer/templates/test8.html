@@ -1,0 +1,1439 @@
+{% extends 'base_edit_layout.html' %}
+
+{% block content %}
+
+
+<script type="text/javascript">
+
+function delete_column(k) { //span which has delete icon > panel>col div>span
+
+	span = k.parent().parent().parent();
+	//alert(span.attr("id"));
+
+	$.ajax({
+		type:"GET",
+		url: "/column/delete_column/{{project.uid}}/"+span.attr("id"),
+		success: function() {
+			alert("deleted");
+			span.remove();
+		}
+
+	})
+
+}
+
+function move_right(k) { //k is the span of glypicon 
+
+	y = $(k).parent().parent(); // it is column block 
+
+	//alert($(y).parent().attr("id"));//alerting the id of span of whole column 
+
+	current_col_span_id = $(y).parent().attr("id");
+
+
+	z = $(y).parent(); //this is the span div 
+
+
+	next_col = $(z).next();
+	//alert($(next_col).attr("id"));  //next column
+
+
+   if (next_col.attr("id")==undefined || next_col.attr("id")=='add_column' ) {
+   	alert("Can't move column any further")
+   }
+
+   else {
+
+
+	current_col = $("#"+current_col_span_id).clone(); //picks up the whole span of column
+
+	$("#"+current_col_span_id).remove(); //remove the original one 
+
+
+	current_col.insertAfter(next_col); // 
+
+	$.ajax({
+		url:"/increase_column_order/"+current_col_span_id
+	})
+
+	$.ajax({
+		url:"/decrease_column_order/"+next_col.attr("id")
+	})
+
+
+}
+
+	
+
+
+
+	//alert('right');
+}
+
+function move_left(k) {
+
+	y = $(k).parent().parent(); // it is column block 
+
+	//alert($(y).parent().attr("id")); //this is span div of current column
+	current_col_span_id = $(y).parent().attr("id");
+
+	z = $(y).parent(); //this is the span div 
+	//previous_col_span 
+	previous_col = $(z).prev();
+
+
+   if (previous_col.attr("id")==undefined) {
+   	alert("Can't move column any further")
+   }
+
+   else {
+
+
+	//alert($(previous_col).attr("id"));
+	//alert('left');
+
+
+	current_col = $("#"+current_col_span_id).clone(); //picks up the whole span of column
+
+	$("#"+current_col_span_id).remove(); //remove the original one  
+
+
+	current_col.insertBefore(previous_col); //put current col clone before the previous clone
+
+	$.ajax({
+		url:"/decrease_column_order/"+current_col_span_id
+	})
+
+	$.ajax({
+		url:"/increase_column_order/"+previous_col.attr("id")
+	})
+
+
+}
+
+
+
+}
+
+//var window.click_counter == 0; // this has to be separate for separate columsn..so i guess will need to run a loop here 
+
+
+//depth = click_counter+1 
+
+//node_id format = coluid_level_nodenumber_h
+
+
+window.click_counter = 0;
+
+//not sure if beflow counters are required, but keepin em for time being if they are required for width readjustment
+window.click_counter_split_horizontally = 0; 
+window.click_counter_split_vertically = 0;
+
+
+
+
+// this function serves as function router basis if node is end node or not
+
+//type can be of h, v , a or delete 
+
+	function check_if_end_node(node_id) {
+
+		//alert('node id :'+ node_id);
+
+
+
+
+
+		if ($('#'+node_id).children().hasClass("block")) { //depth of tree is equal to level of node
+
+			//alert('is not an end node');
+
+			return false;
+
+		}
+
+		else { //node is not a leaf of tree layout
+
+			//alert('is an end node');
+
+			return true;
+
+		} 
+
+
+
+
+
+	}
+
+
+
+
+	function split_horizontally(z) {
+
+		if ( check_if_end_node(z.attr('id')) ==true) { //if node is end node
+
+
+
+
+		//alert(z.attr('id'));
+
+		children_ids = create_children_node_ids(z.attr('id')) //function to set children node ids 
+
+		x = $("#block").clone();
+		x.css({"display": "block"});
+		id = children_ids[0]; 
+		x.attr('id', id  ) //x id is set according to new node formula of (l+1)_[2(click_counter) +2 ]
+
+
+
+		y = $("#block").clone();
+		y.css({"display": "block"});
+		id = children_ids[1];
+		y.attr('id', id  );
+
+		z.append(x);
+		z.append(y);
+
+		//alert('succesfully completed the function');
+
+		window.click_counter += 1;
+	
+
+		} //for if condition 
+ 
+		else  { // node is non end node
+
+
+			children_ids = create_children_node_ids(z.attr('id'));
+
+
+			x = $("#block").clone();
+			x.css({"display": "block"});
+			x.html(z.html());   // replace the content of x as div with content of z including the header and its buttons
+
+			// is it possible to add the buttons in the div tag itsef. it will hekp out to simplify the code a lot 
+			//otherwise ids of buttons will cause issue
+			//there is no id of buttons , the id of node is fetched by traversing to the parent by doing parent().parent()
+
+			//i can also do this : do all operations with divs and in the end add the panel 
+	
+
+			id = children_ids[0]; 
+			x.attr('id', id  );
+
+			
+
+			//alert('x id :' + children_ids[0]);
+
+			y = $("#block").clone();
+		    y.css({"display": "block"});
+		    id = children_ids[1];
+		    y.attr('id', id  );
+
+		    //alert('y id :' + children_ids[1]);
+
+
+		   // a header should be added for z 
+
+		   display_type = z.css("display");
+		   k_id = z.attr("id");   // so this is being done just to add the header for z 
+		   //alert(display_type);
+
+		   k  = $("#block").clone();
+		   k.css("display", display_type);
+		   k.attr("id", k_id);
+
+		   z.replaceWith(k);
+
+
+
+		 
+
+		    k.append(x); // finally in the new container 
+		    k.append(y);
+
+		
+
+		   
+
+		    window.click_counter += 1;		    
+
+
+
+
+
+
+
+
+		} //for else 
+
+
+
+
+	}
+
+
+	function split_vertically(z) {
+
+
+		if ( check_if_end_node(z.attr('id')) ==true) { 
+
+		
+
+	
+
+		children_ids = create_children_node_ids(z.attr('id')); 
+
+
+
+		x = $("#block").clone();
+		x.css({"display": "inline-block"});
+		//alert('widtj of z :'+ z.width());
+		x.attr('id', children_ids[0]);
+
+		y = $("#block").clone();
+		y.css({"display": "inline-block"});
+		y.attr('id', children_ids[1]);
+
+/*		if (z.width() > 720) {
+			x.css("width", "50%");
+			y.css("width", "50%");
+
+		} 
+*/
+
+
+		z.append(x);
+		z.append(y);
+
+		
+
+		window.click_counter += 1;
+		
+
+	} // for if 
+
+
+	else {
+
+		children_ids = create_children_node_ids(z.attr('id')) ;
+
+		//alert('widtj of z :'+ z.width());
+
+
+		x = $("#block").clone();
+		x.css({"display": "inline-block"});
+		x.html(z.html());
+
+
+		id = children_ids[0]; 
+		x.attr('id', id  );
+
+		
+
+		//alert('x id :' + children_ids[0]);
+
+		y = $("#block").clone();
+		y.css({"display": "inline-block"});
+		id = children_ids[1];
+		y.attr('id', id  );
+
+
+
+		//alert('y id :' + children_ids[1]);
+
+
+		   display_type = z.css("display"); 
+		   k_id = z.attr("id");    // so this is being done just to add the header for z 
+		   //alert(display_type);
+
+		   k  = $("#block").clone();
+		   k.css("display", display_type);
+		   k.attr("id", k_id);
+
+		   z.replaceWith(k);
+
+
+
+		 
+
+		    k.append(x); // finally in the new container 
+		    k.append(y);
+
+		   
+
+		    //alert('succesfully completed the function');
+
+		    window.click_counter += 1;
+
+		
+
+
+
+
+	}
+
+
+
+
+	}
+
+	function add_node(z) {
+
+k = z.children('.block').first();
+
+display_type = k.css('display') ;
+
+
+
+
+x = $("#block").clone();
+x.css({"display": display_type});
+children_ids = create_children_node_ids(z.attr('id')) ;
+
+
+id = children_ids[0]; 
+x.attr('id', id  );
+
+z.append(x);
+
+
+
+
+
+	}
+
+	function add_column() {
+
+		//alert('dfdf');
+
+		y = $("#column").clone();
+		y.css({"display":"inline-block"});
+
+		
+
+		x = $("#block").clone();
+		x.css({"display":"inline-block"});
+		
+
+
+
+		//alert('fdf');
+
+		$.ajax({
+			type:"GET",
+			url: '/column/add_a_column/{{project.uid}}/100/',
+			success:function(response) {
+
+				//alert(response);
+				o = "'"+response + "'";
+				//alert(o);
+
+				button_html ="<button style='display: none' class='save_col_button' onclick=\"save_column_layout("+o+")\">Save Column Layout</button>";
+
+
+
+
+				$("#save_col_button_div").append(button_html); //added the hidden button
+
+				p = response+"_0_1";
+				q=  response+"_1_1";
+
+
+
+
+				y.attr("id", p);
+				x.attr("id", q);
+
+				z=$("<span id="+response+"> </span>");
+				 z.insertBefore("#add_column");
+
+				 y.append(x);
+
+				 $("#"+response).append(y);
+
+			    
+
+			    //$(z).append(y);
+
+		       // y.insertBefore("#add_column");
+
+
+
+
+
+
+
+
+
+
+			}
+		})
+
+
+
+	}
+
+	function build_button_sequence(node_id) {
+
+	}
+
+	function create_children_node_ids(parent_node_id) {
+
+		 //x id is set according to new node formula of (l+1)_[2(click_counter) +2 ]
+
+
+       col_uid = parent_node_id.split('_')[0];
+
+
+		level = parent_node_id.split('_')[1] //takes in the level of parent node 
+
+		child1_id = col_uid+'_'+(parseInt(level) + 1)+'_'+(2*(window.click_counter+1) + 1);
+		child2_id = col_uid+'_'+(parseInt(level) + 1)+'_'+(2*(window.click_counter+1) + 2);
+
+		//plus at window click counter is done cz even though the button is pressed but counter hasnt been updated yet 
+
+
+
+		children_ids = [child1_id, child2_id]; // array of children ids which will be returned 
+
+		return children_ids;
+
+	}
+
+	function delete_node(node_id) {
+
+		alert('delete node')
+
+	}
+
+
+
+	function save() {
+
+		var x="";
+
+		$(".block").each(function(i, obj) {
+
+			width = $(obj).width();
+
+			$(obj).css({"width":width});
+
+			
+
+				x =x+'#'+$(obj).attr("id") +',';
+
+			
+
+			
+			
+
+		})
+
+		$(".save_col_button").click();
+		x = x.slice(0, -1);
+		x = "'"+x+"'";
+		//alert(x);
+		$.ajax({
+			type:"POST",
+			url: "/set_sortable_list_ids/{{project.uid}}/",
+			data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, x:x},
+			success: function(){
+				//alert('sortable list updated');
+			}
+		});
+
+		//alert('hi');
+
+		//window.location.replace("/project/board/{{project.uid}}");
+
+		// similar behavior as clicking on a link
+window.location.href = "/project/board/{{project.uid}}";
+
+
+	}
+
+
+
+	$(document).ready(function(){
+// this scrept fixes all the width issues dynamically
+
+
+		$(".block").each(function(i, obj) {
+
+			width = $(obj).width();
+
+			$(obj).css({"width":""});
+			
+
+		})
+
+});
+	
+
+
+/*
+
+	function calculate_node_width(k) {
+
+		
+
+
+y = $(k).children(".block").first().css("display");
+
+//alert(y);
+
+
+
+		if ( $(k).children(".block").first().css("display") == 'inline-block') {
+          sum = 0;
+
+          $(k).children('.block').each(function(i, obj){
+
+          	alert(obj.id);
+
+
+          	sum = sum + calculate_node_width($("#"+obj.id));
+
+
+
+
+          }); //for looping over branches
+
+          alert('sum'+sum);
+
+          $(k).css({"width": sum });  // set sum equl to the width of node
+
+		} // for vs if 
+
+
+
+		else if ($(k).children(".block").first().css("display") == 'block')  {
+
+			max = 0;
+
+
+		    $(k).children('.block').each(function(i, obj){
+
+		    	branch_wdith = calculate_node_width($("#"+obj.id));
+
+
+          	if (branch_wdith > max) {
+          		max = branch_wdith ;
+          	} 
+
+
+
+          }); //for looping over branches
+
+		    alert('max:'+max);
+
+		    $(k).css({"width": max});
+
+
+
+		} // for else if 
+
+
+		else {
+			width = k.width();
+			return width;
+		}
+
+
+alert('done');
+
+	} // for function 
+
+*/
+
+/*
+// this is the algo which needs to be cracked 
+	function adjust_width_master() {
+      
+
+      $('.block').each(function(i, obj) { // main loop for iterating each block 
+
+      	alert('jhi');
+
+
+    var p = 0;
+
+
+    $(obj).find(".block").each(function(){ // loop to iterte thtought the children to count inline blocks 
+
+    	
+
+    	if ($(this).css('display')=='inline-block' && !$(this).children('.block').hasClass('block')) {  //conditio to check if child is inine block 
+    		p = p+1;
+    		
+    	} //closing if 
+
+    	 });
+
+    	k = obj.id +":"+ p ;
+
+    	alert(k);
+
+    	width = p *360;
+    	
+
+    	if (p!=0 ) {
+    		$(obj).css({"width":width});
+    	};
+
+
+    alert(width);
+
+    	   //set width of obj to calculated one 
+
+
+   
+
+
+
+
+
+    //test
+});  //main loop for iterating each block 
+
+
+	}
+
+
+*/
+
+/*
+
+
+	function adjust_layout_width(z) {
+
+		id = z.attr('id');
+
+
+		var i = 0
+
+
+    $("#"+id).children(".block").each(function(){
+
+    	if ($(this).css('display')=='inline-block') {
+    		i = i+1;
+    		alert('hi');
+    	}
+        
+    });
+
+alert(i);
+
+baseline_width = i*360;
+
+if (z.width() < baseline_width) {
+	alert('dsd');
+	z.css({"width":baseline_width});
+}
+
+else {
+
+$("#"+id).children(".block").css({"width":100/i+"%"});
+
+
+}
+
+
+
+
+	}
+
+*/
+
+	function adjust_width(z) {
+
+		//alert('dsdsd');
+
+		id = z.attr('id');
+
+		
+		
+		y = $("#"+id).children('.block').length;
+		//alert(y);
+		
+
+		if ($("#"+id).children('.block').first().css('display') == 'inline-block') {
+
+			width = z.width()/y;
+
+			if (z.width() < y*360) {
+				//alert(z.width());
+				z.css({"min-width":y*360});
+			}
+
+
+			$("#"+id).children('.block').css({"width":width}); 
+
+
+
+
+		}
+
+  alert('Adjusted Width Of Layout');
+
+	}
+
+
+
+	function remove_space() {
+		$('#0_1').contents().filter(function() { return this.nodeType === 3; }).remove();
+	}
+
+
+function increase_width(z) {
+	width = z.width() + 5;
+	z.css({"width": width});
+}
+
+
+
+function copy_html() {
+
+	y = $("#0_1").clone();
+	y.insertAfter($("#0_1"));
+
+
+}
+
+
+
+
+
+
+
+function save_column_layout(col_uid) {
+
+//alert(col_uid);
+
+var y = $("#"+col_uid).clone();
+
+width = $("#"+col_uid).children().first().width();
+
+//alert(width);
+
+
+
+y.find('.edit_button').hide();
+
+x = y.html();
+
+
+
+$.ajax({
+	type:'POST',
+	url: '/update_col_layout/'+col_uid + '/',
+	data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, x:x},
+	success: function() {
+
+		//alert('col layout saved');
+
+	}
+}) // for ajax call 
+
+} //for save column function 
+
+/*
+
+$(document).ready(function() {
+
+    $(".plus").each(function(){
+        if (!$(this).parent().parent().children().hasClass("block") ) {
+        	$(this).hide();
+        }
+    });
+
+ });
+*/
+
+function save_issues_in_row() {
+	x = $("#issues_in_row_input").val();
+    //alert(x);
+    y = $("#issues_in_row").parent().find(".number_of_issues_in_row");
+
+	y.attr("id", x);
+
+	//alert(y.attr("id"));
+
+	alert('Number of issues in row set');
+
+
+	$("#issues_in_row").remove();
+
+}
+
+function remove_save_issues_row() {
+	$("#issues_in_row").remove();
+}
+
+function set_issues_in_row(k) { //k is what here ?
+	//k.parent().parent().append("<div id='issues_in_row'><input id='issues_in_row_input' type='text' placeholder='number of issues in row' ><button onclick='save_issues_in_row()'> Save </button></div>")
+
+$("<div id='issues_in_row'>Number of Issues in Row:<input style='width:50px;' id='issues_in_row_input' type='text' placeholder="+k.attr('id')+ " ><button onclick='save_issues_in_row()'> Save </button><button onclick='remove_save_issues_row()'> Close </button></div>").insertAfter(k.parent())
+
+}
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+    $(".edit_button").show();
+
+
+
+
+});
+
+
+function hide_panel(k) { //k is the <a> of eye . its parent is panel
+
+//alert('here');
+y = $(k).parent();
+
+if ($(y).hasClass('edit_button') ) {
+	//alert('1');
+
+	$(y).removeClass('edit_button');
+	$(k).css({"color": "grey"});
+
+} 
+
+else {
+
+	//alert('2');
+
+	$(y).addClass('edit_button');
+	$(k).css({"color": "blue"});
+	//alert('done');
+
+}
+
+
+
+} 
+
+
+
+
+function go(k) {
+
+	x = $('#input_status2').find(":selected").val();
+	//x = $("#block_status_input3").val();
+	var well = k.siblings(".well").first();
+    well.attr('id', x);
+	//alert(x);
+	//alert('done');
+	$("#block_status_form").remove();
+
+	alert('New status is assigned to this block')
+
+
+}
+
+
+
+function set_block_status(k) { // on click of s opens up the input box to enter status uid
+
+
+
+	$("#block_status_form").remove();
+
+
+var k_id = k.attr("id");
+
+
+
+partial_html = $("#block_status_form2").clone();
+partial_html.attr("id", "block_status_form");
+
+selected = partial_html.children().first();
+selected.attr("id", "input_status2");
+
+	var y = "<div  id='block_status_form'> <input style='width:80%;' id=\"block_status_input3\" placeholder='"+k_id+"' name='status' > <button onclick=\"go($(this).parent())\"> Go </button> </div>";
+
+y = partial_html;
+
+	$(y).insertAfter(k);
+}
+
+
+	
+
+</script>
+
+
+
+<!--
+
+                      T)))                       __,___,_                    T)))
+                      |                          TT  )   )                   |
+                     /T\                         ||  )   )                  /T\
+                    / L \                        ||-^-^-'                 / L \ 
+                   / [O] \                       ||                       / [O] \
+                  /   T   \                  _.+'||'+._                  /   T   \
+                 |____|____|             _.+'____/\____'+._             |____|____|
+                   [_]|[_]              [_]_____[||]_____[_]              [_]|[_]
+                  .[_]|[_].             [_]_____[||]_____[_]             .[_]|[_].
+          ._._._._|IIIIIII|._._._._.___.====================.___._._._._.|IIIIIII|_._._._.
+         /|\._./\|/   L   \|/._._.\|[_] \/   \II/[]\II/   \/ [_]|/._._.\|/   L   \|/\._./|\
+        []TTTTTTT[]==[O]==[]TTTTTTTT[_] /\_._.II_[]_II._._/\ [_]TTTTTTTT[]==[O]==[]TTTTTTT[]
+        []|._._.|[]   T   []._./\._.[_]/  [__]/  ||  \[__]  \[_]._./\._.[]   T   []|._._.|[]
+        []IIIIIII[]IIIIIII[]IIIIIIII[_]===[__]\._||_./[__]===[_]IIIIIIII[]IIIIIII[]IIIIIII[]
+       /|====[]=====[]=======[_]====[__]-+=II=+-[__]-[_]=====[]========[]==================|\
+      /|| _/T\_  ||\\_I_//||  _/T\_ [_]    \_\_/T\/T\_/_/    [_] _/T\_  ||\\_I_//||  _/T\_ ||\
+      ||| |_O_| ,/|=/_|_\=|\, |_O_| [_]    |_L_LT||TJ_J_|    [_] |_O_| ,/|=/_|_\=|\, |_O_| |||
+      ||| |_O_| |||___|___||| |_O_| [_]____[]/|||/\|||\[]    [_] |_O_| |||___|___||| |_O_| |||
+      [_]\IIIII/[_]\IIIII/[_]\IIIII/[_]IIII[]\==/%%\==/[]IIII[_]\IIIII/[_]\IIIII/[_]\IIIII/[_]
+      [_].\_I_/.[_].\_I_/.[_].\_I_/.[_]\II/[].\_\%%/_/.[]\II/[_].\_I_/.[_].\_I_/.[_].\_I_/.[_]
+      L_J./   \.L_J./   \.L_J./   \.L_JI  I[]./      \.[]I  IL_J./   \.L_J./   \.L_J./   \.L_J
+      L_J|     |L_J|     |L_J|     |L_J|  |[]|        |[]|  |L_J|     |L_J|     |L_J|     |L_J
+      L_J|_____|L_J|_____|L_J|_____|L_J|__|[]|        |[]|__|L_J|_____|L_J|_____|L_J|_____|L_J
+
+
+-->
+
+<!-- Modal -->
+
+<!-- Modal for status  -->
+<div id="create_status_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Status</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+      <form action="/status/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+     
+Accepts Issues from these Statuses: <br>
+     <select name="start_statuses" multiple>
+     <!--<option value="all">All</option>-->
+     
+     {% for s in statuss %}
+
+      <option value="{{s.uid}}">{{s.title}}</option>
+
+     {% endfor %}
+
+</select>  <br><br>
+
+Can transition Issues to these Statuses:<br>
+
+     <select name="end_statuses" multiple>
+
+     <!--<option value="all">All</option>-->
+     
+     {% for s in statuss %}
+
+
+      <option value="{{s.uid}}">{{s.title}}</option>
+
+     {% endfor %}
+</select><br><br>
+
+<!--
+
+Status Type:<br>
+
+<select>
+  <option>To Do</option>
+  <option>In Progress</option>
+  <option>Resolved</option>
+</select>
+
+
+<br><br>-->
+
+
+
+Workflow:<br>
+
+     <select name="workflow">
+   
+     {% for w in workflows %}
+
+      <option value="{{w.uid}}">{{w.title}}</option>
+
+     {% endfor %}
+</select><br>
+
+
+
+
+     <input style="visibility: hidden"   type="text"  class="form-control" name="column" value={{c.uid}} hidden><br>
+      <button class="btn btn-bold  btn-default" type="submit">create status </button>
+
+</form>
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+<div id="set_block_status_partial" style="display: none;"  >
+
+<div  id='block_status_form2'> Block Status :
+
+<select id="input_status" name="status">
+
+{% for s in project.statuss.all reversed %}
+ 
+  <option value='{{s.uid}}'>{{s.title}}</option>
+{% endfor %}
+<option value=''>None</option>
+<option  value=''>Create New Status</option>
+
+  
+</select>
+
+
+
+<button onclick="go($(this).parent())"> Save </button> 
+<button onclick="$('#block_status_form').remove();"> Close </button> <br>
+<button data-toggle="modal" data-target="#create_status_modal"> Create New Status </button> 
+
+</div>
+</div> <!-- block statys partial -->
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<button onclick="copy_html()"> do it </button> -->
+
+
+<!--
+
+
+                         .-" `.                          
+                         ;:":  ""....                    
+                .-+. ,gpd$L\:._      ""-._               
+               /  //;$SS$$$$SS$$t...      "-._           
+             .'  `.//SS$P^"""TS$$S. "-.       "-,        
+           .'    _ "-S^"      TS$$Sb   "-.       `.      
+         .'    .':S$Y      _.. SS$$Sb-'   "-.      ;     
+       .'    .'  SS$;,=-.  ._.`:S$$SS;       j     ;     
+     .'    .'   :SS$$.-'        SS$$SS\     /     /      
+   .'     /     SS$$S;    -     SS$$SS ;   /     /       
+ .'      /   ._dSS$$SS   ....  :SS$$$S\;  /     /        
+/       /     :SS$$SS$b. `..'  $$SS$$S ) /     /         
+\      :      ;SS$$SS$$SS.___.'$$SS$$Sb /     /          
+ \      "-.   SS$$SS$$$SS      $$SS$$SS';    /           
+  `.       "-dSS$$SS$$SS:;     :$$SSSP      /            
+    `.              "^S^':     '^TSS'      /             
+      "-.      `.     ::-.   _ .-"\\      /              
+         "-.  -._\    ;;           \\  : :               
+            "-.   \  ::             \\ ; ;               
+               $.  `.;;       ,      \\;:                
+              dS$\  / '-._    :  _.-"" \;                
+           `-:S$^$t'      ""..:""       ;                
+              TP :$$ ;        ::        :                
+                d$S$_:        ;-\       ;                
+               :$SS$; `.____.'   `.___.j                 
+               $$SS$$                  ;                 
+              / T$S$$;  ;      ;    ; :                  
+             :   `TS$$  :      :    : ;                  
+                   `T$         :     :                   
+                bug  ;         ;     ;                   
+                    /                ;                   
+                  .'                 :                   
+                 /      :           ;:                   
+                /       ;     c     ::                   
+               :`.      ;           : ;                  
+               ;  "-.   :           ; :                  
+              :_     "-.            .' ;                 
+              ; "-.     ""....__..-"   :                 
+             :     `.                _.-;                
+             ;       `.           .-"   ;                
+             ;         `.       .'      ;                
+             ;           \     /        :                
+             ;            \   /         :                
+             ;             \_/          :                
+             ;             ::           :                
+             ;             :;           ;                
+             :             :;           ;                
+              ;            ;;          :                 
+              |            ;;          |                 
+              :           : ;          ;                 
+               ;          : ;         :                  
+               :          ; :         |                  
+                ;         ; :         ;                  
+                :         ; :        :                   
+                 ;        ; :        |                   
+                 :        ; :        ;                   
+                  ;       : :       :                    
+                  : ;   : :  ;  ;   |                    
+                   ;:   ; ;  :  :   :                    
+                   : \    ;   \      "-.                 
+                   :      ;    \        \                
+                   ;      :     \      .d$b              
+                  db.___.d$b     \__.g$$$$$b             
+                  $$$$$$$$$$     :$$$$$$$$$$b            
+                  $$$$$$$$$$      T$$$$$$$$$$;           
+                  :$$$$$$$$$       T$$$$$$$$$$           
+                   $$$$$$$$$        `T$$$$$$$$b          
+                   $$$$$$$$;          T$$$$$$$$;         
+                   :$$$$$$$            T$$$$$$$$         
+                   :$$$$$$$             T$$$$$$$;        
+                    $$$$$$$              T$$$$$$$        
+                    $$$$$$$               T$$$$$$;       
+                    $$$$$$$                T$$$$$$       
+                    :$$$$$;                 T$$$$$b      
+                    :$$$$$;                  T$$$S$b.    
+                    :$$$$S;                   SSS$$$$bp. 
+                    :$$$$S;                   :S$$$$$S$$;
+                    $S$$SS;                    S$$$$$$SP 
+                   :$SSSSS;                    :$$$$$$S  
+                   $$$$$$$;                     $$$$$$$  
+                   $$$$$$$$                     :$$SS$$  
+                   $$$$$$$$                      SSS$$$  
+                   $$$$$$$$                      :$$$$;  
+                   :$$$$SS;                       `^^'   
+                    TSSSSP                               
+                     `^^'                                
+ 
+
+
+-->
+
+
+
+
+
+<!-- hidden items begins.................................................................. -->
+
+
+
+
+
+<!-- column -->
+
+
+<div id="column" class="block column" style="height: 92%; overflow-y: scroll; display: none; margin-right: 10" >
+
+
+
+
+
+<!-- column header -->
+
+<div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >
+<span style="color:grey" onclick="move_left($(this))" class="edit_button glyphicon glyphicon-arrow-left pull-left"></span>Column
+
+<span onclick="delete_column($(this))"  data-toggle="tooltip" title="Delete Column"  style="color:grey; opacity: 0.5" class="edit_button glyphicon glyphicon-remove-circle"></span>
+<span style="color:grey" onclick="move_right($(this))" class=" edit_button glyphicon glyphicon-arrow-right pull-right"></span>
+
+
+
+
+</div>
+
+
+<!-- column header ends -->
+
+</div>
+
+
+
+
+
+
+
+<!-- block -->
+
+
+<div id="block"  class="block connectedSortable" style="background-color: #f1f1f2; min-width: 360px; min-height: 250px; display: none;  vertical-align: top;     -webkit-box-shadow:inset 0px 0px 0px 1px white;
+    -moz-box-shadow:inset 0px 0px 0px 1px white;
+    box-shadow:inset 0px 0px 0px 1px white; overflow-y: auto "  >
+
+
+
+
+<!-- block  header -->
+
+<div id=""  class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:2px;  " >
+
+<span class="block_title"  contenteditable="true"> Block Title</span>
+
+
+ <a id="1" class="edit_button number_of_issues_in_row"  data-toggle="tooltip" title="Set number of issues in a row"   style="cursor: pointer; color: grey; display: none" onclick="set_issues_in_row($(this) )" >N</a> 
+
+
+ <a class="get_block_issues_button"  data-toggle="tooltip" title="get issues"   style="cursor: pointer; color: grey; display: none" onclick="get_block_issues($(this).parent() )" >i</a> 
+
+ <a class="edit_button" data-toggle="tooltip" title="Split Vertically"   style="cursor: pointer; color: grey" onclick="split_vertically($(this).parent().parent())" >||</a> 
+
+ <a class="edit_button" data-toggle="tooltip" title="Status for this block"   style="cursor: pointer; color: grey" onclick="set_block_status($(this).parent() )" >s</a> 
+
+
+<a class="edit_button" data-toggle="tooltip" title="Split Horizontally"  style="cursor: pointer; color: grey" onclick="split_horizontally($(this).parent().parent())" >==</a> 
+
+
+
+<a class="edit_button" data-toggle="tooltip" title="Increase Number of Last Split"  class="plus" style="cursor: pointer; color: grey" onclick="add_node($(this).parent().parent())" >+</a>
+
+
+<a class="edit_button" data-toggle="tooltip" title="Increase With of Column"  class="plus" style="cursor: pointer; color: grey" onclick="increase_width($(this).parent().parent())" >W</a>
+
+<a class="edit_button" data-toggle="tooltip" title="Delete"  class="pull-right" style="color: grey; opacity: 0.5" onclick="delete_node($(this).parent().parent())" style="margin-right: 0px;"><i class="glyphicon glyphicon-remove-circle"></i></a>
+
+
+<a class="edit_button" data-toggle="tooltip" title="Auto Adjust Width"   style="color: grey; opacity: 0.5" onclick="adjust_width($(this).parent().parent())" style="margin-right: 0px;"><i class="glyphicon glyphicon-refresh"></i></a>
+
+<a class="edit_button" data-toggle="tooltip" title="Hide This Panel Bar"  class="pull-right" style="color: grey; opacity: 0.5" onclick="hide_panel(this);" style="margin-right: 0px;"><i class="glyphicon glyphicon-eye-close"></i></a>
+
+
+
+</div>
+
+<!-- block header -->
+
+
+</div>  <!-- for block -->
+
+
+
+
+
+<!-- hidden items ends..............................................................-->
+
+
+
+
+
+
+
+
+
+
+
+<div id="save_col_button_div">
+
+{% for c in project.columns.all|dictsort:"order" %}
+
+
+
+
+
+<button style="display: none" class="save_col_button" onclick="save_column_layout('{{c.uid}}')">Save Column Layout</button>
+
+
+
+
+
+
+
+{% endfor %}
+
+</div>
+
+
+
+<!-- actual board....................................................................
+                    _____
+                ___/     \___
+               `-._)     (_,-`
+                   \O _ O/
+                    \ - /
+                     `-(
+                      ||
+                     _||_
+                    |-..-|
+                    |/. \|
+                    |\__/|
+                  ._|//\\|_,
+                  `-((  ))-'
+                   __\\//__ gnv
+                   >_ /\ _<,
+                     '  '
+         -->
+
+
+<div id="frame" class="container-fluid" style="overflow-x: scroll; height: 95%; white-space: nowrap;">
+
+
+
+
+
+
+
+
+{% for c in project.columns.all|dictsort:"order" %}
+
+
+<span id="{{c.uid}}" >
+
+
+
+{{c.layout|safe}}
+
+
+</span>
+
+{% endfor %}
+
+
+
+
+<div id="add_column" onclick="add_column()" style="vertical-align: top; display: inline-block; margin-right: 150px; cursor: pointer">
+<b>Add a column</b>
+</div>
+
+
+
+
+
+</div>. <!-- for main container -->
+
+
+
+
+
+
+{% endblock %}

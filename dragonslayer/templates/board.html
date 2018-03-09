@@ -1,0 +1,970 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+
+
+
+
+<style>
+.ui-state-highlight {
+  height: 80px;
+  width : 100%;
+  float: left;
+  background-image: url('https://i.imgur.com/7vvbDxe.png');
+  opacity : 0.3;
+  background-size: cover;
+  background-color: white;
+   
+}
+
+
+
+
+</style>
+
+
+
+
+<script type="text/javascript">
+
+
+
+         $(function() {   //x has the sortable id list 
+            $({{x|safe}}).sortable({
+              connectWith: ".connectedSortable",
+
+
+               items: ".content",
+               scroll: false,
+               placeholder: "ui-state-highlight",
+               helper: 'clone',
+              appendTo: 'body',
+              tolerance: "pointer",
+              revert: true,
+             
+              cursorAt: { left: 5 },
+
+
+
+
+
+
+
+
+
+    sort: function( event, ui ) {
+
+     
+
+
+
+
+var x = ui.offset.left;
+var y = ui.offset.top;
+
+
+
+
+if (x>1000) {
+
+
+
+
+   $("#frame").animate({
+        'scrollLeft' : '+=30px'}, 20
+    );
+
+$( this ).sortable( "instance" ).refreshPositions();
+   
+
+
+
+
+
+
+
+
+};
+
+
+
+if (x<150) {
+
+
+   $("#frame").animate({
+        'scrollLeft' : '-=30px'}, 10
+    );
+   $( this ).sortable( "instance" ).refreshPositions();
+
+
+
+
+};
+
+
+
+if (y>500) {
+
+
+
+
+  var hovered_col_id = window.sort+"_0_1";
+
+
+//alert(c);
+
+
+
+
+   $("#"+hovered_col_id).animate({
+        'scrollTop' : '+=15px'}, 10
+    );
+   $( this ).sortable( "instance" ).refreshPositions();
+
+
+
+
+};
+
+
+
+
+if (y<100) {
+
+   var hovered_col_id = window.sort+"_0_1";  //gets the column on which the ui.item is hovering currently 
+
+
+
+
+
+
+   $("#"+hovered_col_id).animate({
+        'scrollTop' : '-=15px'}, 10
+    );
+   $( this ).sortable( "instance" ).refreshPositions();
+
+
+
+
+};
+
+
+
+
+
+
+
+ 
+
+},
+
+
+
+
+
+        receive: function (e, ui) { 
+      // modify ui.placeholder however you like
+
+
+      k = $(this).attr("id");    //not sure which is this 
+      //alert(k);
+
+
+
+
+     n = $(this).find(".number_of_issues_in_row").attr("id");  //number os issues in row 
+     //alert(n);
+
+     if (n==undefined) {
+      //alert('fdf');
+      n=1;
+
+     }
+
+
+
+     
+
+      w= $(this).outerWidth()/n-10;   //calculates the width of a typical issue card in a block, -10 is done to give proper margins 
+
+  
+ 
+
+     
+
+
+     //alert(w);
+
+     //alert(w);
+
+
+     //alert(w);
+    ui.item.css({"width":w});  //for setting the width of dropped card 
+
+
+
+
+              var x = String($(ui.item).attr('id')); //issue id 
+               var y = String(this.id);  //i think can be dleted 
+
+               y = $(this).children().first().attr("id");  //gets uid of status from block panels id 
+
+               
+
+
+
+
+
+
+
+$.ajax({
+     type: "POST",
+     data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+     url: '/check_transition_screen/{{project.uid}}/'+ x + '/' + y + '/',
+     success: function(response){
+
+         
+
+         if (response == 'No Screen') {
+          var url = '/transition_issue_status/{{project.uid}}/'+ x + '/' + y + '/';
+          
+
+                $.ajax({url: url, success: function(result){
+        
+    }});
+          
+
+         }
+
+         else {
+
+          var url = '/show_transition_screen/{{project.uid}}/'+ x + '/' + y + '/'
+
+          window.location.replace(url);
+
+         }
+
+
+     }
+}); 
+
+
+
+
+      
+
+
+
+    },
+
+
+
+     
+
+
+               
+   
+    start: function (e, ui) { 
+      // modify ui.placeholder however you like
+
+      width = ui.item.outerWidth();
+
+        if (width>720) {
+        width=720;
+      }
+
+
+      ui.placeholder.css({"width":width});
+
+    
+
+      ui.helper.css({"width":width});
+
+
+    }
+
+               
+
+
+            }).disableSelection();
+         });
+
+
+
+
+
+
+function build_card_html(issue, p, width_parent) {
+
+  //issue is list of issue items which have neen sent from append issue function , p is number of issues in row of that block 
+
+ 
+width = width_parent/p -10;
+
+//alert(issue);
+
+
+var y = "<div id="+issue.uid+" style=\"height:100px ; width:"+width+";  margin:0px; vertical-align:top; display:inline-block; margin-bottom:5px; margin-left:5px;  float:left; overflow-x:hidden;overflow-y: hidden; padding:7px; \" class=\"panel panel-default content \"> "
+
+
++
+
+"<span style='color:grey; font-size:95%'> "+issue.issue_type+"  </span>"
+
++"<span style='color:grey'>"+issue.priority_title+" </span>"+
+
+"<span class=\"fa fa-circle\" style=\"color:"+issue.priority_color+"; line-height: 5px; font-size:40%\"> </span>"
++
+
+"<div style='color:grey; font-size:95%' class=\"pull-right\">"+issue.issue_id+"</div>"
+
++
+
+"<a style=\"text-decoration: none;\" id=\"hocus{{i.uid}}\" onclick=\"myfunc($(this).attr('href'))\"  data-target=\"#myModal1\" data-toggle=\"modal\"  href=\"/show_view_issue_screen/{{project.uid}}/"+issue.uid+"/\"><p id=\"focus{{i.uid}}\" style=\" margin-top: 10px; color: #333333; height: 3em; font-size:105%; overflow:hidden;\">"+issue.title+"</p></a> "
+
+" </div>" 
+
+;
+return y;  //returns the built html of an issue card 
+
+
+
+}
+
+
+function append_block_issues(response, k, p) {
+
+  //k is block panel 
+  //response is json response of get blovk issues
+  //p is number os issues in row 
+
+ 
+
+  a = response['issues'] //gets the issues string array
+
+ l = a.length;  //number of issues returned 
+ 
+  width_parent = k.outerWidth();
+  width_parent = k.parent().outerWidth();
+  //alert(width_parent);
+
+ 
+
+
+
+ //p=2;
+y = p;  // this is done for some conditions in lop as p was modified 
+
+
+ for (var i = 0; i < l; i++) {
+
+
+   
+
+
+    card_html = build_card_html(a[i],y, width_parent);  //fetches each cards html
+//html = $("#icard").clone();
+
+
+/*
+if (p==i) {
+
+   k.parent().append("<br>");
+   p = parseInt(p)+parseInt(y);
+   //alert(p);
+
+
+}
+*/
+
+//this is causing issue since if block doesnt have any then how will user add issue 
+/*
+  if (i==0) {
+
+    status_uid = k.attr('id');
+
+
+
+    k.parent().append("<a  onclick=\"quick_create()\" style='float:left; color:grey; margin-left:5px;cursor:pointer'> Add a issue..</a><br id="+status_uid+"_add"+">");
+
+  }
+*/
+
+
+  k.parent().append(card_html);  //appends every issue card htm in the block 
+
+
+
+   
+
+
+
+    
+    //alert('sds');
+}
+
+  
+
+}
+  
+  function get_block_issues(k) {
+
+    //we also need to fetch the blocks where status from this block can be transitioned. basically this all the status where start status is this status...
+
+    //and since all the statusses are called at the time of page load , so this needs to be done at the tie of page load only..as in after page load..
+
+    //or they can be get at the time of sort start event
+
+    // fetch json , then highlight it...remove it after the event stops 
+
+    //at start event..
+
+
+    var x = k.attr("id"); //k is the well sm span or panel which contaains the status uid as its id 
+    //alert(x);
+
+    if (x.length>5) {   // now basically this snippet checks if panel of bock has uid as its id and if yes then only adds 'add a issue'
+
+         k.parent().append("<a  onclick=\"quick_create()\" style='float:left; color:grey; margin-left:5px;cursor:pointer'> Add a issue..</a><br id="+x+"_add"+">");
+
+       // br is added after <a> for proper alignment of issues
+       //<b> has id as status uid because quick create function appends div block of issue after <br>
+
+    };
+
+
+
+
+    var p = k.children(".number_of_issues_in_row").first().attr("id"); // p is the number of issues in a row as defined at the layout editor. it is stored as id of div with class number_of_issues_in_row under the block panel 
+
+    if (p==undefined) {   // if not defined take 1 issue in row of block
+      p=1;
+    }
+
+
+
+if (x.length>5) {     //only is status is set for the block, then only ajax calls are made
+
+      $.ajax({
+      type: "GET",
+      url: "/get_block_issues/"+x,     
+      success: function(response) {
+
+        append_block_issues(response, k,p);    //response has the json of issues, k is the block panel, and p is number os issues in row 
+        
+      }
+    })   //for ajax 
+
+
+}
+    
+
+
+
+
+  }
+
+
+
+$(document).ready(function(){
+ $(".get_block_issues_button").click();     // this function cicks the hidden i button on every block's panel which on click triggers the get_block_issues function 
+ 
+
+  });
+
+
+</script>
+
+ 
+<!-- card.................................................................................-->
+
+<!--
+<div id="icard">
+
+<div  id="{{i.uid}}" style="padding:10px;  z-index: 200000; width: 350px;  display: inline-block;margin-left: 5px; font-size: 95%; display: none;   "  class=" panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+
+ <div class="pull-right">
+
+{% if i.issue_id %}
+{% if i.resolved == True %} <strike class="x" > {% endif %}{{i.issue_id}} {% if i.resolved == True %} </strike>  {% endif %}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+</div>
+
+
+
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><p style="font-size: 120%; margin-top: 10px; color: #333333;height: 3em; overflow:hidden;">{{i.title}}</p></a> 
+
+
+     
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+
+
+
+     </div>--> <!-- card......................................................................................-->
+
+</div>
+
+
+<!--
+
+
+$$$$$$$$$$$$$$$$""$o$o$o$o$o$oo$$""$$$$$$$$$$$$$$$
+$$$$$$$$$$$$""o$$$$$$$$$$"$"$$$$$$$o$"$$$$$$$$$$$$
+$$$$$$$$$"$o$$$$""$oo $ ""      """$$$oo"$$$$$$$$$
+$$$$$$$"o$$$$"   ""o  $oo o o       ""$$$o"$$$$$$$
+$$$$$"o$$$"       oo$$$$$$$$$$o        "$$$o"$$$$$
+$$$$"o$$$  $  o$$$$$$$$$$$$$$"$$oo       "$$$ $$$$
+$$$"$$$"   "$$$$$$$$$$$$$$$$o$o$$$"        $$$o$$$
+$$ $$$    o$$$$$$$$$$$$$$$$$$$$$$$$o o   o  "$$o"$
+$"$$$"    o$$$$$$$$$"$$$$$$"" "$$$$$$"$$$$$  $$$"$
+$o$$"    o$$$$$$$$$$o""$$$""""ooo"$$$$$$$$"   $$$"
+$o$$"    o$$$$$$$$$$            ""oo"$"$o""   $$$o
+o$$$     o$$$$$$$$$$                """""$    o$$o
+o$$$    o$$$$$$$$$$$$o                   "o "oo$$o
+o$$$  oo$$$$$$$$$$$$$$$$ooooooo$$$$$oo    $"$ "$$o
+o$$$"  ""  $$$$$$$$$$$$$$$$$$$$$$$$$$$$o    " $$$
+$ $$$       "$$$$$$$$$$$$$$$$$$$$$$$$$$$o    o$$"$
+$$"$$o       "$$$$$$$$$$$$$$$$$$$$$$$$$$$o   $$$o$
+$$o$$$o       $$""$$$$$$$$$$$$$$$$$$$$$$$o  $$$ $$
+$$$o"$$o    "$""  "$""$$$$$$$$$$$$$$$$$$$oo$$$"$$$
+$$$$o"$$$o        "     $$$$$$$$$$$$$$$$$o$$"o$$$$
+$$$$$$o"$$$o         oo$$$$$$$$$$$$$$$$$$$$"o$$$$$
+$$$$$$$$o"$$$$ooooo$$$$$$$$$$$$$$$$$$$$$$"o$$$$$$$
+$$$$$$$$$$o""$$$$$$$$$$$$$$$$$$$$$$$$$"oo$$$$$$$$$
+$$$$$$$$$$$$$o$""$$$$$$$$$$$$$$$$$""oo$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$o$o$"$"$"$"$oo$o$$$$$$$$$$$$$$$$ 
+
+
+-->
+
+
+
+   <script type="text/javascript">
+  function myfunc(x) {    // this function is required for issue data to load on modal 
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+
+
+<script type="text/javascript">
+
+function quick_create_issue() {     //when user clicks on save button on quick create modal 
+
+
+//alert('sds');
+  
+  var status_uid =  $(".status_id").attr('id');  //not sure where is this status id div 
+  var title = $("#ha2").val();
+  var priority = $("#ha2_priority").val();
+  var issuetype = $("#ha2_issuetype").val();
+  var points = $("#ha2_points").val();
+ 
+
+     //alert('sdsdasdsds');
+  
+
+  
+ 
+
+  $.ajax({
+
+    type: "POST",
+    url: '/quick_create_issue/'+ status_uid+'/',
+    data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+     title: title,
+     priority: priority,
+     issuetype:issuetype,
+     points:points
+   },
+    success: function(response){
+
+     
+
+
+        //alert('success');
+
+        //alert(status_uid);
+
+       
+
+       bleh = "#"+status_uid+"_add";
+       
+              //width = $("#"+status_uid).parent().children().eq(3).outerWidth();// this is taking width of 1st issue. but what if that issue is not there initially. 
+
+              p = $("#"+status_uid).find(".number_of_issues_in_row").attr("id"); //gets the number o issues in row 
+              //alert('p is'+p);
+
+              //alert(status_uid);
+
+              width = $("#"+status_uid).outerWidth()/p-10;
+              //alert(width);
+
+//alert(response['p']);
+
+   var y =     "<div id="+response['p'][3]+" style=\"height:100px ; width:"+width+";  margin:0px; vertical-align:top; display:inline-block; margin-bottom:5px; margin-left:5px;  float:left; overflow-x:hidden;overflow-y: hidden; padding:7px; \" class=\"panel panel-default content \"> "
+
++
+
+"<span style='color:grey; font-size:95%'>"+response['p'][2]+"</span>"+
+
+"<div style='color:grey; font-size:95%' class=\"pull-right\">"+response['p'][1]+"</div>"
+
++
+
+"<a style=\"text-decoration: none;\" id=\"hocus{{i.uid}}\" onclick=\"myfunc($(this).attr('href'))\"  data-target=\"#myModal1\" data-toggle=\"modal\"  href=\"/show_view_issue_screen/{{project.uid}}/"+response['p'][3]+"/\"><p id=\"focus{{i.uid}}\" style=\" margin-top: 10px; color: #333333; height: 3em; font-size:105%; overflow:hidden;\">"+title+"</p></a> "
+
+" </div>" 
+
+;
+       
+
+
+       //alert(bleh);
+
+    
+       // $("<div style=\"float:left; height:100px; width:"+width+"; margin:0px; margin-left:5px; margin-bottom:5px; padding:7px;\" class='panel panel-default'><br> "+ response['p'][0]+title+ "</div>").insertAfter($("#"+status_uid+"_add"));
+
+         $(y).insertAfter($("#"+status_uid+"_add"));
+
+        //$("<div style=\"float:left; height:100px; width:"+width+"; margin:0;padding:7px;\" class='panel panel-default'> sdsdsd </div>").appendTo($("#"+status_uid+"_add").parent());
+ 
+
+     
+
+      $("#quick_create2").hide() ; 
+      //$('#beta').css({'overflow': 'scroll'});
+       $('#overlay').remove();
+      
+      
+
+
+      
+    }
+
+
+
+  })
+}
+
+
+
+
+  function quick_create() {   //this function is triggered when user clicks on add a issue button and it shows the quick issue create modal 
+
+   // alert('sd');
+
+
+
+  
+  
+  $("#ha2").val("");  //this clears the quick cretae modal so that previous entered details dont show up here 
+
+
+ setTimeout(function(){    
+    $('#ha2').focus();
+});
+
+
+
+
+
+$("#quick_create2").show();  //shows the hidden div 
+
+var left = event.pageX;   //gets the coordinates of click
+var top = event.pageY ;
+
+
+if (event.pageX > $(window).width()/2 ) {
+
+
+  left = event.pageX - 360;
+
+}
+
+if (event.pageY > $(window).height()/2) {
+
+  top = event.pageY - 200;
+
+}
+
+
+
+
+var div = $('#quick_create2').css({   //places quick create modal on coordinates smartly 
+        'left': left + 'px',
+        'top': top + 'px',
+        'visibility': 'visible',
+        'z-index' :'20000000',
+
+
+      })
+
+
+
+
+$(".status_id").attr("id",$(event.target).parent().children().first().attr('id')); //it stores the value of column in a div with class status id to use it in other function. 
+// event target is the add issue <a>...so it goes to to the parent which is the class block and then selects its first child which is the block panel to get the status id.  solid traversing 
+
+div.appendTo(document.body); 
+
+$('#beta').css({'overflow': 'hidden'});  //stops the background from scrolling 
+
+
+  var overlay = jQuery('<div id="overlay"> </div>'); //dark overlay
+$('#main').append(overlay);
+
+
+
+
+
+
+  }
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){    // on quick create modal save button should also work when user enters enter
+
+  $("#ha2").keyup(function(event) {
+
+    if (event.keyCode == 13) {
+    
+        $("#create_button").click();
+    }
+
+    });
+
+});
+</script>
+
+
+
+
+<!-- quick create modal -->
+
+<div style="visibility: hidden; position: fixed; padding: 10px; width: 450px; padding-top: 10" id="quick_create2" class="panel panel-default">
+
+<h4 > Create Issue </h4><br>
+        
+          <input id="ha2" type="text" class="form-control autofocus" name="title" placeholder="Add Title" autocomplete="off"> <br>
+
+
+<img src="https://i.imgur.com/m11xW89.png" width="30" style="opacity: 0.5; margin-right: 10"> Issue Type: 
+          <select id="ha2_issuetype">
+          {% for i in project.issuetypes.all %}
+            <option value="{{i.uid}}">{{i.title}}</option>
+            {% endfor %}
+          </select> <br><br>
+
+
+<img src="https://i.imgur.com/bQ556FL.png" width="30" style="opacity: 0.5; margin-right: 10"> 
+Priority : 
+          <select id ="ha2_priority">
+          {% for i in project.project_prioritys.all reversed %}
+            <option value="{{i.uid}}">{{i.title}}</option>
+            {% endfor %}
+          </select> <br><br>
+
+<img src="https://i.imgur.com/ZvnfNDW.png" width="30" style="opacity: 0.5; margin-right: 10"> 
+Points : 
+          <select id ="ha2_points">
+
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+   
+          </select> 
+       
+
+
+        <div id="" class="status_id" > </div><br>  <!-- this is the hidden div which stores the status uid as its id in quick create function to be used in quick create issue fuction later. basicvally is a global. could habe been done with window.variable name  -->
+
+
+<button id="create_button" style="background-color: #5892e6; border: none; color: white; width: 50%"  onclick="quick_create_issue()" class="btn btn-default"> Create </button>
+
+
+
+<button onclick=" $(this).parent().hide() ; $('#beta').css({'overflow': 'scroll'}); $('#overlay').remove();" class="btn btn-default"> Close </button>
+
+
+  
+</div>
+
+
+<!-- tool tip 
+
+{% if issues.count < 3 %}
+
+<div class="alert alert-info alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Tip</strong> Click anywhere on columns to Quick Create an Issue
+</div>
+
+{% endif %}
+-->
+
+<!-- quick create modal ends -->
+
+
+<!-- tool tip -->
+
+<!--
+
+               /                /|
+              /                / |
+             /________________/ /|
+          ###|      ____      |//|
+         #   |     /   /|     |/.|
+        #  __|___ /   /.|     |  |_______________
+       #  /      /   //||     |  /              /|                  ___
+      #  /      /___// ||     | /              / |                 / \ \
+      # /______/!   || ||_____|/              /  |                /   \ \
+      #| . . .  !   || ||                    /  _________________/     \ \
+      #|  . .   !   || //      ________     /  /\________________  {   /  }
+      /|   .    !   ||//~~~~~~/   0000/    /  / / ______________  {   /  /
+     / |        !   |'/      /9  0000/    /  / / /             / {   /  /
+    / #\________!___|/      /9  0000/    /  / / /_____________/___  /  /
+   / #     /_____\/        /9  0000/    /  / / /_  /\_____________\/  /
+  / #                      ``^^^^^^    /   \ \ . ./ / ____________   /
+ +=#==================================/     \ \ ./ / /.  .  .  \ /  /
+ |#                                   |      \ \/ / /___________/  /
+ #                                    |_______\__/________________/
+ |                                    |               |  |  / /       
+ |                                    |               |  | / /       
+ |                                    |       ________|  |/ /________       
+ |                                    |      /_______/    \_________/\       
+ |                                    |     /        /  /           \ )       
+ |                                    |    /OO^^^^^^/  / /^^^^^^^^^OO\)       
+ |                                    |            /  / /        
+ |                                    |           /  / /
+ |                                    |          /___\/
+ |hectoras                            |           oo
+ |____________________________________|
+
+-->
+
+<!-- actual board.................................................................... -->
+
+<div id="sortable_list_ids" style="display: none"></div>
+
+<div id="frame" class="container-fluid" style="overflow-x: scroll; height: 98%; white-space: nowrap; ">
+
+
+
+{% for c in project.columns.all|dictsort:"order" %}
+
+
+<span id="{{c.uid}}" onmouseover="window.sort=$(this).attr('id');">   <!-- mouseover is required to determine on which collumn is the ui.item on scroll . its saves it in a global variable window.sort-->
+
+
+
+{{c.layout|safe}}
+
+
+</span>
+
+{% endfor %}
+
+
+
+</div>
+
+<!-- actual board ends .................................................................... -->
+
+
+
+
+
+
+
+
+
+{% if open_issue_uid %}
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  $(document.body).css({"overflow-y":"hidden"})
+
+//$("#hocus{{open_issue_uid}}").click();
+/*
+setTimeout(
+  function() 
+  {
+    //do something special
+      $("#hocus{{open_issue_uid}}").trigger('click');
+ 
+  alert('go');
+  }, 5000);
+
+  i thnk this function was for modal perma link
+
+  */
+
+$('#myModal1').modal('show');
+ $("#hocus{{open_issue_uid}}").trigger('click');
+
+
+
+
+
+//hellothere
+
+});
+</script>
+
+{% endif %}
+
+{% endblock %}
+

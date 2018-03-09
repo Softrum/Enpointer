@@ -1,0 +1,45 @@
+{% extends 'project_base_normal.html' %}
+{% block content2 %}
+
+
+
+
+<div class="row">
+
+<div class=" panel panel-default col-md-2">
+<a style="font-weight:{{style}}" href="/project_settings_normal/general/{{project.uid}}">General</a><br>
+<a style="font-weight:{{style}}" href="/project_settings_normal/workflow/{{project.uid}}">Workflow</a><br>
+<a {{style}} href="/project_settings_normal/issuetype/{{project.uid}}/">Issue Type </a><br>
+<a {{style}} href="/project_settings_normal/screen/{{project.uid}}">Screen </a><br>
+<a {{style}} href="/project_settings_normal/columns_status/{{project.uid}}/">Columns and Status </a><br>
+<a {{style}} href="/project_settings_normal/components/{{project.uid}}">Components </a><br>
+<a {{style}} href="/project_settings_normal/priority/{{project.uid}}">Priority</a><br>
+<a {{style}} href="/project_settings_normal/field/{{project.uid}}">Custom Fields</a><br>
+<a {{style}} href="/project_settings_normal/permissions/{{project.uid}}">Permissions </a><br>
+
+<a {{style}} href="/project_settings_normal/swimlane/{{project.uid}}">Swimlane</a><br>
+</div>
+
+
+<div class="col-md-10">
+
+{% block content3 %}{% endblock content3 %}
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

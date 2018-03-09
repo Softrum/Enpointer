@@ -1,0 +1,531 @@
+{% extends 'base_modal.html' %}
+{% block content %}
+
+<div class="panel panel-default" style="background-color: white; padding: 10" >
+
+<h3> Create Issue</h3>
+
+
+</div>
+
+<div class="container-fluid" >
+
+
+
+<!--
+
+
+Actions : <a href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}">Edit</a> | Delete | 
+
+{% for t in transitions %}
+
+<a href="/issue/transition_issue_status2/{{t.end_status.uid}}/{{issue.uid}}/">{{t.title}}</a> | 
+
+{% endfor %}
+
+
+
+
+<a href="/issue/resolve/{{uid_project}}/{{issue.uid}}"> resolve </a>|
+
+<a href="/issue/delete/{{uid_project}}/{{issue.uid}}">delete</a>
+
+
+
+-->
+
+
+
+
+<form action="/save_create_issue_screen/{{project.uid}}/" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="form-group">
+          <input    class="form-control" name="title" placeholder="Title of Issue" autocomplete="off">
+        </div>
+
+<textarea class="input" id="summernote" name="description" >
+					</textarea>
+
+  
+
+<div class="panel panel-default" style="background-color: white; padding: 20; padding-left: 25; font-size: 110%" >
+
+
+<div class="row">
+
+<div class="col-md-6">
+
+
+           <div class="form-group"><img src="https://i.imgur.com/m11xW89.png" width="20" style="opacity: 0.5">
+           Issue Type :
+       <select name="issue_type"> 
+
+       {% for it in project.issuetypes.all %}
+
+       {% if issue_type.title == it.title %}
+
+       <option selected="selected" value="{{it.uid}}">{{it.title}}</option>
+
+       {% else %}
+
+       <option value="{{it.uid}}">{{it.title}}</option>
+
+       {% endif %}
+
+
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+
+
+{% if field_config.epic_visible == True %}
+              <div hidden class="form-group">Epic :
+       <select name="epic"> 
+
+        <option value=None>None</option>
+
+       {% for e in epics %}
+
+       <option value={{e.uid}}>{{e.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+  {% endif %}
+
+{% if field_config.label_visible == True %}
+<div hidden class="form-group">
+Labels : 
+
+<select name="labels" multiple> 
+
+{% for l in labels %}
+<option value={{l.uid}}>{{l.title}}</option>
+{% endfor %}
+
+</select>
+
+
+</div>
+
+{% endif %}
+
+{% if field_config.points_visible == True %}
+<div class="form-group">
+ <img src="https://i.imgur.com/ZvnfNDW.png" width="20" style="opacity: 0.5">
+Points : 
+          <select name="points"> 
+          	<option value='1'>1</option>
+          	<option value='2'>2</option>
+          	<option value='3'>3</option>
+          	<option value='5'>5</option>
+          	<option>8</option>
+          	<option>13</option>
+          	<option>20</option>
+          	<option>40</option>
+          	<option>100</option>
+          </select>
+        </div>
+{% endif %}
+
+
+
+<div class="form-group"><img src="https://i.imgur.com/7qswAHj.png" width="20" style="opacity: 0.5"> Add to :
+
+   <select name="add_to"> 
+
+
+   {% if active != 'board_menu' %}
+
+     <option selected value={{backlog.uid}}>Backlog</option>
+
+
+       {% for s in sprints %}
+
+
+      <option  value={{s.uid}}>{{s.title}}</option>
+
+        {% endfor %}
+
+   {% endif %}
+
+   
+
+
+{% if active == 'board_menu' %}
+
+  {% for s in sprints %}
+
+
+{% if current_sprint == s %}
+  <option selected  value={{s.uid}}>{{s.title}}</option>
+{% else %}
+
+  <option  value={{s.uid}}>{{s.title}}</option>
+
+  {% endif %}
+
+
+  {% endfor %}
+  <option  value={{backlog.uid}}>Backlog</option>
+
+ {% endif %}
+
+
+
+  </select>
+
+ </div>
+
+
+
+
+{% if field_config.priority_visible == True %}
+
+                   <div class="form-group">
+                   <img src="https://i.imgur.com/bQ556FL.png" width="22" style="opacity: 0.5"> Priority :
+       <select name="priority"> 
+
+      
+
+       {% for p in project.project_prioritys.all reversed %}
+
+       <option value={{p.uid}}>{{p.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+{% endif %}
+
+
+
+</div> <!-- col-md-6-->
+
+<div class="col-md-6">
+
+
+<p><img src="https://i.imgur.com/86tL3Pk.png" width="15" style="opacity: 0.5"> Add Attachment : </p>
+<input type="file" name="myfile">
+
+<br>
+
+
+
+  <div class="form-group"> <img src="https://i.imgur.com/fNqa8bo.png" width="20" style="opacity: 0.3"> Assigned User :
+
+  <select name="assigned_user"> 
+
+  <option value=None>None</option>
+
+  {% for u in users %}
+
+  <option value={{u.uid}}>{{u.user.username}}</option>
+
+  {% endfor %}
+
+  </select>
+
+
+  </div>
+
+
+{% if field_config.fix_version_visible == True %}
+
+              <div hidden class="form-group">Version :
+       <select name="version"> 
+
+        <option value=None>None</option>
+
+       {% for v in versions %}
+
+       <option value={{v.uid}}>{{v.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+{% endif %}
+
+
+
+
+
+          <div hidden class="form-group">
+          <input   type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+
+
+
+<!--two ways 
+
+          <div class="form-group">
+          <input {{a}} {{a}}  type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+        -->
+
+
+        <!--
+
+        for f in fields 
+
+        f.name f.type f.optioms if required 
+
+
+        endfor
+
+
+
+
+        -->
+ 
+
+
+
+
+
+
+
+
+
+<!-- custom field mechan  -->
+
+
+
+
+
+
+
+
+{% for cf in customfields %}
+
+
+
+{{cf.text}}
+
+
+{% if cf.field_type == 'text_field' %}
+
+
+
+        <div class="form-group">
+          <input   type="text" class="form-control" name={{cf.title}} placeholder="title">
+        </div>
+
+
+
+{% endif %}
+
+
+
+
+{% if cf.field_type == 'select'  %}
+
+
+
+<select name={{cf.title}}>
+
+
+{% for i in cf.options.all %}
+
+
+  <option value="{{i.value}}"> {{i.titile}}</option>
+
+{% endfor %}
+
+</select>
+
+
+{% endif %}
+
+
+
+
+
+{% if cf.field_type == 'select_multiple'  %}
+
+
+
+<select multiple name={{cf.title}}>
+
+
+{% for i in cf.options.all %}
+
+
+  <option value="{{i.value}}"> {{i.titile}}</option>
+
+{% endfor %}
+
+</select>
+
+
+{% endif %}
+
+
+
+
+
+{% if cf.field_type == 'checkbox'  %}
+
+
+
+
+  <input type=checkbox name={{cf.title}}> {{cf.titile}}</checkbox>
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+{% if cf.field_type == 'number' %}
+
+
+
+  <input type="number" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+{% if cf.field_type == 'date' %}
+
+
+
+  <input type="date" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+
+{% if cf.field_type == 'datetime' %}
+
+
+
+  <input type="datetime-local" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+
+
+
+
+{% if cf.field_type == 'time' %}
+
+
+
+  <input type="time" name="{{cf.title}}" >
+
+
+{% endif %}
+
+
+
+
+
+<hr>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+<!-- custom field ends --> 
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div> <!-- col-md-6-->
+
+</div><!-- rpw -->
+
+</div> <!-- for panel -->
+
+
+       <button style="background-color: #4694ec; color: white; width: 30%; margin-right: 30" onclick="" class="btn btn-bold btn-default btn-lg pull-right " type="submit"><b>Create</b></button><br><br><br>
+
+</form>
+
+
+
+<!--
+
+
+<form action="/comment/create/{{issue.uid}}/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="content" placeholder="Add a comment">
+        </div>
+
+ 
+
+
+       <button class="btn btn-bold btn-block btn-primary" type="submit">Add</button>
+
+</form>
+
+
+
+
+{% for c in comments %}
+
+{{c.content}} <br> posted by {{c.commentor}} at {{c.created.date}}<br><br>
+
+{% endfor %}
+
+
+
+-->
+
+
+</div>
+
+{% endblock %}

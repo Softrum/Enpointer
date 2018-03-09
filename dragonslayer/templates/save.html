@@ -1,0 +1,124 @@
+s{% extends 'project_base_scrum.html' %}
+
+{% block content2 %} <br>
+
+<h3>{{sprint.title}}</h3>
+
+
+
+<div style="padding-left: 10px;margin-left: 0px;" class=" connectedSortable2 container-fluid testimonial-group">
+
+<div class="row">
+
+
+
+{% for c in columns %}
+
+
+
+
+
+<div   class="panel panel-default  col-md-4">
+
+
+
+
+<h4>{{c.title}}</h4>
+
+<!-- new -->
+
+
+
+
+{% for s in c.status.all %}
+
+<div id={{s.uid}} class="connectedSortable">
+
+{% for i in issues %}
+
+{% if i.status == s %}
+
+
+
+<div id="{{i.uid}}" style="padding:5px; overflow:auto; white-space: normal;" class="panel panel-default card ">
+
+
+
+
+<a  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}">{% if i.resolved == True %} <strike style="font-weight: lighter;"> {% endif %}{{i.title}}{% if i.resolved == True %} </strike>  {% endif %}<br>
+{{i.issue_type.title}}     |     Priorirty : <a style="color:{{i.priority.color}};">{{i.priority.title}}</a>
+
+
+<!--
+<form action="/show_transition_screen/{{project.uid}}/{{i.uid}}/" method="post">
+      {% csrf_token %}
+
+
+<select name="status">
+{% for s in status %}
+	<option value={{s.uid}}>{{s.title}}</option>
+{% endfor %}
+</select>
+
+<button class="btn btn-bold  btn-primary" type="submit">Go</button>
+</form>
+-->
+</div>
+
+{% endif %}
+
+
+{% endfor %}
+
+
+</div>
+
+{% endfor %}
+
+
+
+
+ <!-- for col-md of columsn -->
+
+
+
+
+</div>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+</div> <!-- for div row of column section-->
+
+</div> <!-- for container -->
+
+
+<!--
+
+
+<ul id="sortable3" class="connectedSortable">
+  <li class="ui-state-default">Item 1</li>
+  <li class="ui-state-default">Item 2</li>
+  <li class="ui-state-default">Item 3</li>
+  <li class="ui-state-default">Item 4</li>
+  <li class="ui-state-default">Item 5</li>
+</ul>
+ 
+<ul id="sortable3" class="connectedSortable">
+  <li class="ui-state-highlight">Item 1</li>
+  <li class="ui-state-highlight">Item 2</li>
+  <li class="ui-state-highlight">Item 3</li>
+  <li class="ui-state-highlight">Item 4</li>
+  <li class="ui-state-highlight">Item 5</li>
+</ul> -->
+
+
+{% endblock %}

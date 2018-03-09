@@ -1,0 +1,51 @@
+{% extends 'project_base_scrum.html' %}
+{% block content2 %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#{{active2}}").css({"font-weight":"bold", "font-size":"110%"})
+});
+</script>
+
+
+<div class="row" style="margin-top: 0; padding-top: 0">
+
+<div class="  col-md-2 " style="font-size: 110%; height: 100%; margin-left: 10; margin-top: 0; " >
+<a id="general_settings" style="font-weight:{{style}}; color: grey" href="/project_settings/general/{{project.uid}}">General</a><br>
+     <!--   <a  style="height : 35px; margin-top: 10px; margin-right: 10px;" align="center" href="/edit_layout/{{project.uid}}">Edit Layout</a><br> -->
+
+<a id="workflow_settings" style="font-weight:{{style}}; color: grey" href="/project_settings/workflow/{{project.uid}}">Workflow</a><br>
+<!--<a id="issue_type_settings" {{style}} href="/project_settings/issuetype/{{project.uid}}/">Issue Type </a><br> -->
+<!--<a id="screen_settings" {{style}} href="/project_settings/screen/{{project.uid}}">Screen </a><br> -->
+<a id="columns_status_settings" {{style}} style="color: grey" href="/project_settings/columns_status/{{project.uid}}/">Columns and Status </a><br>
+<!--<a id="components_settings" {{style}} href="/project_settings/components/{{project.uid}}">Components </a><br> -->
+<!--<a id="priority_settings" {{style}} href="/project_settings/priority/{{project.uid}}">Priority</a><br> 
+<a id="custom_field_settings" {{style}} href="/project_settings/field/{{project.uid}}">Custom Fields</a><br>
+<a id="permission_settings" {{style}} href="/project_settings/permissions/{{project.uid}}">Permissions </a><br> -->
+
+
+</div>
+
+
+<div class="col-md-9 panel panel-default" style="padding: 20">
+
+{% block content3 %}{% endblock content3 %}
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

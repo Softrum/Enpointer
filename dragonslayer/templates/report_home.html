@@ -1,0 +1,200 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+
+
+
+<h4 style="margin-left: 100">Current Sprint :  {{sprint.title}}</h4>
+
+
+<div class="row" style="padding:0">
+
+
+
+<div class="col-md-1">
+</div>
+
+
+<div class="col-md-5 panel panel-default" style="margin-right: 20">
+
+<h4 style="text-align: center"> Issue-Status Distribution</h4><hr>
+
+<canvas id="myChart" ></canvas>
+
+<script>
+
+data = {
+    datasets: [{
+        data: {{statuss_count|safe}},
+        backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)', 
+                'rgba(169,195,74,1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)', 
+                'rgba(169,195,74,1)',
+
+            ]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: {{statuss|safe}},
+
+
+};
+
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx,{
+    type: 'pie',
+    data: data,
+
+
+
+});
+</script>
+
+<br>
+
+</div>
+
+
+
+
+<div class="col-md-5 panel-default panel"  >
+
+<h4 style="text-align: center"> Issue Type Distribution</h4><hr>
+
+<canvas id="myChart2" ></canvas>
+
+<script>
+
+data = {
+    datasets: [{
+        data: {{issuetypes_count|safe}},
+        backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)', 
+                'rgba(169,195,74,1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)', 
+                'rgba(169,195,74,1)',
+
+            ]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: {{issuetypes|safe}},
+
+
+};
+
+var ctx = document.getElementById("myChart2");
+var myChart2 = new Chart(ctx,{
+    type: 'pie',
+    data: data,
+
+
+
+});
+</script>
+
+<br>
+
+</div>
+
+</div>
+
+
+
+
+<div class="row">
+
+<div class="col-md-1">
+</div>
+
+<div class="col-md-5 panel panel-default" style="margin-right: 20">
+
+
+<h4 style="text-align: center"> Velocity Chart </h4><hr>
+<canvas style="width: 75%" id="myChart3" ></canvas>
+<script>
+var ctx = document.getElementById("myChart3").getContext('2d');
+var myChart3 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{labels |safe}},
+        datasets: [{
+            label: 'Sprint Velocity',
+            data: {{data|safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)', 
+                'rgba(169,195,74,1)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)', 
+                'rgba(169,195,74,1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+</div>
+
+
+<div class="col-md-5 panel-default panel">
+
+<h4 style="text-align: center;">Key Stats</h4>
+<hr>
+
+<p style="font-size: 120%">Total Issues in Project : {{project.issues.all.count}} </p>
+
+
+<p style="font-size: 120%">Total Issues in Current Sprint : {{total_issues}} </p>
+
+<p style="font-size: 120%">Total Sprints : {{sprints.count}} </p>
+
+
+<p style="font-size: 120%">Completed Sprints : {{completed_sprints}} </p>
+
+
+<p style="font-size: 120%">Upcoming Sprints : {{upcoming_sprints}} </p>
+<br>
+
+</div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,460 @@
+
+{% extends 'reports_base.html' %}
+
+{% block content3 %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3> Sprint Report </h3><br>
+
+Sprint : 
+
+<select>
+
+
+  {% for s in sprints %}
+
+
+
+  <option value="{{s.uid}}">{{s.title}}</option>
+
+{% endfor %}
+
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row charts">
+
+<div class="col-md-6 burndown">
+
+{{labels.count}}
+
+<canvas id="myChart2" ></canvas>
+
+
+
+<script>
+
+data = {
+    datasets: [{
+        data: {{data|safe}},
+
+        steppedLine: true,
+        fill: false,
+        backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+
+            ]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: {{labels|safe}},
+
+
+};
+
+var ctx = document.getElementById("myChart2");
+var myChart = new Chart(ctx,{
+    type: 'line',
+    data: data,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+
+});
+</script>
+
+
+
+
+</div> <!--burndown col-md -->
+
+
+<div class="col-md-6 pie">
+
+<canvas id="myChart" ></canvas>
+
+<script>
+
+data = {
+    datasets: [{
+        data: [{{issues_resolved.count}}, {{issues_progress.count}}, {{issues_open.count}}],
+        backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+
+            ]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+        'Resolved',
+        'In Progress',
+        'Open'
+    ],
+
+
+};
+
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx,{
+    type: 'pie',
+    data: data,
+
+
+
+});
+</script>
+
+
+
+</div> <!-- pie col-md -->
+
+
+
+
+</div> <!--row charts-->
+
+
+
+
+
+
+
+
+<br><br>
+
+
+
+
+
+
+ <h4>Issues Resolved : {{issues_resolved.count}} </h4>
+
+ {% for i in issues_resolved %}
+
+ 
+<div id="{{i.uid}}" style="padding:10px; overflow:auto; white-space: normal; " class="panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+    <div class="pull-right">
+
+{% if i.issue_id %}
+{{i.issue_id}}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+
+
+
+      </div>
+
+
+    <script type="text/javascript">
+    function myfunc(x) {
+
+
+   
+  
+  
+        $( "#modal-content" ).load(x);
+        
+        
+    }
+     </script>
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><h5>{{i.title}}</h5></a> 
+
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+
+     </div>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h4>Issues Open : {{issues_open.count}}</h4> 
+
+{% for i in issues_open %}
+
+ 
+<div id="{{i.uid}}" style="padding:10px; overflow:auto; white-space: normal; " class="panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+    <div class="pull-right">
+
+{% if i.issue_id %}
+{{i.issue_id}}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+
+
+
+      </div>
+
+
+    <script type="text/javascript">
+    function myfunc(x) {
+
+
+   
+  
+  
+        $( "#modal-content" ).load(x);
+        
+        
+    }
+     </script>
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><h5>{{i.title}}</h5></a> 
+
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+
+     </div>
+
+
+
+{% endfor %}
+
+<br>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Issues In Progress : {{issues_progress.count}} </h4>
+
+{% for i in issues_progress %}
+
+ 
+<div id="{{i.uid}}" style="padding:10px; overflow:auto; white-space: normal; " class="panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+    <div class="pull-right">
+
+{% if i.issue_id %}
+{{i.issue_id}}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+
+
+
+      </div>
+
+
+    <script type="text/javascript">
+    function myfunc(x) {
+
+
+   
+  
+  
+        $( "#modal-content" ).load(x);
+        
+        
+    }
+     </script>
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><h5>{{i.title}}</h5></a> 
+
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+
+     </div>
+
+{% endfor %}
+
+<br>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

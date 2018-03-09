@@ -1,0 +1,92 @@
+{% extends "project_settings_normal/project_settings_base.html" %}
+
+{% block content3 %}
+
+
+
+
+
+
+
+
+
+
+<!-- Modal for adding user -->
+<div id="screen" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Screen</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/create_screen/{{project.uid}}/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+
+      <button class="btn btn-bold btn-default" type="submit">Create </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% for s in screens %}
+
+<a href="/project_settings/screen_detail/{{project.uid}}{{s.uid}}/">{{s.title}}</a><br>
+
+{% endfor %}
+
+
+
+<a data-toggle="modal" data-target="#screen"> Add Screen </a>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,374 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+ 
+<!-- card.................................................................................-->
+<div id="icard">
+
+<div  id="{{i.uid}}" style="padding:10px;  z-index: 200000; width: 350px;  display: inline-block;margin-left: 5px; font-size: 95%; display: none;   "  class=" panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+
+ <div class="pull-right">
+
+{% if i.issue_id %}
+{% if i.resolved == True %} <strike class="x" > {% endif %}{{i.issue_id}} {% if i.resolved == True %} </strike>  {% endif %}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+</div>
+
+
+
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><p style="font-size: 120%; margin-top: 10px; color: #333333;height: 3em; overflow:hidden;">{{i.title}}</p></a> 
+
+
+     
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+
+
+
+     </div> <!-- card......................................................................................-->
+
+</div>
+
+
+
+   <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+
+
+<script type="text/javascript">
+
+function quick_create_issue() {
+
+  
+  var status_uid =  $(".status_id").attr('id');
+  var title = $("#ha2").val();
+  var priority = $("#ha2_priority").val();
+  var issuetype = $("#ha2_issuetype").val();
+ 
+
+ 
+  
+
+  
+ 
+
+  $.ajax({
+
+    type: "POST",
+    url: '/quick_create_issue/'+ status_uid+'/',
+    data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+     title: title,
+     priority: priority,
+     issuetype:issuetype
+   },
+    success: function(response){
+
+
+        
+ 
+
+      $('#'+status_uid + '.list-cards').prepend("<div id="+response+"   class=\"panel panel-default content list-card-details\" style=\"width:360px; height:100px;display:inline-block;\" >" + $('#ha2_issuetype').find(":selected").text()  +" |Priority : <span class=\"badge\"  style=\"background-color:grey;\">"+$('#ha2_priority').find(":selected").text() +"</span><br><br><div><a data-target=\"#myModal1\" onclick=\"myfunc($(this).attr('href'))\" data-toggle=\"modal\" href=\"/show_view_issue_screen/{{project.uid}}/"+response+"/\"  style=\"font-size: 120%; margin-top: 30px; color: #333333;height: 3em; overflow:hidden;\">"+title+"</a></div></div>" );
+
+      $("#quick_create2").hide() ; $('#beta').css({'overflow': 'scroll'}); $('#overlay').remove();
+      
+      
+
+
+      
+    }
+
+
+
+  })
+}
+
+
+
+
+  function quick_create() {
+
+
+
+    if ($(event.target).attr('class') != 'list-card-details panel panel-default content ui-sortable-handle' && $(event.target).attr('class') !=undefined) {
+  
+  $("#ha2").val("");
+
+
+ setTimeout(function(){
+    $('#ha2').focus();
+});
+
+
+
+
+
+$("#quick_create2").show();
+
+var left = event.pageX;
+var top = event.pageY ;
+
+
+if (event.pageX > $(window).width()/2 ) {
+
+
+  left = event.pageX - 360;
+
+}
+
+if (event.pageY > $(window).height()/2) {
+
+  top = event.pageY - 200;
+
+}
+
+
+
+
+var div = $('#quick_create2').css({
+        'left': left + 'px',
+        'top': top + 'px',
+        'visibility': 'visible',
+        'z-index' :'20000000',
+
+
+      })
+
+
+$(".status_id").attr("id",$(event.target).attr('id'));
+
+div.appendTo(document.body);
+
+$('#beta').css({'overflow': 'hidden'});
+
+
+  var overlay = jQuery('<div id="overlay"> </div>');
+$('#main').append(overlay);
+
+
+
+
+};
+
+  }
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $("#ha2").keyup(function(event) {
+
+    if (event.keyCode == 13) {
+    
+        $("#create_button").click();
+    }
+
+    });
+
+});
+</script>
+
+
+<div style="visibility: hidden; position: fixed; padding: 5px; width: 360px;" id="quick_create2" class="panel panel-default">
+
+<h3> Create Issue </h3>
+        
+          <input id="ha2" type="text" class="form-control autofocus" name="title" placeholder="Add Title" autocomplete="off"> <br>
+
+
+Issue Type: 
+          <select id="ha2_issuetype">
+          {% for i in project.issuetypes.all  %}
+            <option value="{{i.uid}}">{{i.title}}</option>
+            {% endfor %}
+          </select> <br><br>
+
+
+
+Priority : 
+          <select id ="ha2_priority">
+          {% for i in project.project_prioritys.all reversed  %}
+            <option value="{{i.uid}}">{{i.title}}</option>
+            {% endfor %}
+          </select> 
+       
+
+
+        <div id="" class="status_id" > </div><br>
+
+
+<button id="create_button"  onclick="quick_create_issue()" class="btn btn-default"> Create </button>
+
+
+
+<button onclick=" $(this).parent().hide() ; $('#beta').css({'overflow': 'scroll'}); $('#overlay').remove();" class="btn btn-default"> Close </button>
+
+
+  
+</div>
+
+{% if issues.count < 3 %}
+
+<div class="alert alert-info alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Tip</strong> Click anywhere on columns to Quick Create an Issue
+</div>
+
+{% endif %}
+
+
+
+
+
+<div id="daddy"  style="overflow-x: scroll; height: 95%; padding: 0px;" class="container-fluid  "  >
+
+
+
+
+
+<div  id="beta"  class="row connectedSortable" style="  overflow-x: scroll;
+  white-space: nowrap;margin: 0px;">
+
+
+
+
+{% for c in columns %}
+
+
+
+
+
+<div style="vertical-align: top; display: inline-block; margin-right: 20px; overflow-y: scroll;">
+
+
+<div class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" width="{{c.col_layout.w.all|first}}">{{c.title}} Column</div>
+
+<script type="text/javascript">
+
+
+  
+</script>
+
+<div onmouseover="hola(this)" id="{{c.uid}}"   class="panel-default panel conn lays connectedSortable "  style=" width:{{c.wid}};  background-image: url('{{c.bg_url}}' );  background-size: cover;  height: 92%; overflow-y: scroll; overflow-x: hidden;  ">
+
+
+
+
+
+
+
+{% include "layout_template.html" with layout=c.col_layout.all|first %}
+
+
+
+
+
+
+
+
+
+
+</div>. <!-- column panel -->
+
+
+</div><!-- new-->
+
+{% endfor %}
+
+
+
+
+
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+  $("#main").css("overflow-y", "hidden");
+</script>
+
+{% if open_issue_uid %}
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+//$("#hocus{{open_issue_uid}}").click();
+/*
+setTimeout(
+  function() 
+  {
+    //do something special
+      $("#hocus{{open_issue_uid}}").trigger('click');
+ 
+  alert('go');
+  }, 5000);
+
+  */
+
+$('#myModal1').modal('show');
+ $("#hocus{{open_issue_uid}}").trigger('click');
+
+
+
+
+
+//hellothere
+
+});
+</script>
+
+{% endif %}
+
+{% endblock %}
+

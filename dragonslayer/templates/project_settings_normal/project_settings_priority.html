@@ -1,0 +1,111 @@
+{% extends "project_settings_normal/project_settings_base.html" %}
+
+{% block content3 %}
+
+
+
+{% for p in prioritys %}
+
+{{p.title}}<br>
+
+
+{% endfor %}
+
+
+
+
+
+<!-- Modal for Priorty -->
+<div id="priority" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Priority </h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/create
+_priority/{{project.uid}}/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+      <button class="btn btn-bold btn-default" type="submit">create </button>
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+<a data-toggle="modal" data-target="#priority" >Create New Priority</a> <br>
+
+
+
+<!--
+
+create new status : 
+
+<form action="/status/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title">
+      <button class="btn btn-bold btn-block btn-primary" type="submit">create status </button>
+
+</form>
+
+{% for s in statuss %}
+{{s.title}}<br>
+
+{% endfor %}
+<hr>
+
+
+
+
+create new transition  : 
+
+
+
+<hr>
+
+
+
+{% for t in transitions %}
+
+{{t.title}}<br>
+
+{{t.start_status}}{{t.end_status}}<br><br>
+
+{% endfor %}
+
+
+-->
+{% endblock %}

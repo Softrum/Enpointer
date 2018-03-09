@@ -1,0 +1,306 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+
+
+
+<!-- Modal -->
+<div id="issuemodal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+{% if sprint == None %}
+
+<h4> No Active Sprint </h4>
+
+{% endif %}
+
+<div style="background-color: #f8f8f8; border: solid; border-width: 1px; border-color: lightgrey;margin-top: 0px;"  class="row">
+
+<div style="padding: 15px;" class="col-md-6">
+<b style="font-size: 125%;">{{sprint.title}}</b>
+</div>
+
+<div class="col-md-6">
+
+{% if sprint %}
+
+<a class="btn btn-default pull-right" style="margin:10px;"  href="/complete_sprint/{{sprint.uid}}/">Complete Sprint</a>
+
+
+{% endif %}
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="padding-left: 10px;margin-left: 0px; height: 80%" class=" connectedSortable2 container-fluid testimonial-group">
+
+<div class="row">
+
+
+
+{% for c in columns %}
+
+
+
+
+
+<div   class="panel panel-default  col-md-4" >
+
+
+
+
+<h4>{{c.title}}</h4>
+
+
+<!-- new -->
+
+
+
+
+{% for s in c.status.all %}
+
+<div id={{s.uid}} class="connectedSortable" >
+
+{% for i in issues %}
+
+{% if i.status == s %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="{{i.uid}}"  class="modal"  role="dialog">
+
+  <div class="modal-dialog modal-lg">
+
+    
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="{{i.uid}}" style="padding:10px; overflow:auto; white-space: normal; " class="panel panel-default content ">
+
+    {{i.issue_type.title}}     |    
+
+
+
+ Priorirty :
+
+  <span class="badge"  style="background-color:{{i.priority.color}};">{{i.priority.title}}</span>
+
+
+
+    <div class="pull-right">
+
+{% if i.issue_id %}
+{{i.issue_id}}
+{% endif %}
+
+    <span style="background-color: grey;" class="badge">{{i.fix_version.title}}</span>
+
+    <span class="label label-primary">{{i.epic.title}}</span>
+
+
+
+      </div>
+
+
+    <script type="text/javascript">
+	function myfunc(x) {
+
+
+   
+  
+  
+		$( "#modal-content" ).load(x);
+		
+		
+	}
+     </script>
+
+      <a id="hocus{{i.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/{{project.uid}}/{{i.uid}}/"><p style="font-size: 120%; margin-top: 10px; color: #333333;">{% if i.resolved == True %} <strike class="x" style="font-weight: lighter;"> {% endif %}{{i.title}}{% if i.resolved == True %} </strike>  {% endif %}</p></a> 
+
+
+     {% for l in i.label.all %}
+
+
+ <span class="label label-warning">{{l.title}}</span>
+
+   {% endfor %} 
+
+
+ <!--
+ <form action="/show_transition_screen/{{project.uid}}/{{i.uid}}/" method="post">
+      {% csrf_token %}
+
+
+ <select name="status">
+{% for s in status %}
+	<option value={{s.uid}}>{{s.title}}</option>
+ {% endfor %}
+ </select>
+
+   <button class="btn btn-bold  btn-primary" type="submit">Go</button>
+   </form>
+    -->
+     </div>
+
+   {% endif %}
+
+
+    {% endfor %}
+
+
+</div>
+
+{% endfor %}
+
+
+
+
+ <!-- for col-md of columsn -->
+
+
+
+
+</div>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+</div> <!-- for div row of column section-->
+
+</div> <!-- for container -->
+
+
+
+
+
+{% endblock %}

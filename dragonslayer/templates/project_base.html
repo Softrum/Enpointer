@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="row">
+
+<div class="col-md-1">
+
+<img src='https://i.imgur.com/sFnJRnw.png'>
+<a href="/project/read/{{project.uid}}"> Plan 2</a><br>
+<a href="/project/board/{{project.uid}}"> Board </a><br>
+<a href=""> Analytics </a><br>
+<a href=""> Releases </a><br>
+<a href="/project_settings/issuetype/{{project.uid}}/"> Settings </a><br>
+
+
+
+</div>
+
+<div class="col-md-2">
+
+
+
+<h5>Epics</h5>
+<a href="/project/board/{{project.uid}}"> Create Epic </a>
+
+
+<h5>Versions</h5>
+<a href="/project/board/{{project.uid}}"> Create Version </a>
+
+
+
+</div>
+
+
+
+<div class="col-md-8">
+
+{% block content2 %}{% endblock content2 %}
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

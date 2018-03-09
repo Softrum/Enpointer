@@ -1,0 +1,82 @@
+
+{% extends 'website/index_base.html' %}
+{% block content %}
+
+
+
+<div class="container">
+
+<h1> Secuirty </h1>
+
+<h3>Physical security</h3>
+
+<p>
+The Freshworks development center in Chennai is under 24x7 security protection, at both premises level and floor level to ensure only authorized individuals have access to the building and the Freshworks office. At the premises level, the building’s perimeter is secured by barriers and guards. At the floor level, security guards and smartcard readers are present to authorize individuals before entry. Employees are granted access to the office only after authorization using smart cards. Critical locations in the office are accessible only to authorized individuals.</p>
+
+<p>
+
+Important documents are stored in cabinets that can only be accessed by pre-authorized individuals. The office is equipped with surveillance cameras and their footage is monitored periodically by authorized individuals. Fire alarms and water sprinklers are in place to detect and mitigate damage in the unlikely event of a fire. Regular fire drills are also conducted by the premises management team to educate employees about emergency evacuation procedures. A policy has been implemented to approve and regulate visitor access to the building. The office is provided with 24x7 power supply, supported by an alternative uninterrupted power supply system to ensure smooth functioning in the event of power failure.
+
+</p>
+
+<p>
+
+Freshworks hosts its application and data in industry-leading Amazon Web Services, whose data centers have been thoroughly tested for security, availability and business continuity. For more details, please read the AWS Security Whitepaper.
+
+</p>
+
+
+
+<h3>Application security</h3>
+
+<p>
+All of Freshworks products are hosted in Amazon Web Services. The infrastructure for databases and application servers is managed and maintained by Amazon.
+</p>
+
+<p>
+
+At Freshworks, we take a multifaceted approach to application security, to ensure everything from engineering to deployment, including architecture and quality assurance processes complies with our highest standards of security.
+
+</p>
+
+
+
+<h3>Application Architecture</h3>
+<p>
+The application is initially protected by AWS’s firewall which is equipped to counter regular DDoS attacks and other network related intrusions. The second layer of protection is Freshworks own application firewall which monitors against offending IPs, users and spam. While the application can be accessed only by users with valid credentials, it should be noted that security in cloud-based products is a shared responsibility between the company and the businesses who own those accounts on the cloud. In addition to making it easy for administrators to enforce industry-standard password policies on users, our products also come with features aimed at securing business data on the cloud:
+</p>
+
+<p>
+
+Configuring secure socket connections to portals
+Leveraging SAML and custom single sign-on
+Whitelisting IPs for exclusive access
+Identity management via Google and Facebook credentials
+Custom email servers, etc.
+It should be noted that all account passwords that are stored in the application are one-way hashed and salted.
+
+</p>
+
+<p>
+
+Freshworks uses a multi-tenant data model to host all its applications. Each application is serviced from an individual virtual private cloud and each customer is uniquely identified by a tenant ID. The application is engineered and verified to ensure that it always fetches data only for the logged-in tenant. Per this design, no customer has access to another customer’s data. Access to the application by the Freshworks development team is also controlled, managed and audited. Access to the application and the infrastructure are logged for subsequent audits.
+
+</p>
+
+<p>
+
+
+The in-line email attachment URLs for the product are public by design, to enable us to embed links within the email for end-user ease. This can be made private on customer request.
+</p>
+
+
+<h3>Quality Assurance</h3>
+<p>
+Besides functional validation and verification, the quality assurance process at Freshworks also subjects application updates to a thorough security validation. The validation process is performed by a dedicated app security team with ethical hackers whose goal is to discover and demonstrate vulnerabilities in the application. An update to the application does not get the stamp of approval from the quality assurance team if vulnerabilities (that can compromise either the application or data) are identified
+</p>
+
+</div>
+
+<br><br>
+
+{% endblock %}

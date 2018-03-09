@@ -1,0 +1,514 @@
+{% extends 'project_settings_base.html' %}
+
+{% block content3 %}
+
+
+
+
+
+<!-- Modal for adding user -->
+<div id="user" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add User To Project</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/column/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+              <div class="form-group">Assign Role:
+       <select name="project_role"> 
+
+       {% for r in project.project_roles.all %}
+
+       <option value="{{it.uid}}">{{r.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+                   <div class="form-group">Assign Permissions:
+       <select  multiple name="permissions"> 
+
+       <option value="{{it.uid}}">can_write</option>
+       <option value="{{it.uid}}">can_read</option>
+
+
+       {% for p in project.permissions.all %}
+
+       <option value="{{it.uid}}">{{p.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+      <button class="btn btn-bold btn-default" type="submit">Add </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+<!-- Modal for creating group-->
+<div id="group" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Group</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/column/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+
+
+                   <div class="form-group">Add Users:
+       <select  multiple name="permissions"> 
+
+
+       {% for u in users %}
+
+       <option value="{{it.uid}}">{{u.user.username}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+
+
+
+
+              <div class="form-group">Assign Role:
+       <select name="project_role"> 
+
+       {% for r in project.project_roles.all %}
+
+       <option value="{{it.uid}}">{{r.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+                   <div class="form-group">Assign Permissions:
+       <select  multiple name="permissions"> 
+
+       <option value="{{it.uid}}">can_write</option>
+       <option value="{{it.uid}}">can_read</option>
+
+
+       {% for p in project.permissions.all %}
+
+       <option value="{{it.uid}}">{{p.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+      <button class="btn btn-bold btn-default" type="submit">Create </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+<!-- Modal for creating project role-->
+<div id="role" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Project Role</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/column/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+
+
+                   <div class="form-group">Assign Permissions:
+       <select  multiple name="permissions"> 
+
+       <option value="{{it.uid}}">can_write</option>
+       <option value="{{it.uid}}">can_read</option>
+
+
+       {% for p in project.permissions.all %}
+
+       <option value="{{it.uid}}">{{p.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+      <button class="btn btn-bold btn-default" type="submit">Create </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
+    <li><a data-toggle="tab" href="#menu2">Project Roles</a></li>
+    
+  </ul>
+
+  <div class="tab-content">
+
+
+<!-- users tab content -->
+
+    <div id="home" class="tab-pane fade in active">
+    <br>
+
+
+<!-- top heading row -->
+
+<div class="container">
+<div class="row">
+
+
+
+<div class="col-md-2">
+<b>Users</b>
+</div>
+
+<div class="col-md-2">
+<b>Project Role</b>
+</div>
+
+<div class="col-md-8">
+<b>Permissions</b>
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+<br>
+
+<!-- top heading row ends -->
+
+
+
+ 
+
+
+
+<div class="container">
+
+
+
+{% for u in users %}
+<div class="row">
+
+
+
+<div class="col-md-2">
+{{u.user.username}}
+</div>
+
+<div class="col-md-2">
+Project Role
+</div>
+
+<div class="col-md-8">
+{% for p in u.permissions.all %}
+
+{{p.title}},
+
+{% endfor %}
+
+</div>
+
+
+
+
+
+</div>
+
+<hr>
+
+{% endfor %}
+
+
+
+
+
+
+
+    </div>
+
+
+<a data-toggle="modal" data-target="#user" > Add User To Project </a>
+</div>
+
+<!-- users tab content ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- role tab content  -->
+
+    <div id="menu2" class="tab-pane fade">
+
+<br>
+
+
+<!-- top heading row -->
+
+<div class="container">
+<div class="row">
+
+
+
+
+
+<div class="col-md-2">
+<b>Project Role</b>
+</div>
+
+<div class="col-md-10">
+<b>Permissions</b>
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+<br>
+
+<!-- top heading row ends -->
+
+
+
+{% for r in project.project_roles.all %}
+
+<div class="row">
+
+<div class="col-md-2">
+{{r.title}}
+
+</div>
+
+<div class="col-md-10">
+{% for p in r.project_permissions.all %}
+
+{{p.title}}
+
+{% endfor %}
+
+</div>
+
+
+
+</div>
+<hr>
+
+{% endfor %}
+
+
+<a data-toggle="modal" data-target="#role"  > Create Project Role </a>
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

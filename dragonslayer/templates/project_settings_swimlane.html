@@ -1,0 +1,79 @@
+{% extends 'project_settings_base.html' %}
+{% block content3 %}
+
+
+
+<h4>Swimlane</h4>
+
+
+<!-- Modal for adding custom field  -->
+<div id="custom_field" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Swimlane</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/swimlane/create/{{project.uid}}/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+
+
+      <button class="btn btn-bold btn-default" type="submit">Create </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+{% for cf in custom_fields %}
+
+{{cf.title}}<br>
+
+
+
+{% endfor %}
+
+
+
+
+<a data-toggle="modal" data-target="#custom_field"> Add Swimlane </a>
+
+
+{% endblock %}

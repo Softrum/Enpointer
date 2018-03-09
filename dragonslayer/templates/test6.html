@@ -1,0 +1,430 @@
+{% extends 'base_edit_layout.html' %}
+
+{% block content %}
+
+<!-- dynamically create layout using jquery -->
+
+<div id="head2" class="head2" style="display: inline-block;"> </div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  
+  $("#add_column").click();
+
+
+  });
+
+</script>
+
+
+
+<script type="text/javascript">
+
+
+  
+  function delete_layout() {
+    $(this).parent().hide()
+  }
+
+
+function add(a) {
+
+  if (a.parent().siblings().hasClass("listwrapper")) {
+
+    var x = $("#new_block").clone();
+    x.css({"display":"block"});
+
+
+    var y = $("#new_block").clone();
+    y.css({"display":"block"});
+
+    a.parent().siblings(".listwrapper").first().replaceWith(x);
+    y.insertAfter(x);
+
+
+
+  }
+
+  else {
+
+  
+
+    var x = a.parent().parent();
+    x.css({"display":"block"});
+
+    var y = $("#new_block").clone();
+    y.css({"display":"block"});
+
+    var z = $("#new_block").clone();
+    z.css({"display":"inline-block"});
+
+    a.parent().parent().replaceWith(z);
+
+    z.children(".listwrapper").replaceWith(x);
+    
+
+  
+
+ 
+    y.insertAfter(x);
+    
+
+  }
+
+
+
+}
+
+function add2(a) {
+
+
+
+
+   var k =  $("#new_block").clone()
+   
+   k.css({"display":"block"});
+
+
+
+
+z = k.clone().append(k);
+
+p = $("#head2").clone();
+p.append(z);
+
+z.css({"display":"inline-block"});
+
+
+
+alert(p.html());
+
+
+if (a.parent().siblings().hasClass("listwrapper")) {
+ var y =  a.parent().siblings(".listwrapper").first().replaceWith(p); 
+
+ alert($(".head3:visible").html());
+ console.log($(".head3:visible").html());
+ 
+}
+
+else {
+
+
+
+u = a.parent().siblings('.head:first');
+ var p = $("#head2").clone();
+ p.append(k);
+p.css({"display":"block"});
+
+
+  p.insertAfter(a.parent().siblings('.head2:first'));
+  
+  alert($(".head3:visible").html());
+ console.log($(".head3:visible").html());
+}
+
+ 
+
+
+
+  
+  
+}
+
+
+function add_v(a){
+
+  if (a.parent().siblings().hasClass("listwrapper")) {
+
+
+
+    var x = $("#new_block").clone();
+    x.css({"display":"inline-block"});
+
+
+    var y = $("#new_block").clone();
+    y.css({"display":"inline-block"});
+
+    a.parent().siblings(".listwrapper").first().replaceWith(x);
+    y.insertAfter(x);
+   
+
+
+
+
+
+
+
+
+  }
+
+  else {
+
+    var x = a.parent().parent();
+    x.css({"display":"inline-block"});
+
+    var y = $("#new_block").clone();
+    y.css({"display":"inline-block"});
+
+    var z = $("#new_block").clone();
+    z.css({"display":"inline-block"});
+
+    a.parent().parent().replaceWith(z);
+
+    z.children(".listwrapper").replaceWith(x);
+    
+
+  
+
+ 
+    y.insertAfter(x);
+
+  }
+
+}
+
+
+function add_v2(a) {
+
+
+
+
+   var k =  $("#new_block").clone()
+   
+  k =  k.css({"display":"inline-block"});
+
+     var x =  $("#new_block").clone();
+   
+  x =  x.css({"display":"inline-block"});
+
+
+
+
+
+
+
+
+
+
+p = $("#head2").clone();
+p.append(k);
+p.append(x);
+
+
+
+
+ 
+
+
+ 
+
+ // this is a check if the block is the last entity or on a higher level 
+
+if (a.parent().siblings().hasClass("listwrapper")) {     
+ var y =  a.parent().siblings(".listwrapper").first().replaceWith(p); 
+
+ 
+ $("#new_column").unwrap();
+  
+}
+
+else {
+u = a.parent().parent().attr('class');
+
+p = $("#head2").clone();
+p.append(k);
+
+
+
+
+
+
+ var t =  p.insertBefore(a.parents('.head2:first'));
+ var i = $("#head2").clone();
+ t.wrap(i);
+
+
+
+ $("#new_column").unwrap();
+
+
+}
+
+
+
+  
+}
+
+ 
+</script>
+
+
+
+
+
+<!-- script for adding column -->
+
+
+<script type="text/javascript">
+  function add_column(){
+
+
+    
+
+   var k =  $("#new_column").clone().insertBefore("#add_column");
+
+ 
+
+
+
+   var l = $("#new_block").clone().appendTo(k);
+
+
+ 
+   
+   k.css({"display":"inline-block"});
+   l.css({"display":"inline-block"});
+
+  
+
+   
+  
+
+
+
+  }
+</script>
+
+<!-- script for adding column ends -->
+
+
+
+
+
+
+
+<!-- hideen elements begins  -->
+
+
+
+<div class="head3" id="new_column"  style=" vertical-align: top; display: inline-block; margin-right: 20px; display: none; height: 92%">
+
+
+<div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >New Column</div>
+
+
+
+
+
+</div> <!-- for new_column div -->
+
+
+
+
+
+
+
+
+
+<div class="head" id="new_block"  style=" vertical-align: top;   display: none; border-style: dotted; box-sizing: border-box; ">
+
+
+
+
+<div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >Heading
+
+
+ <a onclick="add($(this))" >h</a> 
+
+
+<a onclick="add_v($(this))" >v</a> 
+
+
+<a onclick="$(this).closest('.head').hide();" style="margin-right: 0px;">d </a>
+
+</div>
+
+
+
+
+
+
+
+<div id={{layout.status.uid}}  onclick=" quick_create()" style="background-color: rgba(227,228,230, 0.5); border-style: solid; min-width: 360px; width: 100%;margin: 0px; box-sizing: border-box; "    class=" listwrapper    {{layout.status.uid}}  " >
+
+<!--style="background-color: #E2E4E6;"--> 
+<div style="width: 100%; "  class="listcontent   connectedSortable   ">
+
+
+
+<div id={{layout.status.uid}} style="width: 100%;"  class="list-cards connectedSortable   " >
+
+
+
+
+
+</div> <!-- list cards -->
+
+
+
+</div> <!-- listcontent -->
+
+
+
+
+</div> <!-- listwrapper-->
+
+
+
+</div> <!-- for new_block -->
+
+
+
+
+
+<!-- hideen elements ends  -->
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="daddy"  style="overflow-x: scroll;  height: 95%; padding: 0px;" class="container-fluid  "  >
+
+
+
+
+
+<div  id="beta"  class="row connectedSortable" style="  overflow-x: scroll;
+  white-space: nowrap;margin: 0px; ">
+
+
+
+
+
+
+
+
+<div id="add_column" onclick="add_column()" style="vertical-align: top; display: inline-block; margin-right: 20px;overflow-y: scroll;">
+<b>Add a column</b>
+</div>
+
+
+
+</div>. <!-- beta -->
+
+</div> <!-- daddy -->
+
+<script type="text/javascript">
+  $("#main").css("overflow-y", "hidden");
+</script>
+
+{% endblock %}
+

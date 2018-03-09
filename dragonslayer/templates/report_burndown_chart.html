@@ -1,0 +1,107 @@
+
+{% extends 'reports_base.html' %}
+
+{% block content3 %}
+
+
+
+
+
+<h3> Burnout Chart </h3><br>
+
+Sprint : 
+
+<select>
+
+
+  {% for s in sprints %}
+
+
+
+  <option value="{{s.uid}}">{{s.title}}</option>
+
+{% endfor %}
+
+</select>
+
+
+
+<canvas id="myChart2" ></canvas>
+
+
+
+<script>
+
+data = {
+    datasets: [{
+        data: {{data|safe}},
+
+        steppedLine: true,
+        fill: false,
+        backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+
+            ]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: {{labels|safe}},
+
+
+};
+
+var ctx = document.getElementById("myChart2");
+var myChart = new Chart(ctx,{
+    type: 'line',
+    data: data,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+
+});
+</script>
+<!--
+<h4>Issues Resolved Today : {{issues_resolved_today.count}}</h4> <br>
+
+{% for i in issues_resolved_today %}
+
+{{i.title}} <br>
+
+{% endfor %}
+<hr>
+
+
+<h4>New Issues Added Today : {{ issues_added_today.count }}</h4><br>
+{% for i in issues_added_today %}
+
+{{i.title}} <br>
+
+{% endfor %}
+
+<hr>
+
+<h4>Total Issues Resolved : {{total_issues_resolved.count}}</h4><hr>
+
+<h4>Total Open Issues : {{total_open_issues.count}}</h4>
+
+
+-->
+
+
+
+
+
+</div>
+
+
+
+</div>
+{% endblock %}

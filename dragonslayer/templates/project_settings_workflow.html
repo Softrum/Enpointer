@@ -1,0 +1,273 @@
+{% extends 'project_settings_base.html' %}
+{% block content3 %}
+
+<div class="container" style="">
+
+
+{% for w in workflows %}
+
+
+ <h4>Workflow : {{w.title}}</h4><br>
+
+ <a data-toggle="modal" class="btn btn-default" data-target="#{{w.uid}}"> Create New Transition </a><br>
+
+<br>
+
+
+
+<div class="row"> 
+
+<div class="col-md-3">
+
+
+<b>Transition Title</b>
+</div>
+
+<div class="col-md-3">
+<b>Start Status</b>
+</div>
+
+<div class="col-md-3">
+<b>End Status</b>
+</div>
+
+
+
+
+
+</div>
+<hr>
+
+
+{% for t in w.transitions.all %}
+<div class="row"> 
+
+<div class="col-md-3">
+
+
+{{t.title}} 
+</div>
+
+<div class="col-md-3">
+{{t.start_status.title}}
+</div>
+
+<div class="col-md-3">
+ {{t.end_status.title}}
+</div>
+
+
+<div class="col-md-3">
+<a href="/transition/delete/{{project.uid}}/{{t.uid}}/">Delete</a>
+</div>
+
+
+
+
+
+</div>
+<hr>
+
+{% endfor %}
+
+
+<!--
+
+
+Issue types :
+{% for it in w.workflow_issuetypes.all %}
+
+{{it.title}}|
+
+{% endfor %}
+
+<br>
+
+
+
+-->
+
+
+
+
+<!-- Modal for transition  -->
+<div id="{{w.uid}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Transition</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+<form action="/transition/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"> <br>
+
+
+        <input hidden  type="text"  name="workflow" value={{w.uid}} readonly> <br>
+     
+
+     Start Status : 
+     <select name="start_status"> 
+{% for s in statuss %} 
+<option  value="{{s.uid}}">{{s.title}} </option>
+{% endfor %}
+     </select>
+
+
+ End Status :
+          <select name="end_status"> 
+{% for s in statuss %}
+<option  value="{{s.uid}}"> {{s.title}}</option>
+{% endfor %}
+     </select><br><br>
+
+      <button class="btn btn-bold btn-default" type="submit">create transition </button>
+
+</form>
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endfor %}
+
+
+
+<!-- Modal for workflow  -->
+<div id="workflow" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Wrofklow </h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/create
+_workflow/{{project.uid}}/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+     <input   type="text" class="form-control" name="description" placeholder="description"><br>
+     <input hidden=""   type="text"  name="project" value={{project.uid}} placeholder=""><br>
+      <button class="btn btn-bold btn-default" type="submit">create </button>
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+<!--
+
+<a data-toggle="modal" class="btn btn-default" data-target="#workflow" >Create New Workflow </a> <br> -->
+
+<br><br>
+
+<!--
+
+create new status : 
+
+<form action="/status/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title">
+      <button class="btn btn-bold btn-block btn-primary" type="submit">create status </button>
+
+</form>
+
+{% for s in statuss %}
+{{s.title}}<br>
+
+{% endfor %}
+<hr>
+
+
+
+
+create new transition  : 
+
+
+
+<hr>
+
+
+
+{% for t in transitions %}
+
+{{t.title}}<br>
+
+{{t.start_status}}{{t.end_status}}<br><br>
+
+{% endfor %}
+
+
+-->
+</div>
+{% endblock %}

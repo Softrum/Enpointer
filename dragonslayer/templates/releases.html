@@ -1,0 +1,107 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %} 
+
+<h4> Releases </h4><br>
+
+<div class = "row">
+
+<div class="col-md-2">
+<b>Version </b>
+</div>
+
+
+<div class="col-md-2">
+<b> Description </b>
+</div>
+
+
+<div class="col-md-2">
+<b> Resolved Issues </b>
+</div>
+
+<div class="col-md-2">
+<b> Remaining Issues </b>
+</div>
+
+<div class="col-md-2">
+<b> Release Date </b>
+</div>
+
+
+<div class="col-md-2">
+<b> Status </b>
+</div>
+
+<br>
+<hr>
+
+
+</div>
+
+{% for r in releases %}
+
+
+
+<div class = "row">
+
+<div class="col-md-2">
+<a href="/release_detail/{{r.uid}}/">{{r.title}}</a>
+</div>
+
+
+<div class="col-md-2">
+{{r.description}}
+</div>
+
+<div class="col-md-2">
+
+
+
+
+{% for mykey,myvalue in x.items %}
+
+{% if mykey == r.title %}
+
+    {{ myvalue }}
+
+ {% endif %}
+
+{% endfor %}
+</div>
+
+
+<div class="col-md-2">
+
+{% for mykey,myvalue in y.items %}
+
+{% if mykey == r.title %}
+
+    {{ myvalue }}
+
+ {% endif %}
+
+{% endfor %}
+</div>
+
+<div class="col-md-2">
+{{r.release_date}}
+</div>
+
+<div class="col-md-2">
+{{r.released}}
+</div>
+
+
+
+
+
+</div>
+
+<hr>
+
+{% endfor %}
+
+<a data-toggle="modal" data-target="#myModal2"> Create Release Version </a>
+
+{% endblock %}

@@ -1,0 +1,1427 @@
+<html>
+<head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112548991-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-112548991-1');
+</script>
+
+
+
+
+    <title>Enpointer</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link rel="shortcut icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2014-11-26/3ab75b6cee1a1d20d4a079891bcbe2d2.ico" type="image/x-icon">
+<link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2014-11-26/3ab75b6cee1a1d20d4a079891bcbe2d2.ico" type="image/x-icon">
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"></link>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+
+
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  setInterval(function(){ $("#message").slideUp(1000, function() {
+   $('#message').hide();
+   $('.messages').hide();
+
+ }); }, 2000);
+  
+
+  });
+</script>
+
+<script type="text/javascript">
+$(document).on('shown.bs.modal','#myModal1', function () {
+  var overlay = jQuery('<div id="overlay"> </div>');
+$('#main').append(overlay)
+})
+
+$(document).on('hidden.bs.modal','#myModal1', function () {
+
+$('#overlay').remove();
+})
+
+$("#sortable").sortable({revert: 1000});
+</script>
+
+<style>
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.btn.btn-square {
+  border-radius: 0;
+
+}
+
+  .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*Specific Cases*/
+
+
+
+.testclass {
+  height: 80px;
+  width : 350px; 
+}
+
+
+
+#myModal1 {
+
+  z-index: 100000;
+
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 10000;
+}
+
+  .strike {
+    text-decoration: line-through;
+}
+
+
+.modal-backdrop {
+
+background-color: rgba(0,0,0,.0001) !important;
+}
+
+.scrolly {
+
+overflow: auto !important;
+overflow-y: hidden !important;
+}
+
+
+.list-card-details {
+      overflow: hidden;
+    padding: 6px 6px 2px 8px;
+    position: relative;
+    /*z-index: 2000; */
+}
+
+
+.list-cards {
+
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+    
+    
+    margin: 0 4px;
+    padding: 0 4px;
+    z-index: 100;
+    min-height: 0;
+    margin-bottom: 0px;
+
+}
+
+.listwrapper {
+   
+   min-width: 360px;
+   width: 100%;
+
+    
+    margin: 0 5px;
+    margin-top: 5px;
+    min-height: 35%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    margin-bottom: 0px;
+
+
+}
+
+.x {
+
+  display: inline-block;
+  float: none;
+ 
+  vertical-align: top;
+   
+} /* for board elements */
+
+.listcontent {
+
+     
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal;
+    margin-bottom: 0px;
+
+  
+}
+
+.testimonial-group {
+  overflow-x: auto;
+  white-space: nowrap;
+  height:85%;
+  
+}
+.testimonial-group > .row > .col-md-4 {
+  display: inline-block;
+  float: none;
+  vertical-align:top;
+  margin:5px;
+  
+}
+
+
+.connectedSortable {
+
+	min-height: 20px;
+}
+
+
+.connectedSortable2, .connectedSortable3 {
+
+	min-height: 20px;
+}
+
+
+/*Specific Cases*/
+
+.btn.btn-custom-lg,
+.btn.btn-custom-sm,
+.btn.btn-custom-xs {
+  border-radius: 0 !important;
+  background-color: red !important;
+}
+/*Global*/
+
+.btn {
+  border-radius: 2px  !important;
+}
+
+
+</style>
+
+
+
+
+
+<!-- stuff for drag and drop in board 
+
+              over: function (event, ui) {
+  $(ui.sender).sortable('instance').scrollParent = $(e.target)
+}, -->
+
+
+<script>
+
+function handler( event ) {
+
+  var target = $( event.target );
+  k= target.offset();
+  alert(k.left);
+
+
+  }
+
+
+
+</script>
+
+
+
+
+
+
+<!-- search function -->
+
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+
+    $("#search_input").on("keyup", function() {
+
+   var value = $(this).val();
+   if (value == "") {
+
+    $("#test").html("");
+    $("#test").removeAttr("style");
+
+
+   }
+
+
+   if (value != "") {
+
+   
+
+   
+
+   $.ajax({
+
+    url: '/search/' + value,
+    success:  function(response){
+      var r = response["results"];
+
+
+      $("#test").html("");
+
+
+   
+
+
+
+      $("#test").css({"padding":"5px", "background-color": "#f6f6f6", 'margin': "5px" })
+
+
+
+
+      $("#test").append("Search for <b>" + value+ "</b> (" +r.length+ " results): <br><br>");
+
+
+
+
+
+
+
+      for (i=0; i< 5; i++ ) {
+
+        
+
+          var link = "  <a  id=\"hocus"+r[i]+"\" onclick=\"myfunc($(this).attr('href'))\"  data-target=\"#myModal1\" data-toggle=\"modal\"  href=\"/show_view_issue_screen/100/"+r[i].uid+"/\"><span id=\"focus"+r[i].uid+"\" >"+r[i].title+"</span></a><br> "
+
+
+        //$("#test").append("<div>" +r[i].issue_id+" " +r[i].title+ "</div>");
+
+        $("#test").append(r[i].issue_id+" "+link);
+
+       
+
+      }
+
+      
+
+
+    }
+
+   }); 
+
+     }
+
+
+});
+
+
+  });
+</script>
+
+
+  <script>
+
+  var on =0;
+
+
+  function hola(k) {
+
+ if (on==1) {
+  
+    if (y>500) {
+     
+        $("#"+k.attr("id")).animate({
+        'scrollTop' : '+=30px'}, 20
+    );
+
+
+    }
+
+
+
+  }
+
+
+}
+
+/*
+
+         $(function() {
+            $({{x|safe}}).sortable({
+              connectWith: ".connectedSortable",
+
+
+               items: ".content",
+               scroll: true,
+               placeholder: "ui-state-highlight",
+               helper: 'clone',
+              appendTo: 'body',
+               
+            
+
+
+sort: function( event, ui ) {
+
+     
+
+
+
+
+var x = ui.offset.left;
+var y = ui.offset.top;
+
+
+
+
+if (x>1000) {
+
+
+
+
+   $("#beta").animate({
+        'scrollLeft' : '+=30px'}, 20
+    );
+
+$( this ).sortable( "instance" ).refreshPositions();
+   
+
+
+
+
+
+
+
+
+};
+
+
+
+if (x<150) {
+
+
+   $("#beta").animate({
+        'scrollLeft' : '-=30px'}, 10
+    );
+   $( this ).sortable( "instance" ).refreshPositions();
+
+
+
+
+};
+
+
+if (y>500) {
+
+  var p = $(event.target).closest(".lays").attr('id');
+ 
+
+
+
+};
+
+
+
+
+
+
+ 
+
+},
+
+*/ // needs to be opened
+  
+
+/*
+
+        out: function(e, ui){
+
+          if ( ($(ui.item).parent().scrollTop() == 0) || ($(ui.item).parent().scrollHeight - $(ui.item).parent().scrollTop() <= $(ui.item).parent().innerHeight() ))
+          {
+
+            $(ui.sender).sortable('instance').scrollParent = $(e.target).closest(".lays");
+
+           
+          }
+          else {
+
+            $(ui.sender).sortable('instance').scrollParent = $(e.target);
+
+
+            
+
+
+          }
+          
+
+
+           
+           
+        },
+
+
+
+         
+        
+
+ */
+
+      
+
+/*
+     
+
+     out: function(e, ui){
+
+  
+
+
+     
+
+            $(ui.sender).sortable('instance').scrollParent = $(e.target).closest(".lays");
+
+           
+        
+          
+
+
+           
+           
+        },
+       
+
+/*
+
+              
+               update: function(event, ui) {
+                  var productOrder = $(this).sortable('toArray').toString();
+                  
+                  
+           
+                  
+
+
+
+
+
+ 
+
+               },
+
+               */
+
+               /*
+
+
+
+               start: function( event, ui) {
+                 window.sort = 1;
+                 on = 1;
+
+
+                
+
+         
+
+               },
+
+
+               stop: function( event, ui) {
+
+                window.sort = 0;
+                on = 0
+
+               },
+
+
+    update: function( event, ui) {
+
+
+      
+      var sender_list = $(ui.sender).attr('id');
+
+      if (sender_list == undefined) {
+        var id = $(this).attr('id');
+
+        var sortedIDs = $(this).sortable( "toArray" ).toString();
+        //alert('order list: '+ id + 'with issue order:' +sortedIDs);
+
+      }
+
+      
+
+
+
+
+
+               },
+
+       
+
+               receive: function(event, ui) {
+
+
+
+
+                  
+                   
+                   var x = String($(ui.item).attr('id'));
+                   var y = String(this.id);
+
+
+              var sortedIDs = $(this).sortable( "toArray" ).toString();
+              //alert('order list' +y+ 'with issues: ' + sortedIDs);
+              $.ajax({
+                type:"POST",
+                url: "/save_list_order/"+y+"/"+sortedIDs+"/",
+                success: function(response){alert('hi')}
+              })
+
+
+
+
+
+$.ajax({
+     type: "POST",
+     data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+     url: '/check_transition_screen/{{project.uid}}/'+ x + '/' + y + '/',
+     success: function(response){
+
+         
+
+         if (response == 'No Screen') {
+         	var url = '/transition_issue_status/{{project.uid}}/'+ x + '/' + y + '/';
+         	
+
+         	     	$.ajax({url: url, success: function(result){
+        
+    }});
+         	
+
+         }
+
+         else {
+
+         	var url = '/show_transition_screen/{{project.uid}}/'+ x + '/' + y + '/'
+
+         	window.location.replace(url);
+
+         }
+
+
+     }
+});
+
+
+
+
+
+               },
+
+
+            }).disableSelection();
+         });
+*/ 
+
+
+
+
+      </script>
+
+
+<style>
+.ui-state-highlight {
+  height: 80px;
+  width : 100%;
+  display: inline-block;
+   
+}
+
+
+
+</style>
+
+
+
+
+<!-- for plnanning -->
+
+  <script> 
+
+         $(function() {
+            $({{y|safe}}).sortable({
+              connectWith: ".connectedSortable2",
+
+               
+               items: ".content",
+               scroll: true,
+               placeholder: "ui-state-highlight",
+               scrollSpeed: 40,
+               scrollSensitivity: 10,
+
+
+
+        
+
+
+sort: function( event, ui ) {
+
+     
+
+
+
+var x = ui.offset.left;
+var y = ui.offset.top;
+
+
+
+
+if (x>500 && y> 550) {
+
+
+
+
+
+
+  $("#ba").animate({
+        'scrollTop' : '+=15px'}, 10
+    );
+
+
+
+$( this ).sortable( "instance" ).refreshPositions();
+   
+
+
+
+
+
+
+
+
+};
+
+
+
+if  (x>500 && y< 200) {
+
+
+
+   $("#ba").animate({
+        'scrollTop' : '-=15px'}, 10
+    );
+   $( this ).sortable( "instance" ).refreshPositions();
+
+
+
+
+};
+
+
+
+
+
+
+ 
+
+},
+ 
+
+             /* 
+               update: function(event, ui) {
+                  var productOrder = $(this).sortable('toArray').toString();
+                  
+                  
+                  
+           
+                  
+
+
+
+
+
+ 
+
+               }, */
+
+
+
+
+
+
+
+
+
+
+               receive: function(event, ui) {
+                  
+                   
+                   var x = String($(ui.item).attr('id'));
+                   var y = String(this.id);
+
+
+
+
+
+
+$.ajax({
+     type: "POST",
+     data : {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+     url: '/transition_issue_plan/{{project.uid}}/'+ x + '/' + y + '/',
+     success: function(response){
+
+         
+
+         	var url = '/transition_issue_plan/{{project.uid}}/'+ x + '/' + y + '/';
+         	
+
+         	$.ajax({url: url, success: function(result){
+        
+    }});
+         	
+
+   
+
+
+
+
+     }
+});
+
+
+
+
+
+               },
+
+
+            });
+         });
+
+
+
+
+
+      </script>
+
+
+<style>
+
+
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  $(document).keyup(function(event) {
+
+    if (event.keyCode == 83 && event.ctrlKey) {
+    
+        $("#search_input").focus();
+    }
+
+    });
+
+
+    $(document).keyup(function(event) {
+
+    if (event.keyCode == 81 && event.ctrlKey) {
+    
+        $("#filter_input").focus();
+    }
+
+    });
+
+
+      $(document).keyup(function(event) {
+
+    if (event.keyCode == 70 && event.ctrlKey) {
+    
+        $("#filter").click();
+    }
+
+    });
+
+});
+  
+</script>
+
+
+</head>
+
+
+<body id="main" class="container-fluid"  style=" padding-right: 0px; padding-left: 0px; background-color: #f1f1f1;
+ " >
+
+ 
+
+
+
+
+
+    <!-- Event Modal -->
+<div id="myModal1" class="modal">
+    <div class="modal-dialog modal-lg" data-keyboard="false">
+        <div id="modal-content" class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Event</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Loading...1234</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+
+</div>
+<!-- Event modal -->
+
+
+
+<!-- Modal -->
+<div id="create_issue_types" class="modal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+     
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Issue</h4>
+      </div>
+
+
+
+
+
+      <div class="modal-body">
+        
+
+     
+
+           <div class="form-group">Issue Type :
+    
+
+       {% for it in project.issuetypes.all %}
+
+      <!--<a href="/show_create_issue_screen/{{project.uid}}/{{it.uid}}/">{{it.title}}</a>-->
+<a onclick="$('.modal').modal('hide');" data-toggle="modal" data-target="#myModal1" href="/show_create_issue_screen/{{project.uid}}/{{it.uid}}/">{{it.title}}</a>
+       {% endfor %}
+       
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+
+
+
+
+$("#filter_input").keyup(function(){
+
+
+  var value = $(this).val().toLowerCase();
+
+
+  $(".content").filter(function() {
+
+
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1 )
+
+  
+});
+
+   
+
+});
+
+
+
+});
+</script>
+
+
+
+
+
+
+<!-- Modal -->
+<div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Issue</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      <form action="/issue/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="title" placeholder="title">
+        </div>
+
+        <div class="form-group">
+       <input type="text" class="form-control" name="description" placeholder="description">
+        </div>
+
+           <div class="form-group">Issue Type :
+       <select name="issue_type"> 
+
+       {% for it in project.issuetypes.all %}
+
+       <option value="{{it.uid}}">{{it.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+
+
+              <div class="form-group">Epic :
+       <select name="epic"> 
+
+        <option value=None>None</option>
+
+       {% for e in epics %}
+
+       <option value={{e.uid}}>{{e.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+
+
+
+              <div class="form-group">Version :
+       <select name="version"> 
+
+        <option value=None>None</option>
+
+       {% for v in versions %}
+
+       <option value={{v.uid}}>{{v.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+
+
+                   <div class="form-group">Priority :
+       <select name="priority"> 
+
+      
+
+       {% for p in project.project_prioritys.all %}
+
+       <option value={{p.uid}}>{{p.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+
+
+
+          <div class="form-group">
+          <input  type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+
+
+
+<!--two ways 
+
+          <div class="form-group">
+          <input {{a}} {{a}}  type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+        -->
+
+
+        <!--
+
+        for f in fields 
+
+        f.name f.type f.optioms if required 
+
+
+        endfor
+
+
+
+
+        -->
+   
+
+     
+
+
+
+
+       <button class="btn btn-bold btn-default"  type="submit">create</button>
+
+</form>
+
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+<nav style="margin:0px;margin-bottom: 0px; padding: 0px;background-color: white" class="navbar navbar-default">
+ 
+
+
+    <div class="navbar-header">
+    <a href="/"><img src="https://i.imgur.com/azmQcUA.png" width="100" style="padding: 0; margin-left: 15; margin-top: 10; "></a>
+     
+    </div>
+
+
+
+
+    <form class="navbar-form navbar-left"  action="/search2/" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <input id="search_input" name="query" type="text" class="form-control" placeholder="Search Issues">
+      </div>
+   
+<button  class="btn btn-default" type="submit">Search</button>
+   
+
+</form>
+
+{% if quick_search %}
+
+<input id="filter_input" placeholder="Quick search" type="text" name="filter_input" style="width: 300px;padding: 3px; margin-left: 20px; margin-top: 8px; height: 35px;" >
+
+{% endif %}
+   
+     {% if project %}
+
+   
+
+   
+   <div class="navbar-left dropdown" style="z-index: ">  
+  <button data-dismiss="modal" class="btn btn-primary dropdown-toggle" style="margin-top: 7px; background-color: #4694ec" type="button" data-toggle="dropdown">Create
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+  
+  <script type="text/javascript">
+  function myfunc(x) {
+
+
+   
+  
+  
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+</script>
+
+
+       {% for it in project.issuetypes.all %}
+
+      <!--<a href="/show_create_issue_screen/{{project.uid}}/{{it.uid}}/">{{it.title}}</a>-->
+
+<li><a onclick="myfunc($(this).attr('href'))"  data-toggle="modal" data-target="#myModal1" href="/show_create_issue_screen/{{project.uid}}/{{it.uid}}/?q={{active}}">{{it.title}}</a></li>
+       {% endfor %}
+ 
+  </ul>
+
+
+</div>
+
+
+     {% endif %}
+
+
+
+
+     
+    <ul class="nav navbar-nav navbar-right">
+
+    {% if active == 'board_menu' %}
+
+        <li ><a class="btn btn-default" style="height : 35px; padding: 5px; margin-top: 10px; margin-right: 10px;" align="center" href="/edit_layout/{{project.uid}}">Edit Layout</a></li> 
+
+
+
+
+    <li ><a data-toggle="modal" data-target="#complete_sprint_modal" class="btn btn-default" style="height : 35px; padding: 5px; margin-top: 10px;" align="center" >Complete Sprint</a></li> 
+
+    {% endif %}
+
+<!--<li><a href="/notifications/">Notifications</a></li> -->
+<li style="margin-top: 15px; margin-right: 10px; margin-left: 15px">
+
+  <div class="dropdown">
+  <a style="color: grey; cursor: pointer" class=" " type="button" data-toggle="dropdown">Help
+  <span class="caret"></span></a>
+  <ul class="dropdown-menu">
+
+<li><a>Send email to help@enpointer.com<br>
+<div style="padding: 5px; color: grey">Version 0.9</div></a></li>
+
+  </ul>
+</div>
+
+</li>
+
+<li style="margin-right: 5"><a href="/logout">Logout</a></li>
+ <!--
+<li style="margin-top: 15px; margin-right: 20px;">
+
+  <div class="dropdown">
+ <a style="color: grey; cursor: pointer" class=" " type="button" data-toggle="dropdown">Other
+  <span class="caret"></span></a>
+  <ul class="dropdown-menu">
+  <li><a href="/settings/">Profile</a></li>
+<li><a href="/settings/">Settings</a></li>
+<li><a href="/logout">Logout</a></li>
+
+  </ul>
+</div>
+
+</li>
+
+    </ul>
+ -->
+
+
+
+
+</nav>
+
+<!-- stuff for complete spritn -->
+
+
+<!-- Modal -->
+<div id="complete_sprint_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Complete Sprint</h4>
+      </div>
+      <div class="modal-body">
+        <p>Remaining To Do and In Pogress Issues will be transferred to Backlog</p>
+
+      </div>
+      <div class="modal-footer">
+        <a href="/complete_sprint/{{sprint.uid}}" class="btn btn-default">Complete Sprint</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- stuff for complete spritn -->
+
+
+<div  id="test"></div>
+
+
+
+
+<div style="padding-right: 0px; margin-right: 0px; padding-left: 0px;" class="container-fluid">
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+  <div id="message" class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% block content %}{% endblock content %}
+
+</div>
+
+
+
+
+
+      <script type="">
+
+
+//when modal opens
+$('.modal').on('shown.bs.modal', function () {
+  console.log('hiesdsds');
+})
+</script>
+
+  <script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+
+    });
+  </script>
+  <script type="text/javascript">
+
+
+</script>
+
+
+
+
+<script>
+  window.intercomSettings = {
+    app_id: "p76oib2v",
+  name : "{{request.user}}",
+  email: "{{request.user}}",
+  created : "{{request.user.created}}",
+
+  plan_name: "basic", // Strings
+
+  };
+</script>
+<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/p76oib2v';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+
+
+
+</body>
+
+
+</html>

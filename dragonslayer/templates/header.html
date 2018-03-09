@@ -1,0 +1,16 @@
+<b>Beastquest</b> <a href="/home"> Home </a><a href="/analytics"> Analytics </a> <a href="/logout"> logout </a>
+
+ <form action="/search/" method="post">
+      {% csrf_token %}
+       
+          <input   type="text" class="form-control" name="query" placeholder="Search Issues ">
+ 
+
+
+
+       <button class="btn btn-bold btn-block btn-primary" type="submit">Search</button>
+
+</form>
+
+{% block content %}
+{% endblock %}

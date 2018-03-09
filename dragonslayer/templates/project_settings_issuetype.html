@@ -1,0 +1,202 @@
+{% extends 'project_settings_base.html' %}
+
+{% block content3 %}
+
+
+
+
+<!-- Modal -->
+<div id="issuetype" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Issue Type</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+<form  action="/issuetype/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <input name="title" type="text" class="form-control" placeholder="title">
+      </div>
+
+         <div class="form-group">
+        <input name="description" type="text" class="form-control" placeholder="description">
+      </div>
+
+
+          <div class="form-group">Workflow :   	
+
+          <select name='workflow'>
+          {% for w in project.workflows.all %}
+          	<option value={{w.uid}}>{{w.title}}</option>
+
+          	{% endfor %}
+          </select>																			
+     
+      </div>
+
+
+
+           <div class="form-group">Create Screen :   	
+
+        <select name='create_screen'>
+          {% for s in project.screens.all %}
+          	<option value={{s.uid}}>{{s.title}}</option>
+
+          	{% endfor %}
+          </select>																			
+     
+      </div>
+
+
+            <div class="form-group">Edit Screen :   	
+
+          <select name='edit_screen'>
+          {% for s in project.screens.all %}
+          	<option value={{s.uid}}>{{s.title}}</option>
+
+          	{% endfor %}
+          </select>																			
+     
+      </div>
+
+            <div class="form-group">View Screen :   	
+
+    <select name='view_screen'>
+          {% for s in project.screens.all %}
+          	<option value={{s.uid}}>{{s.title}}</option>
+
+          	{% endfor %}
+          </select>																			
+     
+      </div>
+   
+
+         <div class="form-group">Project :   																				
+        <input name="project" type="text" readonly class="form-control" value="{{project.uid}}" placeholder="description">
+      </div>
+
+
+
+
+
+<button  class="btn btn-default" type="submit">Create</button>
+   
+
+</form>
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+<!-- header row -->
+
+<div class="row">
+
+<div class="col-md-4">
+
+<b>IssueType </b>
+
+</div>
+
+<div class="col-md-2"> 
+
+<b>Workflow</b>
+
+</div>
+
+
+<div class="col-md-2"> 
+
+<b>Create Screen</b>
+
+</div>
+
+<div class="col-md-2"> 
+
+<b>Edit Screen </b>
+
+</div>
+
+<div class="col-md-2"> 
+
+<b>View Screen</b>
+
+</div>
+
+
+
+</div>
+
+
+<br>
+
+<!--header row ends -->
+
+
+{% for i in issuetypes %}
+
+<div class="row">
+
+<div class="col-md-4">
+
+{{i.title}} 
+
+</div>
+
+<div class="col-md-2"> 
+{{i.workflow.title}} 
+
+</div>
+
+
+<div class="col-md-2"> 
+{{i.create_screen.title}}
+
+</div>
+
+<div class="col-md-2"> 
+{{i.edit_screen.title}}
+
+</div>
+
+<div class="col-md-2"> 
+
+{{i.view_screen.title}}
+</div>
+
+
+
+</div>
+
+<hr>
+
+{% endfor %}
+
+<a data-toggle="modal" data-target="#issuetype"> Create New Issue Type </a>
+
+
+
+
+{% endblock %}

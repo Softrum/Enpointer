@@ -1,0 +1,282 @@
+{% extends 'project_settings_base.html' %}
+{% block content3 %}
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal for adding custom field  -->
+<div id="custom_field" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Custom Field</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/create_custom_field/{{project.uid}}/{{screen.uid}}/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+
+
+         <div class="form-group">Field Type:
+       <select name="field_type"> 
+
+     
+
+       <option value="checkbox">Checkbox</option>
+        <option value="text">Text</option>
+        <option value="select">Select</option>
+        <option value="multiple_select">Multiple Select</option>
+         <option value="datetime">Date Time </option>
+
+    
+       
+
+
+       </select>
+        </div>
+
+      <button class="btn btn-bold btn-default" type="submit">Create </button>
+
+
+
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>{{screen.title}}</h4><br>
+
+<div class="row">
+
+<div class="col-md-3">
+<b> Field </b>
+</div>
+
+
+<div class="col-md-3">
+<b> Required </b>
+</div>
+
+
+<div class="col-md-3">
+<b> Visible </b>
+</div>
+
+
+<div class="col-md-3">
+<b> Text </b>
+</div>
+
+
+</div>
+
+
+<br>
+
+
+
+
+
+
+<div class="row">
+
+<div class="col-md-3">
+Title
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="title_required" value="True">
+<input type="hidden" name="title_required" value="False">
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="title_visible" value="True">
+<input type="hidden" name="title_visible" value="False">
+</div>
+
+
+<div class="col-md-3">
+ <input   type="text" class="form-control" name="title_text" placeholder="title">
+</div>
+
+
+</div>
+
+
+<hr>
+
+
+<div class="row">
+
+<div class="col-md-3">
+Description
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="description_required" checked value="True">
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="description_visible" checked value="True">
+<input type="hidden" name="title_visible" value="False">
+</div>
+
+
+<div class="col-md-3">
+ <input   type="text" class="form-control" name="title_text" placeholder="title">
+</div>
+
+
+</div>
+
+
+
+<hr>
+
+
+<div class="row">
+
+<div class="col-md-3">
+Priority
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="priority_required" checked value="True">
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="priority_visible" checked value="True">
+<input type="hidden" name="title_visible" value="False">
+</div>
+
+
+<div class="col-md-3">
+ <input   type="text" class="form-control" name="priority_text" placeholder="title">
+</div>
+
+
+</div>
+
+
+
+
+
+<hr>
+
+{% for cf in custom_fields %}
+
+
+
+
+
+
+<div class="row">
+
+<div class="col-md-3">
+{{cf.title}}
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="priority_required" checked value="True">
+</div>
+
+
+<div class="col-md-3">
+<input type="checkbox" name="priority_visible" checked value="True">
+<input type="hidden" name="title_visible" value="False">
+</div>
+
+
+<div class="col-md-3">
+ <input   type="text" class="form-control" name="priority_text" placeholder="title">
+</div>
+
+
+</div>
+
+
+
+<hr>
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+<a> Save </a><br><br><br>
+
+
+<a data-toggle="modal" data-target="#custom_field"> Add Custom Field </a>
+
+
+
+
+
+
+
+
+{% endblock %}

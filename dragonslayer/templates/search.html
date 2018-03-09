@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<div class="container" class="panel panel-default" style="background-color: white">
+<br>
+Search Results :<br>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-2">
+<b>Issue Title</b>
+</div>
+
+<div class="col-md-1">
+<b>Issue Status</b>
+</div>
+
+<div class="col-md-1">
+<b>Issue Priority</b>
+</div>
+
+
+<div class="col-md-2">
+<b>Assignee</b>
+</div>
+
+<div class="col-md-2" ">
+<b>Reporter</b>
+</div>
+
+
+
+<div class="col-md-2">
+<b>Created</b>
+</div>
+
+<div class="col-md-1">
+<b>Updated</b>
+</div>
+
+<div class="col-md-1">
+<b>Resolution</b>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<br>
+
+{% for r in results %}
+<hr>
+
+<div class="row">
+
+<div class="col-md-2">
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+ <a style="text-decoration: none;" id="hocus{{r.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/100/{{r.uid}}/"><span id="focus{{r.uid}}" style=" margin-top: 10px; color: #333333;  overflow:hidden;">{{r.title}}</span></a>
+
+</div>
+
+<div class="col-md-1">
+{{r.status.title}}
+</div>
+
+<div class="col-md-1">
+{{r.priority.title}}
+</div>
+
+
+<div class="col-md-2">
+{{r.assigned_to.username}}
+</div>
+
+<div class="col-md-2">
+{{r.created_by.username}}
+</div>
+
+
+
+<div class="col-md-2">
+{{r.created.date}}
+</div>
+
+<div class="col-md-1">
+{{r.updated}}
+</div>
+
+<div class="col-md-1">
+{{r.resolved}}
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+{% endfor %}
+
+
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}

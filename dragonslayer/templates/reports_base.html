@@ -1,0 +1,52 @@
+
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+
+
+
+
+<div class="row">
+
+<div class="col-md-2">
+
+
+<div style="padding:5px;" class="panel panel-default">
+
+<a href="/reports/velocity_chart/{{project.uid}}/{{sprint.uid}}"> Velocity Chart </a><br>
+<a href="/reports/burndown_chart/{{project.uid}}/{{sprint.uid}}/"> Burndown Chart </a><br>
+<a href="/reports/sprints/{{project.uid}}/100"> Sprint Report</a><br>
+
+<!--<a href="/reports/cummulative_flow/{{project.uid}}/{{sprint.uid}}"> Cummulative Flow </a><br>-->
+<!--
+<a href="/reports/version_report/{{project.uid}}"> Version Report </a><br>
+<a href="/reports/epic_report/{{project.uid}}"> Epic Report </a><br>
+-->
+
+</div>
+
+
+
+</div>
+
+
+<div class="col-md-10">
+
+
+{% block content3 %}
+
+{% endblock %}
+
+
+
+
+
+</div>
+
+
+
+</div> <!-- main row -->
+
+
+{% endblock %}

@@ -1,0 +1,280 @@
+{% extends 'base_modal.html' %}
+{% block content %}
+
+<div class="panel panel-default" style="background-color: white; padding: 10" >
+
+
+<h3> Edit Issue</h3>
+
+<br>
+
+</div>
+
+<div class="container-fluid" style="padding: 10;">
+
+<!--
+Actions : <a href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}">Edit</a> | Delete | 
+
+{% for t in transitions %}
+
+<a href="/issue/transition_issue_status2/{{t.end_status.uid}}/{{issue.uid}}/">{{t.title}}</a> | 
+
+{% endfor %}
+
+
+
+
+{{issue.description}}<br><br>
+status : {{issue.status.title}}<br>
+priority : {{issue.priority.title}}<br><br>
+
+
+-->
+
+
+<form action="/save_edit_issue_screen/{{project.uid}}/{{issue.uid}}/" method="post">
+      {% csrf_token %}
+        <div class="form-group"><h5> Issue Title :</h5>
+          <input id="title_edit"   type="text" class="form-control" value="{{issue.title}}" name="title" placeholder="title">
+        </div>
+
+
+<h5> Description :</h5>
+  <div id="summernote" class="description_edit"> {{issue.description|safe}}</div>
+
+
+<div class="panel panel-default" style="background-color: white; padding: 10">
+
+
+           <div class="form-group"><img src="https://i.imgur.com/m11xW89.png" width="20" style="opacity: 0.7; margin-right: 5">Issue Type :
+       <select id="uid_issuetype" name="issue_type"> 
+
+       {% for it in project.issuetypes.all %}
+
+       <option value="{{it.uid}}">{{it.title}}</option>
+
+       {% endfor %}
+       
+
+
+       </select>
+        </div>
+
+
+              <div class="form-group"><img src="https://i.imgur.com/ZvnfNDW.png" width="20" style="opacity: 0.5">Story Points:
+       <select id="story_points" name="story_points"> 
+
+      
+
+       <option value="1">1</option>
+       <option value="2">2</option>
+<option value="4">4</option>
+<option value="8">8</option>
+
+
+
+      
+       
+
+
+       </select>
+        </div>
+
+
+
+              <div hidden class="form-group">Epic :
+       <select id="epic_edit" name="epic"> 
+
+        <option value=None>None</option>
+
+       {% for e in epics %}
+
+       {% if e.title == issue.epic.title %}
+
+       <option selected value={{e.uid}}>{{e.title}}</option>
+
+       {% else %}
+
+             <option  value={{e.uid}}>{{e.title}}</option>
+
+       {% endif %}
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+
+
+
+              <div hidden class="form-group">Version :
+       <select id="version_edit" name="version"> 
+
+        <option value=None>None</option>
+
+       {% for v in versions %}
+
+
+       {% if v.title == issue.fix_version.title %}
+
+       <option selected  value={{v.uid}}>{{v.title}}</option>
+
+       {% else %}
+
+       <option  value={{v.uid}}>{{v.title}}</option>
+
+       {% endif %}
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+
+
+                   <div class="form-group"><img src="https://i.imgur.com/bQ556FL.png" width="22" style="opacity: 0.5">Priority :
+       <select id="priority_edit" name="priority"> 
+
+      
+
+       {% for p in project.project_prioritys.all reversed %}
+
+       <option value={{p.uid}}>{{p.title}}</option>
+
+       {% endfor %}
+
+
+       </select>
+        </div>
+
+
+<div hidden class="form-group">
+Labels : 
+
+<select name="labels" multiple> 
+
+{% for l in labels %}
+
+<option value={{l.uid}}>{{l.title}}</option>
+
+
+{% endfor %}
+
+</select>
+
+
+</div>
+
+
+          <div hidden="" class="form-group">
+          <input  type="text" class="form-control" name="project" readonly hidden value={{project.title}}>
+        </div>
+
+
+
+
+<!--two ways 
+
+          <div class="form-group">
+          <input {{a}} {{a}}  type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+        -->
+
+
+        <!--
+
+        for f in fields 
+
+        f.name f.type f.optioms if required 
+
+
+        endfor
+
+
+
+
+        -->
+   
+
+     
+
+
+</div><!-- for panel of details -->
+
+
+
+</form>
+
+<script type="text/javascript">
+  function save_issue_edit(){
+
+    var markup = $('.description_edit').summernote('code');
+    /* collect all name values and their input values, send ajax request, close edit modal and open issue modal  */
+
+    $.ajax({
+      type : "POST",
+      url  : "/save_edit_issue_screen/{{project.uid}}/{{issue.uid}}/",
+      data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+       title: $("#title_edit").val(),
+        description : markup, 
+        priority : $("#priority_edit").val(), 
+        epic : $("#epic_edit").val(), 
+        version : $("#version_edit").val(),
+        story_points:$('#story_points').val(),
+        uid_issuetype: $('#uid_issuetype').val()},
+
+      success: function(response){
+        
+        $('#myModal1').modal('toggle');
+         $('#hocus{{issue.uid}}').click();
+        
+      }
+
+    })
+  }
+</script>
+
+
+       <button style="background-color: #2196F3; color: white" onclick="save_issue_edit()" class="btn btn-bold btn-default" ><b>Save Changes</b></button>
+
+
+
+<br><br>
+
+
+
+
+
+
+<!--
+
+<form action="/comment/create/{{issue.uid}}/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="content" placeholder="Add a comment">
+        </div>
+
+ 
+
+
+       <button class="btn btn-bold btn-block btn-primary" type="submit">Add</button>
+
+</form>
+
+
+
+{% for c in comments %}
+
+{{c.content}} <br> posted by {{c.commentor}} at {{c.created.date}}<br><br>
+
+{% endfor %}
+
+-->
+
+
+
+
+{% endblock %}

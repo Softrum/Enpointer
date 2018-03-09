@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="padding:0px; background-color: " class="container">
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div id="section" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="background-image: url('https://i.imgur.com/BxXX7Rm.png'); background-size: cover">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create New Section</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+
+<form action="/section/create/100/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input   type="text" class="form-control" name="title" placeholder="What would you call your section?">
+        </div>
+
+        <div class="form-group">
+          <input  type="text" class="form-control" name="description" placeholder="Add a little description maybe">
+        </div>
+
+
+       <button  class="btn btn-bold btn-default " style="background-color: #2196F3; border: none; color: white; width: 40%; " type="submit"><b>Create</b></button>
+
+</form>
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+
+{% for s in sections %}
+
+
+
+
+
+<span style="font-size: 20px;">{{s.title}}  </span> 
+
+  <span class="dropdown">
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
+    <i class="glyphicon glyphicon-option-vertical"></i></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/section/delete/{{s.uid}}/">Delete Section</a></li>
+        
+    </ul>
+  </span>
+
+
+
+ <br><br>
+
+
+
+
+
+
+
+
+<div class="row">
+
+{% for p in projects %}
+
+{% if p.section == s %}
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#'+'{{p.uid}}').mouseover(function(){
+    $('#'+'{{p.uid}}').css("background-color", " #ebebeb");
+});
+
+      $('#'+'{{p.uid}}').mouseout(function(){
+        $('#'+'{{p.uid}}').css("background-color", "#f8f8f8");
+    });
+
+  });
+</script>
+
+<div class="col-md-4">
+
+
+
+<a   href="/project/read/{{p.uid}}">
+
+<div id="{{p.uid}}" style="padding:10px; min-height: 100px; background-color: white;" class="panel panel-default">
+
+<span style="font-size: 19px; color:#333333;" >{{p.title}}</span><br><br><br>
+
+<span style="opacity: 0.5">
+
+<i class="glyphicon glyphicon-link" style="color: grey"></i><span style="opacity: 50%;"><a href="/project/board/{{p.uid}}/" style="color: grey; opacity: 0.7; font-size: 14px">  Board </a></span>
+
+</span>
+
+
+</div><!-- panel;-->
+
+
+</a>
+
+</div> <!-- col-md-4-->
+
+
+
+{% endif %}
+
+
+{% endfor %}
+
+
+
+
+<div class="col-md-4">
+
+<a type="submit" data-toggle="modal" data-target="#{{s.uid}}" >
+
+<div  style="padding:10px; min-height: 100px;background-color: #ebebeb; cursor: pointer;" class="panel panel-default">
+
+<h4 style="color: grey">
+<img src="https://i.imgur.com/8gy0DtX.png" style="opacity: 0.5" width="30">Create new project</h4>
+
+</div>
+</a>
+
+</div> <!-- col-md-4-->
+
+</div>. <!-- for row -->
+
+
+
+
+
+
+
+<!--
+
+  <button class="btn btn-bold btn-default"  type="submit" data-toggle="modal" data-target="#{{s.uid}}">create project</button>
+
+-->
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+      
+
+      $("#project_title_input{{s.uid}}").on("keyup", function() {
+
+
+
+
+
+
+
+        var value = $(this).val();
+
+
+
+
+        
+
+        $("#project_id_input{{s.uid}}").val(value.substring(0,2).toUpperCase()); 
+
+       
+
+
+      })
+
+
+
+    })
+</script>
+
+<!-- Modal -->
+<div id="{{s.uid}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="background-image: url('https://i.imgur.com/BxXX7Rm.png'); background-size: cover">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create New Project</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      <br><form action="/project/create/100/" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <input id="project_title_input{{s.uid}}"   type="text" class="form-control" name="title" placeholder="Name of Your Awesome Project">
+        </div>
+
+        <div class="form-group">
+          <input  type="text" class="form-control" name="description" placeholder="Enter a little description, maybe">
+        </div>
+
+         <div class="form-group">
+          <input id="project_id_input{{s.uid}}"  type="text" class="form-control" name="project_prefix" placeholder="Automagically created Issue Id">
+        </div>
+
+        <select name="project_type">
+ <!-- <option  value="normal">Normal</option> -->
+  <option  value="scrum">Scrum</option>
+ <!-- <option  value="kanban">Kanban</option>-->
+ 
+</select>
+
+        <input  type="hidden" class="form-control" name="section" value="{{s.uid}}">
+
+
+       <button class="btn btn-bold btn-default pull-right" style="background-color: #2196F3; border: none; color: white; width: 40% "   type="submit"><b>Create</b> </button>
+
+</form>
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+<br><br>
+{% endfor %} <!-- for section -->
+
+<br>
+<img src="https://i.imgur.com/L2txudy.png" style="opacity: 0.5" width="30">
+<a style="color: grey; font-size: 110%; cursor: pointer" class="" data-toggle="modal" data-target="#section" >Create New Section.. </a>
+
+<br><br><br>
+
+
+
+</div>
+
+{% endblock %}
+

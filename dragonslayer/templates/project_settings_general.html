@@ -1,0 +1,144 @@
+{% extends 'project_settings_base.html' %}
+{% block content3 %}
+
+<h4> General</h4><br>
+
+<form action="/project/update/{{project.uid}}/" method="post" >
+{% csrf_token %}
+
+Project Name : 
+<input  style="width: 25%" name="project_name" type="text" value="{{project.title}}"> <br><br>
+
+
+Issue id prefix : 
+
+<input name="issue_id" style="width: 25%" type="text" value="{{project.issue_id_prefix}}"> <br><br>
+
+
+Project Description : 
+
+<textarea style="width: 25%" class="input" name="description" type="textarea" > {{project.description}} </textarea> <br><br>
+
+
+<button class="btn btn-default " type="submit"> Save Changes</button>
+
+</form>
+<!--
+
+Project Admin : <br>
+
+{% for a in project.admin.all %}
+
+{{a.username}}<br>
+
+{% endfor %}
+
+<br>
+Project Lead :<br>
+
+{% for a in project.lead.all %}
+
+{{a.username}}<br>
+
+{% endfor %}
+
+-->
+<hr>
+<h4> Add User To Organisation</h4>
+
+
+<form action="/invite_user/" method="post" >
+{% csrf_token %}
+
+<input type="text" name="email" placeholder="add user's email">
+
+<button class="btn btn-default" type="submit">Send Invite</button>
+
+</form>
+
+
+
+{% for u in org.org_members.all %}
+
+{{u.user.username}}<br>
+
+{% endfor %}
+
+
+<hr>
+<!--
+<h4> Add User To '{{project.title}}' Project</h4>
+
+
+<form action="/add_user_to_project/{{project.uid}}" method="post" >
+{% csrf_token %}
+
+<select name="user">
+
+{% for u in org.org_members.all %}
+
+<option value="{{u.user}}">{{u.user.username}}</option>
+
+{% endfor %}
+
+</select>
+
+<button class="btn btn-default" type="submit">Add</button>
+
+</form>
+
+
+
+{% for u in project.members.all %}
+
+{{u.user.username}}<br>
+
+{% endfor %}
+
+
+<hr>
+-->
+
+<br><br>
+<a class="btn btn-danger" href="/project/deleete/{{project.uid}}/"> Delete Project</a>
+
+<!--
+
+create new status : 
+
+<form action="/status/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title">
+      <button class="btn btn-bold btn-block btn-primary" type="submit">create status </button>
+
+</form>
+
+{% for s in statuss %}
+{{s.title}}<br>
+
+{% endfor %}
+<hr>
+
+
+
+
+create new transition  : 
+
+
+
+<hr>
+
+
+
+{% for t in transitions %}
+
+{{t.title}}<br>
+
+{{t.start_status}}{{t.end_status}}<br><br>
+
+{% endfor %}
+
+
+-->
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends "project_settings_normal/project_settings_base.html" %}
+
+{% block content3 %}
+
+
+
+
+
+
+<!-- Modal for column  -->
+<div id="column" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Column</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+
+
+<form action="/column/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+      <button class="btn btn-bold btn-default" type="submit">create column </button>
+
+</form>
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% for c in columns %}
+
+<h4>{{c.title}}</h4>
+
+{% for s in c.status.all %}
+
+{{s.title}}<br>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal for status  -->
+<div id="{{c.uid}}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Status</h4>
+      </div>
+
+
+
+      <div class="modal-body">
+        
+
+      
+
+
+      <form action="/status/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+
+     <input   type="text"  class="form-control" name="column" value={{c.uid}} class="hidden"><br>
+      <button class="btn btn-bold  btn-default" type="submit">create status </button>
+
+</form>
+
+
+
+
+              </div>
+
+
+
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- modal content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a  data-toggle="modal" data-target="#{{c.uid}}" >create new status</a> 
+
+
+<hr>
+
+{% endfor %}
+
+
+<h5><a data-toggle="modal" data-target="#column"> Create New Column </a></h5>
+
+
+{% endblock %}

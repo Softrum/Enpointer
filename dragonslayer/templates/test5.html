@@ -1,0 +1,296 @@
+{% extends 'base_edit_layout.html' %}
+
+{% block content %}
+
+<!-- dynamically create layout using jquery -->
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  
+  $("#add_column").click();
+  $("#add_column").click();
+
+  });
+
+</script>
+
+
+
+<script type="text/javascript">
+
+
+  
+  function delete_layout() {
+    $(this).parent().hide()
+  }
+
+
+function add(a) {
+
+
+
+
+   var k =  $("#new_block").clone()
+   
+   k.css({"display":"block"});
+
+
+
+
+z = k.clone().append(k);
+
+z.css({"display":"inline-block"})
+
+var t = a.attr('class');
+
+
+
+
+if (a.parent().siblings().hasClass("listwrapper")) {
+ var y =  a.parent().siblings(".listwrapper").first().replaceWith(z); 
+}
+
+else {
+u = a.parent().siblings('.head:first').attr('class');
+
+$( ".inner" ).wrap( "<div class='new'></div>" );
+
+
+u = a.parent().siblings('.head:first').css({"background-color":"red"});
+
+  a.parent().siblings('.head:first').append(k);
+}
+
+ 
+
+
+
+  
+  
+}
+
+
+
+function add_v(a) {
+
+
+
+
+   var k =  $("#new_block").clone()
+   
+  k =  k.css({"display":"inline-block"});
+
+     var x =  $("#new_block").clone();
+   
+  x =  x.css({"display":"inline-block"});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+ 
+
+ // this is a check if the block is the last entity or on a higher level 
+
+if (a.parent().siblings().hasClass("listwrapper")) {     
+ var y =  a.parent().siblings(".listwrapper").first().replaceWith(k); 
+  x.insertAfter(k); 
+}
+
+else {
+u = a.parent().parent().attr('class');
+
+
+  k.insertBefore(a.parent().siblings('.head:first'));
+}
+
+
+
+  
+}
+
+
+</script>
+
+
+
+
+
+<!-- script for adding column -->
+
+
+<script type="text/javascript">
+  function add_column(){
+
+
+    
+
+   var k =  $("#new_column").clone().insertBefore("#add_column");
+
+
+
+   var l = $("#new_block").clone().appendTo(k);
+
+
+ 
+   
+   k.css({"display":"inline-block"});
+   l.css({"display":"inline-block"});
+
+  
+
+   
+  
+
+
+
+  }
+</script>
+
+<!-- script for adding column ends -->
+
+
+
+
+
+
+
+<!-- hideen elements begins  -->
+
+
+
+<div class="head" id="new_column"  style=" vertical-align: top; display: inline-block; margin-right: 20px; display: none; height: 92%">
+
+
+<div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >New Column</div>
+
+
+
+
+
+</div> <!-- for new_column div -->
+
+
+
+
+
+
+
+
+
+<div class="head" id="new_block"  style=" vertical-align: top;   display: none; border-style: dotted; ">
+
+
+
+
+<div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >Heading
+
+
+ <a onclick="add($(this))" class="btn btn-default">h</a> 
+
+
+<a onclick="add_v($(this))" class="btn btn-default">v</a> 
+
+
+<a onclick="$(this).closest('.head').hide();" style="margin-right: 0px;" class="btn btn-default">d </a>
+
+</div>
+
+
+
+
+
+
+
+<div id={{layout.status.uid}}  onclick=" quick_create()" style="background-color: rgba(227,228,230, 0.5); border-style: solid; min-width: 360px; width: 100%;margin: 0px; "    class=" listwrapper    {{layout.status.uid}}  " >
+
+<!--style="background-color: #E2E4E6;"--> 
+<div style="width: 100%; "  class="listcontent   connectedSortable   ">
+
+
+
+<div id={{layout.status.uid}} style="width: 100%;"  class="list-cards connectedSortable   " >
+
+
+
+
+
+</div> <!-- list cards -->
+
+
+
+</div> <!-- listcontent -->
+
+
+
+
+</div> <!-- listwrapper-->
+
+
+
+</div> <!-- for new_block -->
+
+
+
+
+
+<!-- hideen elements ends  -->
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="daddy"  style="overflow-x: scroll;  height: 95%; padding: 0px;" class="container-fluid  "  >
+
+
+
+
+
+<div  id="beta"  class="row connectedSortable" style="  overflow-x: scroll;
+  white-space: nowrap;margin: 0px; ">
+
+
+
+
+
+
+
+
+<div id="add_column" onclick="add_column()" style="vertical-align: top; display: inline-block; margin-right: 20px;overflow-y: scroll;">
+<b>Add a column</b>
+</div>
+
+
+
+</div>. <!-- beta -->
+
+</div> <!-- daddy -->
+
+<script type="text/javascript">
+  $("#main").css("overflow-y", "hidden");
+</script>
+
+{% endblock %}
+

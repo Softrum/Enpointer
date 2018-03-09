@@ -1,0 +1,49 @@
+{% extends 'project_settings_normal/project_settings_base.html' %}
+{% block content3 %}
+
+
+
+
+
+<a href="/project/delete/{{project.uid}}/"> Delete Project</a>
+
+<!--
+
+create new status : 
+
+<form action="/status/create/{{project.uid}}/100/" method="post">
+      {% csrf_token %}
+
+     <input   type="text" class="form-control" name="title" placeholder="title">
+      <button class="btn btn-bold btn-block btn-primary" type="submit">create status </button>
+
+</form>
+
+{% for s in statuss %}
+{{s.title}}<br>
+
+{% endfor %}
+<hr>
+
+
+
+
+create new transition  : 
+
+
+
+<hr>
+
+
+
+{% for t in transitions %}
+
+{{t.title}}<br>
+
+{{t.start_status}}{{t.end_status}}<br><br>
+
+{% endfor %}
+
+
+-->
+{% endblock %}

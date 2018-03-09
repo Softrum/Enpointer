@@ -1,0 +1,21 @@
+the idea of the feature is to provide users of enpointer with a way to endlessly customize the layout of the board they operate in. 
+
+we often associate scrum or agile with set of columns representing as different statuses over which issues are transitioned(dragged) to represent a point intime state of finite system. 
+
+now this kind of ui or workflow restricts the user to effectively map out the workflow he follows in real life. it doesnt let user build complex dynmaic workflows. 
+
+jira with all its customizability misses this feature which has potential to become quite a killer one at that. 
+
+So i have built all the moving parts of this feature, and it is matter of building out a workable poc. 
+
+First iteration of this feature involved, modelling the nested board layout in db and rendering it from server side. though this solution worked brilliantly , but it became overtly complicated to build out a user facing wysiwyg editor for this. It required a tree structure algo and lot of hit and trial to come to that workable solution. 
+
+so i started off from the other side of the problem which was to build out a client side javascript based editor , somehow convert that layout to required model  schema and store it. 
+
+but then i came with the brilliant idea , that what if at the run time after the page is loaded, javascript mimics the sequence of buttons user clicked while creating the layout to build it out on the fly. 
+
+so, this sequence required that evey button has a unique id which is created by javascript. once these buttons are clicked in similar order, then the required format is rendered.
+
+there are columns , then there are blocks. each block maps one on one to one status and one column can have many blocks. 
+
+building out this kind of structure required deep understanding of css inline block and block, p-lus tonnes of javascript up and down traversing across the parents, children and siblings. understanding the correct positional flow of control was imp to build the. right div structure. 

@@ -1,0 +1,177 @@
+
+{% extends 'reports_base.html' %}
+
+{% block content3 %}
+
+
+
+
+
+
+
+<h3> Cummulative Flow Report </h3><br>
+
+Sprint : 
+
+<select>
+
+
+  {% for s in sprints %}
+
+
+
+  <option value="{{s.uid}}">{{s.title}}</option>
+
+{% endfor %}
+
+</select>
+
+
+
+
+
+
+<canvas id="myChart" ></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{labels|safe}},
+        datasets: [
+
+
+        {
+            label: 'To Do',
+            data: [5, 6, 5, 5, 4, 6, 10,12, 12],
+            steppedLine: false,
+            fill: true,
+
+
+
+
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)'
+
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)'
+   
+
+            ],
+            borderWidth: 2
+
+
+
+        },
+
+
+                {
+            label: 'Progress',
+            data: [2, 3, 2, 3, 2, 2],
+            steppedLine: false,
+            fill: true,
+
+
+
+
+            backgroundColor: [
+
+                'rgba(54, 162, 235, 1)',
+
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+  
+            ],
+            borderWidth: 2
+
+
+
+        },
+
+
+
+                {
+            label: 'Done',
+            data: [3, 1, 3, 3, 2, 2],
+            steppedLine: false,
+            fill: true,
+
+
+
+
+            backgroundColor: [
+
+                'rgba(255, 206, 86, 1)',
+
+            ],
+            borderColor: [
+                'rgba(255, 206, 86, 1)',
+  
+            ],
+            borderWidth: 2
+
+
+
+        }
+
+
+
+        ]
+    },
+
+
+
+    
+    options: {
+        scales: {
+            yAxes: [{
+                stacked: true,
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
+<!--
+<h4>Issues Resolved Today : {{issues_resolved_today.count}}</h4> <br>
+
+{% for i in issues_resolved_today %}
+
+{{i.title}} <br>
+
+{% endfor %}
+<hr>
+
+
+<h4>New Issues Added Today : {{ issues_added_today.count }}</h4><br>
+{% for i in issues_added_today %}
+
+{{i.title}} <br>
+
+{% endfor %}
+
+<hr>
+
+<h4>Total Issues Resolved : {{total_issues_resolved.count}}</h4><hr>
+
+<h4>Total Open Issues : {{total_open_issues.count}}</h4>
+
+
+-->
+
+
+
+
+
+</div>
+
+
+
+</div>
+{% endblock %}
