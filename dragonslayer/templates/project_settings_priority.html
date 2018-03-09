@@ -2,10 +2,11 @@
 {% block content3 %}
 
 
+<h4> Priorities </h4><br>
 
 {% for p in prioritys %}
 
-{{p.title}}<br>
+{{p.title}}<br><br>
 
 
 {% endfor %}
@@ -39,7 +40,9 @@
 _priority/{{project.uid}}/" method="post">
       {% csrf_token %}
 
-     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+     <input   type="text" class="form-control" name="title" placeholder="Title of Priority"><br>
+
+     <input   type="text" class="form-control" name="color" placeholder="Enter color code"><br>
 
 
       <button class="btn btn-bold btn-default" type="submit">create </button>
@@ -62,9 +65,9 @@ _priority/{{project.uid}}/" method="post">
 
 
 
+<br>
 
-
-<a data-toggle="modal" data-target="#priority" >Create New Priority</a> <br>
+<a data-toggle="modal" data-target="#priority" class="btn btn-default" >Create New Priority</a> <br>
 
 
 

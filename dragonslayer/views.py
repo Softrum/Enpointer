@@ -2326,7 +2326,7 @@ def comment(request, crud, uid_issue):
 
 
 def create_priority(request, uid_project):
-	Priority.objects.create(title= request.POST['title'], project=Project.objects.get(uid=uid_project), org=get_org(request))
+	Priority.objects.create(title= request.POST['title'], project=Project.objects.get(uid=uid_project), org=get_org(request), color=request.POST['color'])
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
