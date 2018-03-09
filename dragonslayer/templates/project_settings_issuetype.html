@@ -45,7 +45,7 @@
 
 
 
-           <div class="form-group">Create Screen :   	
+           <div hidden class="form-group">Create Screen :   	
 
         <select name='create_screen'>
           {% for s in project.screens.all %}
@@ -57,7 +57,7 @@
       </div>
 
 
-            <div class="form-group">Edit Screen :   	
+            <div hidden class="form-group">Edit Screen :   	
 
           <select name='edit_screen'>
           {% for s in project.screens.all %}
@@ -68,9 +68,9 @@
      
       </div>
 
-            <div class="form-group">View Screen :   	
+            <div hidden class="form-group">View Screen :   	
 
-    <select name='view_screen'>
+    <select  name='view_screen'>
           {% for s in project.screens.all %}
           	<option value={{s.uid}}>{{s.title}}</option>
 
@@ -80,8 +80,8 @@
       </div>
    
 
-         <div class="form-group">Project :   																				
-        <input name="project" type="text" readonly class="form-control" value="{{project.uid}}" placeholder="description">
+         <div hidden class="form-group">Project :   																				
+        <input name="project" type="text"  class="form-control" value="{{project.uid}}" placeholder="description">
       </div>
 
 
@@ -114,17 +114,26 @@
 
 <div class="row">
 
+<div class="col-md-2">
+</div>
+
+
 <div class="col-md-4">
 
-<b>IssueType </b>
+<h4>Issue Type </h4>
 
 </div>
 
-<div class="col-md-2"> 
-
-<b>Workflow</b>
+<div class="col-md-4"> 
+<h4>Workflow </h4>
 
 </div>
+
+<div class="col-md-2">
+</div>
+
+
+<!--
 
 
 <div class="col-md-2"> 
@@ -145,12 +154,13 @@
 
 </div>
 
-
+-->
 
 </div>
 
+<hr>
 
-<br>
+
 
 <!--header row ends -->
 
@@ -159,16 +169,25 @@
 
 <div class="row">
 
+<div class="col-md-2">
+</div>
+
+
 <div class="col-md-4">
 
 {{i.title}} 
 
 </div>
 
-<div class="col-md-2"> 
+<div class="col-md-4"> 
 {{i.workflow.title}} 
 
 </div>
+
+<div class="col-md-2">
+</div>
+
+<!--
 
 
 <div class="col-md-2"> 
@@ -186,7 +205,7 @@
 {{i.view_screen.title}}
 </div>
 
-
+-->
 
 </div>
 
@@ -194,7 +213,7 @@
 
 {% endfor %}
 
-<a data-toggle="modal" data-target="#issuetype"> Create New Issue Type </a>
+<a class="btn btn-default pull-right" data-toggle="modal" data-target="#issuetype" style="cursor: pointer;"> Create New Issue Type </a>
 
 
 
