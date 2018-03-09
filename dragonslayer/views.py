@@ -130,9 +130,9 @@ def register_event(request, uid_project, event_type_title, uid_issue):
 
 def release_detail(request, uid_release):
 	return render(request, 'release_detail.html')
-
+"""
 def services(request):
-	return render(request, 'website/services.html')
+	return render(request, 'website/services.html')"""
 
 def services_enquiry(request):
 	name = request.POST['name']
@@ -2461,8 +2461,6 @@ def index(request):
 		else:
 			return render(request, 'website/index.html')
 
-		
-		
 
 def signup_view(request):
 	if request.method=='POST':
