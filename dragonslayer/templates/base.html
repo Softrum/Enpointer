@@ -1294,22 +1294,29 @@ $("#filter_input").keyup(function(){
     {% endif %}
 
 <!--<li><a href="/notifications/">Notifications</a></li> -->
-<li style="margin-top: 15px; margin-right: 10px; margin-left: 15px">
+<li style="margin-top: 15px; margin-right: 30px; margin-left: 15px">
 
   <div class="dropdown">
-  <a style="color: grey; cursor: pointer" class=" " type="button" data-toggle="dropdown">Help
+  <a style="color: grey; cursor: pointer" class=" " type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
   <span class="caret"></span></a>
   <ul class="dropdown-menu">
 
-<li><a>Send email to help@enpointer.com<br>
-<div style="padding: 5px; color: grey">Version 0.9</div></a></li>
+
+ <li style="margin-right: 5"><a><b>{{request.user}}</b></a></li> 
+ <li class="divider"></li>
+
+<li><a href="http://help.enpointer.com/">Help<br>
+</a></li>
+<li style="margin-right: 5"><a href="/logout">Logout</a></li>
+<li class="divider"></li>
+<div style="padding: 5px; color: grey; margin-left: 18">Version 0.9</div>
 
   </ul>
 </div>
 
 </li>
 
-<li style="margin-right: 5"><a href="/logout">Logout</a></li>
+
  <!--
 <li style="margin-top: 15px; margin-right: 20px;">
 
