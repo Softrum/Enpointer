@@ -2,7 +2,10 @@
 
 {% block content2 %} 
 
-<h4> Releases </h4><br>
+<div class="container panel panel-default" style="padding: 25">
+
+<h3> Releases* </h3><p>*This feature is currently in Beta and rolled out to early users</p><br>
+
 
 <div class = "row">
 
@@ -102,6 +105,8 @@
 
 {% endfor %}
 
-<a data-toggle="modal" data-target="#myModal2"> Create Release Version </a>
+<a data-toggle="modal" class="btn btn-default" data-target="#myModal2"> Create Release Version </a>
+
+</div>
 
 {% endblock %}

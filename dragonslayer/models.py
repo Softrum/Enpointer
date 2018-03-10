@@ -407,7 +407,7 @@ class Version(models.Model):
 	start_date = models.DateField( null = True, blank = True)
 	release_date = models.DateField( null = True, blank = True)
 	released = models.BooleanField(default=False)
-	project = models.ForeignKey(Project)
+	project = models.ForeignKey(Project, related_name='versions')
 	org = models.ForeignKey(Org)
 
 

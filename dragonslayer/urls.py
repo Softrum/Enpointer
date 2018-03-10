@@ -98,6 +98,8 @@ urlpatterns = [
 
      url(r'^release_detail/(?P<uid_release>[\w-]+)/$', views.release_detail ),
 
+      url(r'^releases/(?P<uid_project>[\w-]+)/$', views.releases ),
+
 
 
     url(r'^project/(?P<crud>[\w-]+)/(?P<uid_project>[\w-]+)/(?P<uid_issue>[\w-]+)/$', views.project2),

@@ -1251,6 +1251,14 @@ def project(request, crud, uid):
 		return redirect('/home/')
 
 
+
+def releases(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	releases =project.versions.all()
+	active = 'releases_menu'
+	return render(request, 'releases.html', {'releases':releases, 'active':active, 'project':project})
+
+
 def get_block_issues(request, uid_status):
 
 	status = Status.objects.get(uid=uid_status)
