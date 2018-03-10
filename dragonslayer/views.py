@@ -1253,14 +1253,29 @@ def project(request, crud, uid):
 
 def create_release(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
-	release = Version.objects.create(project=project, title=request.POST['title'], org=get_org(request))
+	if request.POST.get('start_date') == "":
+		start_date=None
+	else:
+		start_date = request.POST.get('start_date')
+	if request.POST.get('release_date') == "":
+		release_date=None
+	else:
+		release_date = request.POST.get('release_date')
+
+	release = Version.objects.create(project=project, title=request.POST['title'], org=get_org(request), description=request.POST.get('description'), start_date=start_date, release_date=release_date)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def releases(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	releases =project.versions.all()
+	x={}
+	y={}
+
+	for r in releases:
+		x.update({r.title:r.issues.filter(resolved=True).count()})
+		y.update({r.title:r.issues.filter(resolved=False).count()})
 	active = 'releases_menu'
-	return render(request, 'releases.html', {'releases':releases, 'active':active, 'project':project})
+	return render(request, 'releases.html', {'releases':releases, 'active':active, 'project':project, 'x':x, 'y':y})
 
 
 def get_block_issues(request, uid_status):
