@@ -46,10 +46,10 @@ col_layout = """
 <!-- column header -->
 
 <div contenteditable="true" class="well well-sm " align="center" style="margin: 0px 0px 0px 0px; height: 30px; font-weight: 150%; font-size: 110%;padding-top:5px;" >
-<span style="color:grey; display:none" onclick="move_left($(this))" class="edit_button glyphicon glyphicon-arrow-left pull-left"></span>Column_text
+<span data-toggle="tooltip" title="Move Column To Left" style="color:grey; display:none" onclick="move_left($(this))" class="edit_button glyphicon glyphicon-arrow-left pull-left"></span>Column_text
 
 <span onclick="delete_column($(this))" data-toggle="tooltip" title="Delete Column"  style="color:grey; opacity: 0.5; display:none" class="edit_button glyphicon glyphicon-remove-circle"></span>
-<span style="color:grey; display:none" onclick="move_right($(this))" class=" edit_button glyphicon glyphicon-arrow-right pull-right"></span>
+<span data-toggle="tooltip" title="Move Column To Right" style="color:grey; display:none" onclick="move_right($(this))" class=" edit_button glyphicon glyphicon-arrow-right pull-right"></span>
 
 
 
