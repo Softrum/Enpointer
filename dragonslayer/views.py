@@ -1251,6 +1251,10 @@ def project(request, crud, uid):
 		return redirect('/home/')
 
 
+def create_release(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	release = Version.objects.create(project=project, title=request.POST['title'], org=get_org(request))
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def releases(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
