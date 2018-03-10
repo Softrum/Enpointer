@@ -1,5 +1,5 @@
 # Enpointer
-Enpointer is issue tracker for agile software teams
+Enpointer is open source & free issue tracker for agile software teams
 
 How to setup locally:
 1. Clone repo
