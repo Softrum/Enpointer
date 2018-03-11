@@ -239,14 +239,14 @@ Points :
   </div>
 
 
-{% if field_config.fix_version_visible == True %}
 
-              <div hidden class="form-group">Version :
+
+              <div  class="form-group">Version :
        <select name="version"> 
 
         <option value=None>None</option>
 
-       {% for v in versions %}
+       {% for v in project.versions.all %}
 
        <option value={{v.uid}}>{{v.title}}</option>
 
@@ -256,7 +256,7 @@ Points :
        </select>
         </div>
 
-{% endif %}
+
 
 
 
