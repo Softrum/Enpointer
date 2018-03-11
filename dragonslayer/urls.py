@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from . import views
-from . import views2
+from . import website_views
 
 
 """
@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^logout', views.logout_view ),
     url(r'^signup/$', views.signup_view ),
 
-    url(r'^services/$', views2.services, name='services' ),
+    url(r'^services/$', website_views.services, name='services' ),
 
     url(r'^services_enquiry/$', views.services_enquiry ),
 
