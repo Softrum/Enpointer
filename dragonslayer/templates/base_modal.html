@@ -9,9 +9,12 @@
 
 <!-- adding later -->
 
- 
+ <!--
 
-  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+-->
 
 
 
@@ -558,15 +561,20 @@ $('.modal').on('shown.bs.modal', function () {
 })
 </script>
 
+
+
   <script>
-    $(document).ready(function() {
+    
         $('#summernote').summernote({
+
   height: 100 ,
     minHeight: 100,             // set minimum height of editor
-  maxHeight: null,              // set editor heig                // set focus to editable area after initializing summernote
+  maxHeight: 100,              // set editor heig                // set focus to editable area after initializing summernote
 });
-    });
+ 
   </script>
+
+
 </body>
 
 
