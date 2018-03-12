@@ -11,7 +11,7 @@ Start Date : {{release.start_date}}<br>
 
 <h4>Issues Resolved In This Release</h4>
 
-{% for i in release.issues.all %}
+{% for i in resolved_issues %}
 
 {{i.title}}
 
@@ -19,6 +19,12 @@ Start Date : {{release.start_date}}<br>
 
 
 <h4>Issues Remaining In This Release</h4>
+
+{% for i in remaining_issues %}
+
+{{i.title}}
+
+{% endfor %}
 
 </div>
 

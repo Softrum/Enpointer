@@ -131,7 +131,9 @@ def register_event(request, uid_project, event_type_title, uid_issue):
 def release_detail(request, uid_release):
 	release = Version.objects.get(uid=uid_release)
 	project = release.project
-	return render(request, 'release_detail.html', {'release':release, 'project':project})
+	resolved_issues = Issue.objects.filter(fix_version=release).filter(reolved=True)
+	remaining_issues = Issue.objects.filter(fix_version=release).filter(reolved=False)
+	return render(request, 'release_detail.html', {'release':release, 'project':project, 'resolved_issues':resolved_issues, 'remaining_issues':remaining_issues})
 """
 def services(request):
 	return render(request, 'website/services.html')"""
