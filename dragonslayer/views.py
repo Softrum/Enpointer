@@ -133,7 +133,8 @@ def release_detail(request, uid_release):
 	project = release.project
 	resolved_issues = Issue.objects.filter(fix_version=release).filter(resolved=True)
 	remaining_issues = Issue.objects.filter(fix_version=release).filter(resolved=False)
-	return render(request, 'release_detail.html', {'release':release, 'project':project, 'resolved_issues':resolved_issues, 'remaining_issues':remaining_issues})
+	active = 'releases_menu'
+	return render(request, 'release_detail.html', {'active':active, 'release':release, 'project':project, 'resolved_issues':resolved_issues, 'remaining_issues':remaining_issues})
 """
 def services(request):
 	return render(request, 'website/services.html')"""
