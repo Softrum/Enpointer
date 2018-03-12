@@ -4,7 +4,22 @@
 
 <div class="container panel panel-default">
 
-sadas
+<h4>{{release.title}}</h4><br>
+{{release.description}}<br>
+Release Date  : {{release.release_date}}<br>
+Start Date : {{release.start_date}}<br>
+
+<h4>Issues Resolved In This Release</h4>
+
+{% for i in release.issues.all %}
+
+{{i.title}}
+
+{% endfor %}
+
+
+<h4>Issues Remaining In This Release</h4>
+
 </div>
 
 
