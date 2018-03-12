@@ -627,6 +627,8 @@ def find_current_sprint(uid):
 			if s.start_date <= date_today and date_today <= s.end_date:
 				return s
 
+def profile(request):
+	return render(request,'profile.html')
 
 def upload_attachment(request, uid_issue):
 	issue = Issue.objects.get(uid=uid_issue)

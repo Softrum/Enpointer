@@ -42,6 +42,8 @@ urlpatterns = [
 
 
     url(r'^updates/$', views.updates ),
+    url(r'^profile/$', views.profile ),
+
 
     url(r'^case_studies', views.case_studies ),
 
