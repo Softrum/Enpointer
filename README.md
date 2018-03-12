@@ -11,9 +11,9 @@ Enpointer is open source & free issue tracker for agile software teams
 And your local instance of Enpointer should be up and running.
 
 ## Built With
-Python/Django — Our back end API is a Django app.
-Javascript — Our front end is lot of pure Javascript without using any specific framework
-PostgreSQL — Our main data store is in Postgres.
+Python/Django — Our back end API is a Django app.<br>
+Javascript — Our front end is lot of pure Javascript without using any specific framework<br>
+PostgreSQL — Our main data store is in Postgres.<br>
 And lot of amazing python modules contributed by opensource community
 
 
