@@ -3,12 +3,101 @@
 {% block content %}
 
 
-<div style="padding:0px; background-color: " class="container">
-
-{{request.user}}
-{{request.user.userprofile.created}}
+<div style="margin:20px;padding:20px; text-align: center;" class="container. panel panel-default">
+<span class="glyphicon glyphicon-user" style="font-size: 120px;"></span>
+<h3>{{request.user}} </h3>
+<br>
+Joined 
+{% with request.user.userprofile.all|first as u %}{{ u.created|timesince }}{% endwith %} ago
 
 </div>
 
+
+
+
+
+<div style="margin:20px;padding:20px; " class="container. panel panel-default">
+<h4>Issues Created</h4>
+
+{% for r in request.user.issues_created.all %}
+
+
+
+
+
+<div class="row">
+
+<div class="col-md-2">
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+ <a style="text-decoration: none;" id="hocus{{r.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/100/{{r.uid}}/"><span id="focus{{r.uid}}" style=" margin-top: 10px; color: #333333;  overflow:hidden;">{{r.title}}</span></a>
+
+</div>
+
+<div class="col-md-1">
+{{r.status.title}}
+</div>
+
+<div class="col-md-1">
+{{r.priority.title}}
+</div>
+
+
+<div class="col-md-2">
+{{r.assigned_to.username}}
+</div>
+
+<div class="col-md-2">
+{{r.created_by.username}}
+</div>
+
+
+
+<div class="col-md-2">
+{{r.created.date}}
+</div>
+
+<div class="col-md-1">
+{{r.updated}}
+</div>
+
+<div class="col-md-1">
+{{r.resolved}}
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endfor %}
+
+</div>
 {% endblock %}
 
