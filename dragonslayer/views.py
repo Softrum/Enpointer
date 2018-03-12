@@ -587,7 +587,15 @@ def project_settings(request, setting_type, uid_project):
 
 	if setting_type == 'swimlane':
 		project = Project.objects.get(uid=uid_project)
+
 		return render(request, 'project_settings_swimlane.html', {'active2':active2, 'active':active,'project':project})
+
+	if setting_type == 'users':
+		project = Project.objects.get(uid=uid_project)
+		active2 = 'users_settings'
+		org = get_org(request)
+		return render(request, 'project_settings_users.html', {'active2':active2, 'active':active,'project':project, 'org':org})
+
 	if setting_type == 'general':
 		project = Project.objects.get(uid=uid_project)
 		active2 = 'general_settings'

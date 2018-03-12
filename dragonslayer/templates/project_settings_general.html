@@ -43,29 +43,9 @@ Project Lead :<br>
 {% endfor %}
 
 -->
-<hr>
-<h4> Add User To Organisation</h4>
-
-
-<form action="/invite_user/" method="post" >
-{% csrf_token %}
-
-<input type="text" name="email" placeholder="add user's email">
-
-<button class="btn btn-default" type="submit">Send Invite</button>
-
-</form>
 
 
 
-{% for u in org.org_members.all %}
-
-{{u.user.username}}<br>
-
-{% endfor %}
-
-
-<hr>
 <!--
 <h4> Add User To '{{project.title}}' Project</h4>
 

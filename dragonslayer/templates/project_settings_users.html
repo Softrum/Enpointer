@@ -1,0 +1,30 @@
+{% extends 'project_settings_base.html' %}
+
+{% block content3 %}
+<h4>Manage Users</h4>
+
+<br>
+
+<p> Add New User To Organisation</p>
+
+
+<form action="/invite_user/" method="post" >
+{% csrf_token %}
+
+<input type="text" name="email" placeholder="add user's email">
+
+<button class="btn btn-default" type="submit">Send Invite</button>
+
+</form>
+
+<hr>
+
+{% for u in org.org_members.all %}
+
+<span class="glyphicon glyphicon-user"> </span> {{u.user.username}} <!--<a class="btn btn-danger btn-sm">Remove</a>--><br>
+
+{% endfor %}
+
+
+
+{% endblock %}
