@@ -11,18 +11,146 @@ Start Date : {{release.start_date}}<br><hr>
 
 <h5>Issues Resolved In This Release - {{resolved_issues.count}}</h5>
 
-{% for i in resolved_issues %}
+{% for r in resolved_issues %}
 
-{{i.title}}
+
+
+<div class="row">
+
+<div class="col-md-2">
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+ <a style="text-decoration: none;" id="hocus{{r.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/100/{{r.uid}}/"><span id="focus{{r.uid}}" style=" margin-top: 10px; color: #333333;  overflow:hidden;">{{r.title}}</span></a>
+
+</div>
+
+<div class="col-md-1">
+{{r.status.title}}
+</div>
+
+<div class="col-md-1">
+{{r.priority.title}}
+</div>
+
+
+<div class="col-md-2">
+{{r.assigned_to.username}}
+</div>
+
+<div class="col-md-2">
+{{r.created_by.username}}
+</div>
+
+
+
+<div class="col-md-2">
+{{r.created.date}}
+</div>
+
+<div class="col-md-1">
+{{r.updated}}
+</div>
+
+<div class="col-md-1">
+{{r.resolved}}
+</div>
+
+
+
+
+
+
+
+
+</div>
+
 
 {% endfor %}
+
+<br><br>
 
 
 <h5>Issues Remaining In This Release - {{remaining_issues.count}}</h5>
 
-{% for i in remaining_issues %}
+{% for r in remaining_issues %}
 
-{{i.title}}
+
+
+<div class="row">
+
+<div class="col-md-2">
+
+
+    <script type="text/javascript">
+  function myfunc(x) {
+
+
+                        
+  
+          
+    $( "#modal-content" ).load(x);
+    
+    
+  }
+     </script>
+
+ <a style="text-decoration: none;" id="hocus{{r.uid}}" onclick="myfunc($(this).attr('href'))"  data-target="#myModal1" data-toggle="modal"  href="/show_view_issue_screen/100/{{r.uid}}/"><span id="focus{{r.uid}}" style=" margin-top: 10px; color: #333333;  overflow:hidden;">{{r.title}}</span></a>
+
+</div>
+
+<div class="col-md-1">
+{{r.status.title}}
+</div>
+
+<div class="col-md-1">
+{{r.priority.title}}
+</div>
+
+
+<div class="col-md-2">
+{{r.assigned_to.username}}
+</div>
+
+<div class="col-md-2">
+{{r.created_by.username}}
+</div>
+
+
+
+<div class="col-md-2">
+{{r.created.date}}
+</div>
+
+<div class="col-md-1">
+{{r.updated}}
+</div>
+
+<div class="col-md-1">
+{{r.resolved}}
+</div>
+
+
+
+
+
+
+
+
+</div>
+
 
 {% endfor %}
 
