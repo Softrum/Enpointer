@@ -129,7 +129,9 @@ def register_event(request, uid_project, event_type_title, uid_issue):
 	print(event.action)
 
 def release_detail(request, uid_release):
-	return render(request, 'release_detail.html')
+	release = Version.objects.get(uid=uid_release)
+	project = release.project
+	return render(request, 'release_detail.html', {'release':release, 'project':project})
 """
 def services(request):
 	return render(request, 'website/services.html')"""
