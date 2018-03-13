@@ -7,20 +7,20 @@
 {% csrf_token %}
 
 Project Name : 
-<input  style="width: 25%" name="project_name" type="text" value="{{project.title}}"> <br><br>
+<input class="form-control"  style="width: 50%" name="project_name" type="text" value="{{project.title}}"> <br><br>
 
 
 Issue id prefix : 
 
-<input name="issue_id" style="width: 25%" type="text" value="{{project.issue_id_prefix}}"> <br><br>
+<input class="form-control" name="issue_id" style="width: 50%" type="text" value="{{project.issue_id_prefix}}"> <br><br>
 
 
 Project Description : 
 
-<textarea style="width: 25%" class="input" name="description" type="textarea" > {{project.description}} </textarea> <br><br>
+<textarea style="width: 50%" class="input form-control" name="description" type="textarea" > {{project.description}} </textarea> <br><br>
 
 
-<button class="btn btn-default " type="submit"> Save Changes</button>
+<button class="btn btn-default btn-lg " type="submit"> Save Changes</button>
 
 </form>
 <!--
@@ -105,7 +105,7 @@ Project Lead :<br>
 </div>
 
 <br><br>
-<a class="btn btn-danger" data-toggle="modal" data-target="#delete_project_confirmation"  > Delete Project</a>
+<a class="btn btn-danger pull-right" data-toggle="modal" data-target="#delete_project_confirmation"  > Delete Project</a>
 
 <!--
 
