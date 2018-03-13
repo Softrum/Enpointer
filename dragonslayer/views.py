@@ -698,9 +698,9 @@ def updates(request):
 
 def create_issue_types(request, project):
 	org = get_org(request)
-	IssueType.objects.create(title='story', project=project, org=org)
-	IssueType.objects.create(title='bug', project=project, org=org)
-	IssueType.objects.create(title='task', project=project, org=org)
+	IssueType.objects.create(title='story', project=project, org=org, icon='issue_type_icons/story.png')
+	IssueType.objects.create(title='bug', project=project, org=org, icon='issue_type_icons/bug.png')
+	IssueType.objects.create(title='task', project=project, org=org, icon='issue_type_icons/task.png')
 	#IssueType.objects.create(title='epic', project=project, org=org)
 
 def create_default_prioritys(request, project):
@@ -1310,6 +1310,7 @@ def get_block_issues(request, uid_status):
 		a['issue_type'] = i.issue_type.title
 		a['priority_color'] = i.priority.color
 		a['priority_title'] = i.priority.title
+		a['icon_url'] = i.issue_type.icon.url
 		data.append(a)
 
 
