@@ -51,6 +51,10 @@ priority : {{issue.priority.title}}<br><br>
 
 <h5> Details :</h5>
 
+<div class="row">
+
+<div class="col-md-6">
+
 
            <div class="form-group"><img src="https://i.imgur.com/m11xW89.png" width="20" style="opacity: 0.7; margin-right: 5">Issue Type :
        <select id="uid_issuetype" name="issue_type"> 
@@ -114,6 +118,66 @@ priority : {{issue.priority.title}}<br><br>
 
 
 
+<div hidden class="form-group">
+Labels : 
+
+<select name="labels" multiple> 
+
+{% for l in labels %}
+
+<option value={{l.uid}}>{{l.title}}</option>
+
+
+{% endfor %}
+
+</select>
+
+
+</div>
+
+
+
+
+
+          <div hidden="" class="form-group">
+          <input  type="text" class="form-control" name="project" readonly hidden value={{project.title}}>
+        </div>
+
+
+
+
+<!--two ways 
+
+          <div class="form-group">
+          <input {{a}} {{a}}  type="text" class="form-control" name="project" readonly value={{project.title}}>
+        </div>
+
+        -->
+
+
+        <!--
+
+        for f in fields 
+
+        f.name f.type f.optioms if required 
+
+
+        endfor
+
+
+
+
+        -->
+   
+
+     
+</div> <!-- col -md -6 -->
+
+
+<div class="col-md-6">
+
+
+
 
               <div  class="form-group"> <img src="https://i.imgur.com/xvONnBu.png" width="20" style="opacity: 0.5"> Version :
        <select id="version_edit" name="version"> 
@@ -157,58 +221,9 @@ priority : {{issue.priority.title}}<br><br>
         </div>
 
 
-<div hidden class="form-group">
-Labels : 
-
-<select name="labels" multiple> 
-
-{% for l in labels %}
-
-<option value={{l.uid}}>{{l.title}}</option>
-
-
-{% endfor %}
-
-</select>
-
-
 </div>
 
-
-          <div hidden="" class="form-group">
-          <input  type="text" class="form-control" name="project" readonly hidden value={{project.title}}>
-        </div>
-
-
-
-
-<!--two ways 
-
-          <div class="form-group">
-          <input {{a}} {{a}}  type="text" class="form-control" name="project" readonly value={{project.title}}>
-        </div>
-
-        -->
-
-
-        <!--
-
-        for f in fields 
-
-        f.name f.type f.optioms if required 
-
-
-        endfor
-
-
-
-
-        -->
-   
-
-     
-
-
+</div> <!-- row -->
 </div><!-- for panel of details -->
 
 
@@ -245,7 +260,7 @@ Labels :
 </script>
 
 
-       <button style="background-color: #2196F3; color: white" onclick="save_issue_edit()" class="btn btn-bold btn-default" ><b>Save Changes</b></button>
+       <button style="background-color: #2196F3; color: white" onclick="save_issue_edit()" class="btn btn-bold btn-default btn-lg" ><b>Save Changes</b></button>
 
 
 
