@@ -379,6 +379,7 @@ class IssueType(models.Model):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 	title = models.CharField(max_length=100, null = True, blank = True)
 	description = models.CharField(max_length=100, null = True, blank = True)
+	icon = models.ImageField(null=True, blank=True, upload_to='issue_type_icons')
 	create_screen = models.ForeignKey(Screen, null = True, blank = True, related_name='a')
 	edit_screen =  models.ForeignKey(Screen, null = True, blank = True, related_name='b')
 	view_screen =  models.ForeignKey(Screen, null = True, blank = True, related_name='c')
