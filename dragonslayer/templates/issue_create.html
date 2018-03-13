@@ -41,14 +41,14 @@ Actions : <a href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}">Edit</
       {% csrf_token %}
 
       <div class="panel-default panel" style="padding: 10">
-      <h5> Issue Title </h5>
+      <h5> Issue Title: </h5>
         <div class="form-group">
           <input    class="form-control" name="title" placeholder="Title of Issue" autocomplete="off">
         </div>
       </div>
 
             <div class="panel-default panel" style="padding: 10">
-      <h5> Description </h5>
+      <h5> Description: </h5>
 
 <textarea style="height: 100; width: 100%; transition: none !important" class="input form-control" id="summernote" name="description" >
 					</textarea>
@@ -56,9 +56,9 @@ Actions : <a href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}">Edit</
 
   
 
-<div class="panel panel-default" style="background-color: white; padding: 20; padding-left: 25; font-size: 110%" >
+<div class="panel panel-default" style="background-color: white; padding: 10; padding-left: 25; font-size: 110%" >
 
-
+<h5> Details: </h5>
 <div class="row">
 
 <div class="col-md-6">
