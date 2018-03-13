@@ -39,12 +39,20 @@ Actions : <a href="/show_edit_issue_screen/{{project.uid}}/{{issue.uid}}">Edit</
 
 <form action="/save_create_issue_screen/{{project.uid}}/" method="post" enctype="multipart/form-data">
       {% csrf_token %}
+
+      <div class="panel-default panel" style="padding: 10">
+      <h5> Issue Title </h5>
         <div class="form-group">
           <input    class="form-control" name="title" placeholder="Title of Issue" autocomplete="off">
         </div>
+      </div>
+
+            <div class="panel-default panel" style="padding: 10">
+      <h5> Description </h5>
 
 <textarea style="height: 100; width: 100%; transition: none !important" class="input form-control" id="summernote" name="description" >
 					</textarea>
+          </div>
 
   
 
