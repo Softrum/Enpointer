@@ -700,7 +700,7 @@ def create_issue_types(request, project):
 	org = get_org(request)
 	IssueType.objects.create(title='story', project=project, org=org, icon='issue_type_icons/story.png')
 	IssueType.objects.create(title='bug', project=project, org=org, icon='issue_type_icons/bug.png')
-	IssueType.objects.create(title='task', project=project, org=org, icon='issue_type_icons/task.svg')
+	IssueType.objects.create(title='task', project=project, org=org, icon='issue_type_icons/task.png')
 	#IssueType.objects.create(title='epic', project=project, org=org)
 
 def create_default_prioritys(request, project):
