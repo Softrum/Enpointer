@@ -246,8 +246,8 @@ $(document).ready(function(){
 
       <br><form action="/project/create/100/" method="post">
       {% csrf_token %}
-        <div class="form-group">
-          <input id="project_title_input{{s.uid}}"   type="text" class="form-control" name="title" placeholder="Name of Your Project">
+        <div class="form-group" >
+          <input id="project_title_input{{s.uid}}" autofocus   type="text" class="form-control" name="title" placeholder="Name of Your Project">
         </div>
 
         <div class="form-group">
