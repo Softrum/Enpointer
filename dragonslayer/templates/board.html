@@ -305,7 +305,7 @@ width = width_parent/p -10;
 //alert(issue);
 
 
-var y = "<div id="+issue.uid+" style=\"height:100px ; width:"+width+";  margin:0px; vertical-align:top; display:inline-block; margin-bottom:5px; margin-left:5px;  float:left; overflow-x:hidden;overflow-y: hidden; padding:7px; \" class=\"panel panel-default content \"> "
+var y = "<a style=\"text-decoration: none;\" id=\"hocus{{i.uid}}\" onclick=\"myfunc($(this).attr('href'))\"  data-target=\"#myModal1\" data-toggle=\"modal\"  href=\"/show_view_issue_screen/{{project.uid}}/"+issue.uid+"/\"><div id="+issue.uid+" style=\"height:100px ; width:"+width+";  margin:0px; vertical-align:top; display:inline-block; margin-bottom:5px; margin-left:5px;  float:left; overflow-x:hidden;overflow-y: hidden; padding:7px; \" class=\"panel panel-default content \"> "
 
 
 +
@@ -321,9 +321,9 @@ var y = "<div id="+issue.uid+" style=\"height:100px ; width:"+width+";  margin:0
 
 +
 
-"<a style=\"text-decoration: none;\" id=\"hocus{{i.uid}}\" onclick=\"myfunc($(this).attr('href'))\"  data-target=\"#myModal1\" data-toggle=\"modal\"  href=\"/show_view_issue_screen/{{project.uid}}/"+issue.uid+"/\"><p id=\"focus{{i.uid}}\" style=\" margin-top: 10px; color: #333333; height: 3em; font-size:105%; overflow:hidden;\">"+issue.title+"</p></a> "
+"<p id=\"focus{{i.uid}}\" style=\" margin-top: 10px; color: #333333; height: 3em; font-size:105%; overflow:hidden;\">"+issue.title+"</p>"
 
-" </div>" 
+" </div></a> " 
 
 ;
 return y;  //returns the built html of an issue card 
