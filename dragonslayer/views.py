@@ -229,7 +229,7 @@ def invite_user(request):
 	guid = uuid.uuid4()
 	guid = str(uuid.uuid4())
 	hash_id = hash(guid)
-	Invite_user_request.objects.create(org = org, hash_id=hash_id )
+	Invite_user_request.objects.create(org = org, hash_id=hash_id, email=email )
 
 
 	if request.get_host() == '127.0.0.1:8000':
@@ -604,14 +604,16 @@ def project_settings(request, setting_type, uid_project):
 		project = Project.objects.get(uid=uid_project)
 		active2 = 'users_settings'
 		org = get_org(request)
-		return render(request, 'project_settings_users.html', {'active2':active2, 'active':active,'project':project, 'org':org})
+		iv = Invite_user_request.objects.filter(org=org)
+		return render(request, 'project_settings_users.html', {'iv':iv,'active2':active2, 'active':active,'project':project, 'org':org})
 
 	if setting_type == 'general':
 		project = Project.objects.get(uid=uid_project)
 		active2 = 'general_settings'
 		org = get_org(request)
 		
-		return render(request, 'project_settings_general.html', {'org':org, 'active2':active2, 'active':active,'project':project})    
+		
+		return render(request, 'project_settings_general.html', { 'org':org, 'active2':active2, 'active':active,'project':project})    
 
 def set_issue_bg(request, uid_issue):
 

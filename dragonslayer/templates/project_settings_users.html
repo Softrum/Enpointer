@@ -19,12 +19,24 @@
 
 <hr>
 
+<h5> Current Users </h5>
+
 {% for u in org.org_members.all %}
 
 <span class="glyphicon glyphicon-user"> </span> {{u.user.username}} <!--<a class="btn btn-danger btn-sm">Remove</a>--><br>
 
+
 {% endfor %}
 
+<hr>
+
+<h5> Pending Invitations </h5>
+
+{% for i in iv %}
+
+{{i.email}}<br>
+
+{% endfor %}
 
 
 {% endblock %}
