@@ -145,6 +145,7 @@ urlpatterns = [
     url(r'^create_workflow/(?P<uid_project>[\w-]+)', views.create_workflow),
 
     url(r'^create_priority/(?P<uid_project>[\w-]+)', views.create_priority),
+    url(r'^delete_priority/(?P<uid_project>[\w-]+)/(?P<uid_priority>[\w-]+)', views.delete_priority),
 
     url(r'^create_screen/(?P<uid_project>[\w-]+)', views.create_screen),
 

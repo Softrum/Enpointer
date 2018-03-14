@@ -2392,6 +2392,11 @@ def create_priority(request, uid_project):
 	Priority.objects.create(title= request.POST['title'], project=Project.objects.get(uid=uid_project), org=get_org(request), color=request.POST['color'])
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def delete_priority(request, uid_project, uid_priority):
+	p = Priority.objects.get(uid=uid_priority)
+	p.delete()
+	
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def logout_view(request):
