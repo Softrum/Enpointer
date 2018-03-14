@@ -30,7 +30,7 @@
       <form action="/status/create/{{project.uid}}/100/" method="post">
       {% csrf_token %}
 
-     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+     <input autofocus   type="text" class="form-control" name="title" placeholder="title"><br>
 
      
 Accepts Issues from these Statuses: <br>
@@ -82,7 +82,7 @@ Workflow:<br>
 
 
 
-     <input style="visibility: hidden"   type="text"  class="form-control" name="column" value={{c.uid}} hidden><br>
+     <input  style="visibility: hidden"   type="text"  class="form-control" name="column" value={{c.uid}} hidden><br>
       <button class="btn btn-bold  btn-default" type="submit">create status </button>
 
 </form>
@@ -138,7 +138,7 @@ Workflow:<br>
 <form action="/column/create/{{project.uid}}/100/" method="post">
       {% csrf_token %}
 
-     <input   type="text" class="form-control" name="title" placeholder="title"><br>
+     <input autofocus   type="text" class="form-control" name="title" placeholder="title"><br>
       <button class="btn btn-bold btn-default" type="submit">create column </button>
 
 </form>
