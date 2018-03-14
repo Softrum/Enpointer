@@ -182,7 +182,7 @@ Workflow:<br>
 
 {% for c in columns %}
 
-<p>{{c.title}} <a href="/column/delete/{{project.uid}}/{{c.uid}}">Delete</a></p>
+<p>{{c.title}} <a href="/column/delete/{{project.uid}}/{{c.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a></p>
 
 
 
@@ -203,7 +203,7 @@ Workflow:<br>
 {% for s in project.statuss.all %}
 
 
-<p>{{s.title}} <a href="/status/delete/{{project.uid}}/{{s.uid}}">Delete</a></p>
+<p>{{s.title}} <a href="/status/delete/{{project.uid}}/{{s.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a></p>
 
 
 
