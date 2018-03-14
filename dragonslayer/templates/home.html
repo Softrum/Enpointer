@@ -136,11 +136,41 @@ $(document).ready(function(){
 
 
 
-<a   href="/project/read/{{p.uid}}">
+
+<a style="text-decoration: none"   href="/project/read/{{p.uid}}">
+
+
+
+
 
 <div id="{{p.uid}}" style="padding:10px; min-height: 100px; background-color: white;" class="panel panel-default">
 
-<span style="font-size: 19px; color:#333333;" >{{p.title}}</span><br><br><br>
+
+
+
+<div class="row">
+
+
+<div class="col-md-1" style="margin-right: 10">
+
+<div style="font-size: 150%;  color: white; width: 30; background-color:#5892e5; height: 30; text-align: center; border-radius: 50%">
+{{p.title|first|capfirst }}
+</div>
+
+</div> <!-- for col-md-4-->
+
+<div class="col-md-10">
+<span style="font-size: 19px; color:#333333;" >{{p.title}}</span>
+
+</div>
+
+</div> <!-- for row -->
+
+
+
+
+
+<br><br>
 
 <span style="opacity: 0.5">
 
