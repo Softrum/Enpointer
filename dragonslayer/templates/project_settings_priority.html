@@ -6,9 +6,23 @@
 
 {% for p in prioritys %}
 
-<span class="fa fa-circle" style="color: {{p.color}}; margin-right: 20"> </span>{{p.title}} <a href="/delete_priority/{{project.uid}}/{{p.uid}}">Delete</a><br><hr>
+<hr>
+
+<div class="row">
+
+<div class="col-md-8">
+
+<span class="fa fa-circle" style="color: {{p.color}}; margin-right: 20"> </span>{{p.title}} 
+
+</div>
+
+<div class="col-md-4">
+<a href="/delete_priority/{{project.uid}}/{{p.uid}}">Delete</a>
+</div>
 
 
+
+</div>
 {% endfor %}
 
 

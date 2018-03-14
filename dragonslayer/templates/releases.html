@@ -23,7 +23,7 @@
       <form action="/create_release/{{project.uid}}/" method="post">
       {% csrf_token %}
         <div class="form-group">
-          <input   data-validation="text" type="text" class="form-control" name="title" placeholder="Release Title ( eg 10.2.5) ">
+          <input autofocus   data-validation="text" type="text" class="form-control" name="title" placeholder="Release Title ( eg 10.2.5) ">
         </div>
 
         <div class="form-group">
