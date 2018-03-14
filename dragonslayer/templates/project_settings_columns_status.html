@@ -176,13 +176,31 @@ Workflow:<br>
 
 <h4> Columns </h4>
 
-
+<br>
 
 
 
 {% for c in columns %}
 
-<p>{{c.title}} <a href="/column/delete/{{project.uid}}/{{c.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a></p>
+<hr>
+
+<div class="row">
+
+<div class="col-md-8">
+
+{{c.title}} 
+
+</div>
+
+
+
+<div class="col-md-4">
+<a href="/column/delete/{{project.uid}}/{{c.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a>
+</div>
+
+
+</div>
+
 
 
 
@@ -190,30 +208,45 @@ Workflow:<br>
 
 
 {% endfor %}
+
+<br>
 
 
 <h5><a class="btn btn-default" style="cursor: pointer"  data-toggle="modal" data-target="#column"> Create New Column </a></h5>
 
 
-<hr>
+<br><br>
 
 <h4> Status </h4>
 
 
+
 {% for s in project.statuss.all %}
+<hr>
+
+<div class="row">
+
+<div class="col-md-8">
+
+{{s.title}} 
+
+</div>
+
+<div class="col-md-4">
+<a href="/status/delete/{{project.uid}}/{{s.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a>
+</div>
 
 
-<p>{{s.title}} <a href="/status/delete/{{project.uid}}/{{s.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a></p>
-
+</div>
 
 
 
 
 
 {% endfor %}
+<br>
 
 
-
-<h5><a class="btn btn-default" style="cursor: pointer"  data-toggle="modal" data-target="#create_status_modal" >Create new status</a> </h5>
+<h5><a class="btn btn-default" style="cursor: pointer"  data-toggle="modal" data-target="#create_status_modal" >Create New Status</a> </h5>
 
 {% endblock %}
