@@ -21,14 +21,18 @@
       <div class="modal-body">
         
 
-<form  action="/issuetype/create/{{project.uid}}/100/" method="post">
+<form  action="/issuetype/create/{{project.uid}}/100/" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
-        <input name="title" type="text" class="form-control" placeholder="title">
-      </div>
+        <input name="title" type="text" class="form-control" placeholder="Title of Issue Type (eg. Bug)">
+      </div><br>
+
+      <div class="form-group"> Add Issue Type Icon:<br><br>
+        <input type="file" name="icon">
+      </div><br>
 
          <div class="form-group">
-        <input name="description" type="text" class="form-control" placeholder="description">
+        <textarea rows="5" name="description" type="text" class="form-control" placeholder="Description (optional)"></textarea>
       </div>
 
 
@@ -88,7 +92,7 @@
 
 
 
-<button  class="btn btn-default" type="submit">Create</button>
+<button  class="btn btn-default" type="submit">Create Issue Type</button>
    
 
 </form>

@@ -444,7 +444,7 @@ def create_screen(request, uid_project):
 
 def issuetype(request,crud,  uid_project, uid_issuetype):
 	if crud == 'create':
-		IssueType.objects.create(title = request.POST['title'], description = request.POST['description'], project=Project.objects.get(uid=request.POST['project']), org=get_org(request), workflow=Workflow.objects.get(uid=request.POST['workflow']),create_screen=Screen.objects.get(uid=request.POST['create_screen']), edit_screen=Screen.objects.get(uid=request.POST['edit_screen']),  view_screen=Screen.objects.get(uid=request.POST['view_screen']))
+		IssueType.objects.create(icon=request.FILES['icon'],title = request.POST['title'], description = request.POST['description'], project=Project.objects.get(uid=request.POST['project']), org=get_org(request), workflow=Workflow.objects.get(uid=request.POST['workflow']),create_screen=Screen.objects.get(uid=request.POST['create_screen']), edit_screen=Screen.objects.get(uid=request.POST['edit_screen']),  view_screen=Screen.objects.get(uid=request.POST['view_screen']))
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
