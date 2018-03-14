@@ -1381,6 +1381,10 @@ def column(request,crud, uid_project, uid_column):
 		c = Column.objects.get(uid=uid_column)
 		c.delete()
 		return HttpResponse('done')
+	elif crud == 'delete':
+		c = Column.objects.get(uid=uid_column)
+		c.delete()
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def transition(request, crud, uid_project, uid_transition):
