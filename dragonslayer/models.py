@@ -178,6 +178,7 @@ class Project(models.Model):
 	bg = models.TextField(null=True, blank=True)
 
 	sortable_list_ids = models.TextField(null=True, blank=True)
+	bg_color = models.CharField(max_length=100, null=True, blank=True)
 
 
 	
