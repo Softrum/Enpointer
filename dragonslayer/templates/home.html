@@ -34,11 +34,11 @@
 <form action="/section/create/100/" method="post">
       {% csrf_token %}
         <div class="form-group">
-          <input   type="text" class="form-control" name="title" placeholder="What would you call your section?">
+          <input autofocus  type="text" class="form-control" name="title" placeholder="What would you call your section?">
         </div>
 
         <div class="form-group">
-          <input  type="text" class="form-control" name="description" placeholder="Add a little description maybe">
+          <input  type="text" class="form-control" name="description" placeholder="Add a little description (optional)">
         </div>
 
 
