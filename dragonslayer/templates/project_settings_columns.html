@@ -217,36 +217,4 @@ Workflow:<br>
 
 <br><br>
 
-<h4> Status </h4>
-
-
-
-{% for s in project.statuss.all %}
-<hr>
-
-<div class="row">
-
-<div class="col-md-8">
-
-{{s.title}} 
-
-</div>
-
-<div class="col-md-4">
-<a href="/status/delete/{{project.uid}}/{{s.uid}}"><span style="color: grey" class=" glyphicon glyphicon-trash"></span></a>
-</div>
-
-
-</div>
-
-
-
-
-
-{% endfor %}
-<br>
-
-
-<h5><a class="btn btn-default" style="cursor: pointer"  data-toggle="modal" data-target="#create_status_modal" >Create New Status</a> </h5>
-
 {% endblock %}

@@ -564,13 +564,13 @@ def project_settings(request, setting_type, uid_project):
 		active2 = 'screen_settings'
 		return render(request, 'project_settings_screen.html', {'active2':active2,'active':active,'project':project, 'screens':screens})
 	
-	if setting_type == 'columns_status':
+	if setting_type == 'columns':
 		project = Project.objects.get(uid=uid_project)
 		columns = Column.objects.filter(project=project)
 		statuss = Status.objects.filter(project=project)
 		workflows = Workflow.objects.filter(project=project)
-		active2 ='columns_status_settings'
-		return render(request, 'project_settings_columns_status.html', {'active2':active2,'active':active,'project':project, 'columns':columns, 'statuss':statuss, 'workflows':workflows})
+		active2 ='columns_settings'
+		return render(request, 'project_settings_columns.html', {'active2':active2,'active':active,'project':project, 'columns':columns, 'statuss':statuss, 'workflows':workflows})
 	
 
 	if setting_type == 'status':
