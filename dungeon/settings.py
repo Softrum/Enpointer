@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 	'django.contrib.auth',
 	'storages',
 	'dragonslayer.apps.DragonslayerConfig',
+	'qa.apps.QaConfig',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.messages',
