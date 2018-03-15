@@ -118,7 +118,8 @@ col_layout = """
 
 
 
-
+def unsyntax(request):
+	return render(request, 'unsyntax.html')
 
 
 def register_event(request, uid_project, event_type_title, uid_issue):

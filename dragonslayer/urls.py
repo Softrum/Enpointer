@@ -158,6 +158,8 @@ urlpatterns = [
     url(r'^activity_audit/$', views.activity_audit),
     url(r'^notifications/$', views.notifications),
 
+    url(r'^unsyntax/$', views.unsyntax),
+
 
 
 

@@ -540,7 +540,7 @@ $('.content').each(function() {
 </div>
 
 <h5 > {{project.title}}</h5><hr>
-<br>
+
 
 
 <a id="plan_menu" href="/project/read/{{project.uid}}" style="color:grey; font-size: 120%; text-align: center; text-decoration:none">
@@ -580,13 +580,17 @@ $('.content').each(function() {
 
  Releases </a><br><br>
 
-
+ <a id="qa_settings_menu" style="color:grey; font-size: 120%; text-decoration:none" href="/qa/{{project.uid}}/">
+<img id="qa_settings_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/OpbxSOX.png" width="35%"><br>
+Q/A </a><br><br>
 <!--
 <a id="reports_menu" style="color:black;" href="/reports/sprints/{{project.uid}}/100/"> Reports </a><br> -->
 <!--<a id="releases_menu" style="color:black;" href="/project/releases/{{project.uid}}"> Releases </a><br> -->
 <a id="project_settings_menu" style="color:grey; font-size: 120%; text-decoration:none" href="/project_settings/general/{{project.uid}}/">
 <img id="project_settings_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/zO6Ps6v.png" width="35%">
  Settings </a><br><br>
+
+
 <br>
 {% if active == 'board_menu' %}
 <a id="filter" onclick="show_filters()" style="cursor: pointer; color: black; font-size: 120%; text-decoration:none" >
