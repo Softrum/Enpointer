@@ -26,6 +26,7 @@ if settings.DEBUG == True:
 	urlpatterns = [
 	url(r'^', include('dragonslayer.urls')),
 	url(r'^', include('qa.urls')),
+	url(r'^', include('api.urls')),
 	url(r'^admin/', admin.site.urls),
 	
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -34,6 +35,7 @@ else:
 	urlpatterns = [
 	url(r'^', include('dragonslayer.urls')),
 	url(r'^', include('qa.urls')),
+	url(r'^', include('api.urls')),
 	url(r'^admin/', admin.site.urls),
 	
 ]
