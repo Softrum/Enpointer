@@ -21,11 +21,23 @@ def api_request(request):
 
 	uid_project = request.POST['uid_project']
 
+	request_type = request.POST['request_type']
 	project = Project.objects.get(uid=uid_project)
-	active = 'api_menu'
+
 	endpoint = request.POST['endpoint']
 
-	r = requests.get(endpoint)
+	
+
+	if request_type == 'GET':
+		r = requests.get(endpoint)
+	    
+	if request_type == 'POST':
+		r = requests.post(endpoint)
+		print('post')
+
+
+	active = 'api_menu'
+
 	#print(r.status_code, r.reason, r.text)
 
 	response = r.text
