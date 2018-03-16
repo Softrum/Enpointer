@@ -23,28 +23,56 @@
 
 <div class="col-md-10">
 
+<form action="/api_request/" method="post">
+      {% csrf_token %}
+
 <div class="input-group">
 
 
 
 
             
-
+<input type="text" hidden name="uid_project" value="{{project.uid}}">
                
                
 
-<input class="form-control" type="text" placeholder="Enter Api End Point">
+<input class="form-control" name="endpoint" type="text" placeholder="Enter Api End Point">
 
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-success">Send</button>
+                        <button  type="submit" class="btn btn-success">Send</button>
                     </span>
 
 </div>
 
-</div> <!-- for col-md-11-->
+
+
+</form>
+
+
+</div> <!-- for col-md-10-->
 
 
 </div> <!-- for row -->
+
+
+
+<br>
+<hr>
+<p>Response</p>
+
+<div class="container-fluid" style="overflow-x: auto">
+{% if response %}
+
+{{status_code}}<br>
+{{reason}}<br>
+
+
+
+{{response}}
+{% endif %}
+
+</div>
+
 
 </div>
 {% endblock %}
