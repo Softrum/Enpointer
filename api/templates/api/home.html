@@ -7,13 +7,18 @@
 
 <div class="row">
 
+<form action="/api_request/" method="post">
+      {% csrf_token %}
+
 <div class="col-md-2">
+
+
 
 <span>
      <select class="form-control">
-                    	<option>Get</option>
-                    	<option>Post</option>
-                    	<option>Delete</option>
+                    	<option>GET</option>
+                    	<option>POST</option>
+                    	
                     </select>
 
 </span>
@@ -23,8 +28,7 @@
 
 <div class="col-md-10">
 
-<form action="/api_request/" method="post">
-      {% csrf_token %}
+
 
 <div class="input-group">
 
@@ -46,11 +50,12 @@
 
 
 
-</form>
+
 
 
 </div> <!-- for col-md-10-->
 
+</form>
 
 </div> <!-- for row -->
 
