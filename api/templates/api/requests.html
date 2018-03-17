@@ -122,6 +122,8 @@ $('#params_string').val(string);
 
 
 </div><!-- for params row -->
+
+
 <br>
 
 
@@ -146,6 +148,8 @@ $('#params_string').val(string);
 {% endfor %}
 
 -->
+
+<br>
 <h4>Body</h4>
 {{p}}
 <script type="text/javascript">
@@ -153,9 +157,31 @@ $('#params_string').val(string);
 	alert(str);
 </script>
 
+
+<br>
 <h4>Headers</h4>
 
-{{headers}}
+
+
+{% for k, v in headers.items %}
+
+<div class="row">
+
+<div class="col-md-2">
+{{k}} : 
+
+</div>
+
+<div class="col-md-2">
+
+{{v}}
+
+</div>
+</div>
+
+{% endfor %}
+
+
 
 <br>
 <!--

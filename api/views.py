@@ -12,6 +12,8 @@ from pygments.formatters import HtmlFormatter
 
 from django.utils.safestring import mark_safe
 
+import ast
+
 
 
 # Create your views here.
@@ -75,19 +77,35 @@ def api_request(request):
 	headers = r.headers
 	cookies = r.cookies
 	json2 = r.json()
+
+	print(headers['Content-Type'])
+
+
+
+
+
+
+	formatter = HtmlFormatter(style='colorful')
+			# Get the stylesheet
+	style = "<style>" + formatter.get_style_defs() + "</style><br>"
+
+
+
+
+
+
 	parsed = json.loads(response)
 	formatted_json =  json.dumps(parsed, indent=4, sort_keys=True)
 
 
-	formatter = HtmlFormatter(style='colorful')
+	
 
 		# Highlight the data
 	formatted_json = highlight(formatted_json, JsonLexer(), formatter)
 
-		# Get the stylesheet
-	style = "<style>" + formatter.get_style_defs() + "</style><br>"
+
 
 		# Safe the output
 	p = mark_safe(style + formatted_json)
 
-	return render(request, 'api/requests.html', {'p':p, 'formatted_json':formatted_json, 'json':json, 'cookies':cookies, 'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
+	return render(request, 'api/requests.html', { 'p':p, 'formatted_json':formatted_json, 'json':json, 'cookies':cookies, 'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
