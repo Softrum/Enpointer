@@ -14,7 +14,7 @@ def api(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	active = 'api_menu'
 
-	return render(request, 'api/home.html', {'project':project, 'active':active})
+	return render(request, 'api/requests.html', {'project':project, 'active':active})
 
 
 def api_request(request):
@@ -35,6 +35,17 @@ def api_request(request):
 		r = requests.post(endpoint)
 		print('post')
 
+	if request_type == 'PUT':
+		r = requests.put(endpoint)
+
+	if request_type == 'DELET':
+		r = requests.delete(endpoint)
+
+	if request_type == 'HEAD':
+		r = requests.head(endpoint)
+
+	if request_type == 'OPTIONS':
+		r = requests.options(endpoint)
 
 	active = 'api_menu'
 
@@ -44,4 +55,4 @@ def api_request(request):
 	status_code = r.status_code
 	reason = r.reason
 
-	return render(request, 'api/home.html', {'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
+	return render(request, 'api/requests.html', {'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
