@@ -76,7 +76,7 @@ $('#params_string').val(string);
                
                
 
-<input id='request' class="form-control" name="endpoint" type="text" placeholder="Enter request url">
+<input id='request' required  class="form-control" name="endpoint" type="url" placeholder="Enter request url">
 
                     <span class="input-group-btn">
                         <button  type="submit" class="btn btn-success">Send</button>
@@ -131,7 +131,7 @@ $('#params_string').val(string);
 
 <br>
 <hr>
-<p style="font-size: 110%; text-align: center;">Response</p>
+<p style="font-size: 115%; text-align: center;">Response</p>
 
 <div class="container-fluid" style="overflow-x: auto">
 {% if response %}
@@ -194,7 +194,7 @@ $('#params_string').val(string);
 {% else %}
 <div class="container" style="background-color:#f6f6f6; text-align: center; color: grey; height: 100">
 <br><br>
-<p style="font-size: 125%; opacity: 0.6"> Send Request to Get Response </p>
+<p style="font-size: 125%; opacity: 0.6; text-align: center;"> Send Request to Get Response </p>
 </div>
 {% endif %}
 
