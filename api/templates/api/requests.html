@@ -44,7 +44,7 @@
                
                
 
-<input class="form-control" name="endpoint" type="text" placeholder="Enter request url">
+<input id='request' class="form-control" name="endpoint" type="text" placeholder="Enter request url">
 
                     <span class="input-group-btn">
                         <button  type="submit" class="btn btn-success">Send</button>
@@ -76,14 +76,14 @@
 
 <div class="col-md-6">
 
-<input type="text" class="form-control" name="key" placeholder="Key">
+<input id='param_key' type="text" class="form-control" name="key" placeholder="Key">
 
 </div>
 
 
 <div class="col-md-6">
 
-<input type="text" class="form-control" name="value" placeholder="Value">
+<input id="param_value"  type="text" class="form-control" name="value" placeholder="Value">
 
 </div>
 
@@ -97,12 +97,12 @@
 
 <br>
 <hr>
-<p>Response</p>
+<p style="font-size: 110%">Response</p>
 
 <div class="container-fluid" style="overflow-x: auto">
 {% if response %}
 
-{{status_code}}<br>
+<h4>Status</h4>{{status_code}} 
 {{reason}}<br>
 
 <!--
@@ -114,7 +114,7 @@
 {% endfor %}
 
 -->
-
+<h4>Body</h4>
 {{p}}
 <script type="text/javascript">
 	var str = JSON.stringify({{response}}, undefined, 4);
@@ -126,9 +126,12 @@
 {{headers}}
 
 <br>
+<!--
 <h4>Body </h4>
 
+
 {{response}}
+-->
 
 {% else %}
 <div class="container" style="background-color:#f6f6f6; text-align: center; color: grey; height: 100">
