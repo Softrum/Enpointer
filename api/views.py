@@ -41,7 +41,7 @@ def api_request(request):
 	#string = "{'key':'value'}"
 	#string = '{"favorited": false, "contributors": true}'
 	if string != "":
-	    params = json.loads(string) 
+		params = json.loads(string) 
 	else:
 		params = None
 
@@ -76,36 +76,10 @@ def api_request(request):
 	reason = r.reason
 	headers = r.headers
 	cookies = r.cookies
-	json2 = r.json()
-
-	print(headers['Content-Type'])
-
-
-
-
-
-
-	formatter = HtmlFormatter(style='colorful')
-			# Get the stylesheet
-	style = "<style>" + formatter.get_style_defs() + "</style><br>"
-
-
-
-
-
-
-	parsed = json.loads(response)
-	formatted_json =  json.dumps(parsed, indent=4, sort_keys=True)
-
-
+	time = r.elapsed.total_seconds()
+	
 	
 
-		# Highlight the data
-	formatted_json = highlight(formatted_json, JsonLexer(), formatter)
 
+	return render(request, 'api/requests.html', { 'time':time,'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code': status_code,'reason':reason } )
 
-
-		# Safe the output
-	p = mark_safe(style + formatted_json)
-
-	return render(request, 'api/requests.html', { 'p':p, 'formatted_json':formatted_json, 'json':json, 'cookies':cookies, 'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})

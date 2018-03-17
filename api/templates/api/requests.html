@@ -40,22 +40,22 @@ $('#params_string').val(string);
 <div class="row">
 
 <form action="/api_request/" method="post">
-      {% csrf_token %}
+	  {% csrf_token %}
 
 <div class="col-md-2">
 
 
 
 <span>
-     <select name="request_type" class="form-control">
-                    	<option value="GET">GET</option>
-                    	<option value="POST">POST</option>
-                    	<option value="PUT">PUT</option>
-                    	<option value="DELET">DELETE</option>
-                    	<option value="HEAD">HEAD</option>
-                    	<option value="OPTIONS">OPTIONS</option>
-                    	
-                    </select>
+	 <select name="request_type" class="form-control">
+						<option value="GET">GET</option>
+						<option value="POST">POST</option>
+						<option value="PUT">PUT</option>
+						<option value="DELET">DELETE</option>
+						<option value="HEAD">HEAD</option>
+						<option value="OPTIONS">OPTIONS</option>
+						
+					</select>
 
 </span>
 
@@ -71,16 +71,16 @@ $('#params_string').val(string);
 
 
 
-            
+			
 <input type="text" hidden name="uid_project" value="{{project.uid}}">
-               
-               
+			   
+			   
 
 <input id='request' required  class="form-control" name="endpoint" type="url" placeholder="Enter request url">
 
-                    <span class="input-group-btn">
-                        <button  type="submit" class="btn btn-success">Send</button>
-                    </span>
+					<span class="input-group-btn">
+						<button  type="submit" class="btn btn-success">Send</button>
+					</span>
 
 </div>
 
@@ -138,6 +138,8 @@ $('#params_string').val(string);
 
 <h4>Status</h4>{{status_code}} 
 {{reason}}<br>
+<br>
+<h4>Time </h4> {{time}} s<br>
 
 <!--
 
@@ -151,7 +153,7 @@ $('#params_string').val(string);
 
 <br>
 <h4>Body</h4>
-{{p}}
+{{response}}
 <script type="text/javascript">
 	var str = JSON.stringify({{response}}, undefined, 4);
 	alert(str);
