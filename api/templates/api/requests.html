@@ -105,7 +105,22 @@
 {{status_code}}<br>
 {{reason}}<br>
 
+<!--
 
+<h4>Cookies</h4>
+
+{% for c in cookies %}
+{{c.value}}
+{% endfor %}
+
+-->
+
+<h4>Headers</h4>
+
+{{headers}}
+
+<br>
+<h4>Body </h4>
 
 {{response}}
 

@@ -54,5 +54,7 @@ def api_request(request):
 	response = r.text
 	status_code = r.status_code
 	reason = r.reason
+	headers = r.headers
+	cookies = r.cookies
 
-	return render(request, 'api/requests.html', {'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
+	return render(request, 'api/requests.html', {'cookies':cookies, 'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
