@@ -34,10 +34,20 @@ def api_request(request):
 
 	endpoint = request.POST['endpoint']
 
+	string = request.POST['string']
+	print(string)
+	#string = "{'key':'value'}"
+	#string = '{"favorited": false, "contributors": true}'
+	if string != "":
+	    params = json.loads(string) 
+	else:
+		params = None
+
 	
 
 	if request_type == 'GET':
-		r = requests.get(endpoint)
+		r = requests.get(endpoint, params)
+		print(r.url)
 		
 	if request_type == 'POST':
 		r = requests.post(endpoint)

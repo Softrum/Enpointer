@@ -3,6 +3,38 @@
 {% block content3 %}
 
 
+<script type="text/javascript">
+
+var obj = {};
+
+
+
+$(document).ready(function(){
+	$("#param_key").on("keyup", function() {
+
+
+ 
+
+});
+
+
+		$("#param_value").on(" keyup", function() {
+
+value = $(this).val();
+key = $('#param_key').val();
+
+obj[key] = value;
+var string = JSON.stringify(obj);
+
+$('#params_string').val(string);
+
+ 
+});
+
+	});
+</script>
+
+
 <div class="container-fluid panel panel-default" style="padding: 25; ">
 
 <div class="row">
@@ -32,7 +64,7 @@
 
 <div class="col-md-10">
 
-
+<input id='params_string' hidden type="text" name="string" >
 
 <div class="input-group">
 
@@ -91,7 +123,7 @@
 
 </div><!-- for params row -->
 <br>
-<p style="color: grey"> Add  New Params</p>
+
 
 
 
