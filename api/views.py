@@ -3,6 +3,14 @@ from django.shortcuts import render
 from dragonslayer.models import Project
 from django.http import HttpResponse
 import requests
+import json
+
+from pygments import highlight
+from pygments.lexers import JsonLexer
+from pygments.formatters import HtmlFormatter
+
+
+from django.utils.safestring import mark_safe
 
 
 
@@ -30,7 +38,7 @@ def api_request(request):
 
 	if request_type == 'GET':
 		r = requests.get(endpoint)
-	    
+		
 	if request_type == 'POST':
 		r = requests.post(endpoint)
 		print('post')
@@ -56,5 +64,20 @@ def api_request(request):
 	reason = r.reason
 	headers = r.headers
 	cookies = r.cookies
+	json2 = r.json()
+	parsed = json.loads(response)
+	formatted_json =  json.dumps(parsed, indent=4, sort_keys=True)
 
-	return render(request, 'api/requests.html', {'cookies':cookies, 'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
+
+	formatter = HtmlFormatter(style='colorful')
+
+		# Highlight the data
+	formatted_json = highlight(formatted_json, JsonLexer(), formatter)
+
+		# Get the stylesheet
+	style = "<style>" + formatter.get_style_defs() + "</style><br>"
+
+		# Safe the output
+	p = mark_safe(style + formatted_json)
+
+	return render(request, 'api/requests.html', {'p':p, 'formatted_json':formatted_json, 'json':json, 'cookies':cookies, 'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code':status_code, 'reason':reason})
