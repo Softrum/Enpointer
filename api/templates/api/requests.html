@@ -7,16 +7,68 @@
 	{% csrf_token %}
 </form>
 
+<div id='params_clone'>
+
+
+<div  id='params_row_clone' class="row" style="visibility: hidden ">
+
+<br>
+
+<div class="col-md-6">
+
+<input  type="text" class="form-control key" name="key" placeholder="Key">
+
+</div>
+
+
+<div class="col-md-6">
+
+<input  type="text" class="form-control value" name="value" placeholder="Value">
+
+</div>
+
+
+
+</div><!-- for params row -->
+
+
+
+</div>
+
+
 <script type="text/javascript">
+	function add_params_row() {
+
+		
+
+		var k = $('#params_row_clone').clone();
+		$(k).css({"visibility":"visible"});
+		$(k).attr("id", "params_row");
+		$(k).attr("class", "row params");
+
+		$('#params_container').append(k);
+
+		;
+
+	}
+</script>
+
+<script type="text/javascript">
+
+
+
+
+
+
 
 var params_obj = {};
 
 function geto() {
-	alert('jo');
+	
 	var request_url = $('#request_url').val();
 	var request_type = $('#request_type').val();
 
-
+params_obj = {};
 
 
 $('.params').each(function(i, obj) {
@@ -53,12 +105,35 @@ $.ajax({
 	},
 
 	success : function(response) {
-		alert('success');
+		
+		body = response['response'];
+		status = response['status_code'] + ' '+ response['reason'];
+		header_values = response['h2'];
+		header_keys = response['h3'];
+
+
+
+
+
+
+	
+
+
+
+		$('#body').text(body);
+
+		$('#status').text(status);
+		$('#header_values').text(header_values);
+		$('#header_keys').text(header_keys);
+
+
+
+
+
 	}
 
 });
 
-alert('jkjk');
 
 
 
@@ -68,13 +143,11 @@ alert('jkjk');
 
 
 $('#send').on('click', function () {
-	alert('hi');
 	
 	var request_url = $('#request_url').val();
 	var request_type = $('#request_type').val();
 
-	alert(request_url);
-	alert(request_type);
+
 
 $('.params').each(function(i, obj) {
     //test
@@ -188,52 +261,17 @@ $.ajax({
 <br><br>
 
 
-<p> Params</p>
-<div  class="row params">
+<div id="params_container" class=".params_container">
 
-<div class="col-md-6">
-
-<input  type="text" class="form-control key" name="key" placeholder="Key">
 
 </div>
 
 
-<div class="col-md-6">
-
-<input  type="text" class="form-control value" name="value" placeholder="Value">
-
-</div>
-
-
-
-</div><!-- for params row -->
-
-
-<div  class="row params">
-
-<div class="col-md-6">
-
-<input  type="text" class="form-control key" name="key" placeholder="Key">
-
-</div>
-
-
-<div class="col-md-6">
-
-<input  type="text" class="form-control value" name="value" placeholder="Value">
-
-</div>
-
-
-
-</div><!-- for params row -->
+<span class="btn btn-default" onclick="add_params_row();" style="cursor: pointer; margin-top: 10">Add Params Row  </span>
 
 
 
 
-
-
-<br>
 
 
 
@@ -243,71 +281,29 @@ $.ajax({
 <p style="font-size: 115%; text-align: center;">Response</p>
 
 <div class="container-fluid" style="overflow-x: auto">
-{% if response %}
 
-<h4>Status</h4>{{status_code}} 
-{{reason}}<br>
-<br>
-<h4>Time </h4> {{time}} s<br>
 
-<!--
+<h4>Status</h4>
+<pre id="status"></pre>
 
-<h4>Cookies</h4>
 
-{% for c in cookies %}
-{{c.value}}
-{% endfor %}
-
--->
-
-<br>
 <h4>Body</h4>
-{{response}}
-<script type="text/javascript">
-	var str = JSON.stringify({{response}}, undefined, 4);
-	alert(str);
-</script>
+<pre id="body"></pre>
 
-
-<br>
 <h4>Headers</h4>
 
-
-
-{% for k, v in headers.items %}
-
 <div class="row">
-
-<div class="col-md-2">
-{{k}} : 
-
+<div class="col-md-6">
+<pre id="header_keys"></pre>
 </div>
-
-<div class="col-md-2">
-
-{{v}}
-
+<div class="col-md-6">
+<pre id="header_values"></pre>
 </div>
 </div>
 
-{% endfor %}
 
 
 
-<br>
-<!--
-<h4>Body </h4>
-
-
-{{response}}
--->
-
-{% else %}
-<div class="container" style="background-color:#f6f6f6; text-align: center; color: grey; height: 100">
-<br><br>
-<p style="font-size: 125%; opacity: 0.6; text-align: center;"> Send Request to Get Response </p>
-</div>
-{% endif %}
 
 </div>
 

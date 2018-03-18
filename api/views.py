@@ -13,8 +13,17 @@ from pygments.formatters import HtmlFormatter
 from django.utils.safestring import mark_safe
 
 import ast
+from django.http import JsonResponse
 
 
+
+
+def is_json(myjson):
+  try:
+	json_object = json.loads(myjson)
+  except ValueError, e:
+	return False
+  return True
 
 # Create your views here.
 
@@ -52,7 +61,7 @@ def api_request(request):
 		print(r.url)
 		
 	if request_type == 'POST':
-		r = requests.post(endpoint)
+		r = requests.post(endpoint, params)
 		print('post')
 
 	if request_type == 'PUT':
@@ -75,10 +84,36 @@ def api_request(request):
 	status_code = r.status_code
 	reason = r.reason
 	headers = r.headers
+	header_values = headers.values()
+	header_keys = headers.keys()
+	header_keys = list(header_keys)
+	h3 = json.dumps(header_keys, indent=4, sort_keys=True)
+	header_values = list(header_values)
+	h2 = json.dumps(header_values, indent=4, sort_keys=True)
 	cookies = r.cookies
 	time = r.elapsed.total_seconds()
 
-	return HttpResponse('successfully receieved the request')
+	
+	formatter = HtmlFormatter(style='colorful')
+	style = "<style>" + formatter.get_style_defs() + "</style><br>"
+
+	if is_json(response) == True:
+		
+		parsed = json.loads(response)
+		formatted_json =  json.dumps(parsed, indent=4, sort_keys=True)
+
+	
+		response =formatted_json
+
+
+	
+
+
+	
+	#eturn JsonResponse(response, json_dumps_params={'indent': 2})
+	return JsonResponse({'response': response, 'status_code':status_code, 'reason':reason, 'h2':h2, 'h3':h3})
+
+	#return HttpResponse('successfully receieved the request')
 	
 	
 
@@ -104,7 +139,7 @@ def api_request(request):
 -
 +	time = r.elapsed.total_seconds()
 +	
- 	
+	
 -
 -		# Highlight the data
 -	formatted_json = highlight(formatted_json, JsonLexer(), formatter)
