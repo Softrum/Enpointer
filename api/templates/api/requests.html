@@ -5,7 +5,52 @@
 
 <script type="text/javascript">
 
-var obj = {};
+var params_obj = {};
+
+
+
+
+function send_request() {
+	alert('hi');
+	
+	var request_url = $('#request_url').val();
+	var request_type = $('#request_type').val();
+
+	alert(request_url);
+	alert(request_type);
+
+$('.params').each(function(i, obj) {
+    //test
+    //alert($(obj).attr('class'));
+    var key = $(obj).find('.key').val();
+    alert(key);
+    var value = $(obj).find('.value').val();
+    alert(value);
+
+
+    params_obj[key] = value;
+    var params_string = JSON.stringify(params_obj);
+
+    alert(params_string);
+
+
+
+});
+
+
+$.ajax({
+	url: "/api_request/",
+	type: "POST",
+	data : {"request_type":request_type, "request_url":request_url, "params_string":params_string}
+	success : function() {
+		alert('success');
+	}
+
+})
+
+
+
+}
 
 
 
@@ -47,7 +92,7 @@ $('#params_string').val(string);
 
 
 <span>
-	 <select name="request_type" class="form-control">
+	 <select id="request_type" name="request_type" class="form-control">
 						<option value="GET">GET</option>
 						<option value="POST">POST</option>
 						<option value="PUT">PUT</option>
@@ -76,10 +121,10 @@ $('#params_string').val(string);
 			   
 			   
 
-<input id='request' required  class="form-control" name="endpoint" type="url" placeholder="Enter request url">
+<input id='request_url' required  class="form-control" name="endpoint" type="url" placeholder="Enter request url">
 
 					<span class="input-group-btn">
-						<button  type="submit" class="btn btn-success">Send</button>
+						<button onclick="send_request()"   class="btn btn-success">Send</button>
 					</span>
 
 </div>
@@ -103,25 +148,51 @@ $('#params_string').val(string);
 
 
 <br><br>
+
+
 <p> Params</p>
-<div class="row">
+<div  class="row params">
 
 <div class="col-md-6">
 
-<input id='param_key' type="text" class="form-control" name="key" placeholder="Key">
+<input  type="text" class="form-control key" name="key" placeholder="Key">
 
 </div>
 
 
 <div class="col-md-6">
 
-<input id="param_value"  type="text" class="form-control" name="value" placeholder="Value">
+<input  type="text" class="form-control value" name="value" placeholder="Value">
 
 </div>
 
 
 
 </div><!-- for params row -->
+
+
+<div  class="row params">
+
+<div class="col-md-6">
+
+<input  type="text" class="form-control key" name="key" placeholder="Key">
+
+</div>
+
+
+<div class="col-md-6">
+
+<input  type="text" class="form-control value" name="value" placeholder="Value">
+
+</div>
+
+
+
+</div><!-- for params row -->
+
+
+
+
 
 
 <br>
