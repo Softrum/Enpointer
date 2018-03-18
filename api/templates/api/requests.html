@@ -5,38 +5,22 @@
 
 <form action="." method="POST">
 	{% csrf_token %}
-</form>
+</form> <!-- this has to be there for ajax request csrf tokens-->
 
-<div id='params_clone'>
-
-
-<div  id='params_row_clone' class="row" style="visibility: hidden ">
-
-<br>
-
-<div class="col-md-6">
-
-<input  type="text" class="form-control key" name="key" placeholder="Key">
-
-</div>
-
-
-<div class="col-md-6">
-
-<input  type="text" class="form-control value" name="value" placeholder="Value">
-
-</div>
-
-
-
-</div><!-- for params row -->
-
-
-
-</div>
 
 
 <script type="text/javascript">
+	function remove_params_row(k) {
+
+		$(k).parent().parent().remove();
+		// body...
+	}
+</script>
+
+
+
+<!-- on clikcing add new params, this adds a new row to page -->
+<script type="text/javascript"> 
 	function add_params_row() {
 
 		
@@ -192,7 +176,7 @@ $.ajax({
 </script>
 
 
-<div class="container-fluid panel panel-default" style="padding: 25; ">
+<div class="container-fluid panel panel-default" style="padding: 25; margin-top: 0 ">
 
 <div class="row">
 
@@ -258,7 +242,45 @@ $.ajax({
 
 
 
-<br><br>
+<br>
+
+
+
+
+<!--
+
+  <ul class="nav nav-tabs" >
+    <li class="active"><a style="color: grey" data-toggle="tab" href="#home">Params</a></li>
+    <li><a style="color: grey" data-toggle="tab" href="#menu1">Body</a></li>
+    <li><a style="color: grey" data-toggle="tab" href="#menu2">Headers</a></li>
+    <li><a style="color: grey" data-toggle="tab" href="#menu3">Authorization</a></li>
+    
+  </ul>
+  
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+
+    <div id="menu3" class="tab-pane fade">
+      <h3>Men</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+  </div>
+
+
+-->
+
+
 
 
 <div id="params_container" class=".params_container">
@@ -309,5 +331,48 @@ $.ajax({
 
 
 </div>
+
+
+
+
+
+
+
+<!-- param rows which get cloned -->
+
+<div id='params_clone'>
+
+
+<div  id='params_row_clone' class="row" style="visibility: hidden ">
+
+<br>
+
+<div class="col-md-5">
+
+<input  type="text" class="form-control key" name="key" placeholder="Key">
+
+</div>
+
+
+<div class="col-md-6">
+
+<input  type="text" class="form-control value" name="value" placeholder="Value">
+
+</div>
+
+<div class="col-md-1">
+
+<button onclick="remove_params_row(this)" class="btn btn-default "><span style="opacity: 0.5" class="glyphicon glyphicon-remove"></span></button>
+
+</div>
+
+
+
+</div><!-- for params row -->
+
+
+
+</div><!-- for params_clone -->
+
 {% endblock %}
 
