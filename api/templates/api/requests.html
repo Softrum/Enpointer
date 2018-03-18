@@ -3,14 +3,71 @@
 {% block content3 %}
 
 
+<form action="." method="POST">
+	{% csrf_token %}
+</form>
+
 <script type="text/javascript">
 
 var params_obj = {};
 
+function geto() {
+	alert('jo');
+	var request_url = $('#request_url').val();
+	var request_type = $('#request_type').val();
 
 
 
-function send_request() {
+
+$('.params').each(function(i, obj) {
+    //test
+    //alert($(obj).attr('class'));
+    var key = $(obj).find('.key').val();
+    
+    var value = $(obj).find('.value').val();
+    
+
+
+    params_obj[key] = value;
+    
+
+    
+
+
+
+});
+
+params_string = JSON.stringify(params_obj);
+
+
+
+$.ajax({
+	url: "/api_request/",
+	type: "POST",
+	data: {
+		csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+		request_url: request_url,
+		request_type: request_type,
+		params_string: params_string,
+		uid_project: '{{project.uid}}'
+	},
+
+	success : function(response) {
+		alert('success');
+	}
+
+});
+
+alert('jkjk');
+
+
+
+}
+
+
+
+
+$('#send').on('click', function () {
 	alert('hi');
 	
 	var request_url = $('#request_url').val();
@@ -41,42 +98,24 @@ $('.params').each(function(i, obj) {
 $.ajax({
 	url: "/api_request/",
 	type: "POST",
-	data : {"request_type":request_type, "request_url":request_url, "params_string":params_string}
+	data : {"request_type":request_type, "request_url":request_url, "params_string":params_string},
 	success : function() {
 		alert('success');
 	}
 
-})
+});
 
 
-
-}
-
-
-
-$(document).ready(function(){
-	$("#param_key").on("keyup", function() {
-
-
- 
 
 });
 
 
-		$("#param_value").on(" keyup", function() {
 
-value = $(this).val();
-key = $('#param_key').val();
 
-obj[key] = value;
-var string = JSON.stringify(obj);
 
-$('#params_string').val(string);
 
- 
-});
 
-	});
+
 </script>
 
 
@@ -84,8 +123,7 @@ $('#params_string').val(string);
 
 <div class="row">
 
-<form action="/api_request/" method="post">
-	  {% csrf_token %}
+
 
 <div class="col-md-2">
 
@@ -124,7 +162,7 @@ $('#params_string').val(string);
 <input id='request_url' required  class="form-control" name="endpoint" type="url" placeholder="Enter request url">
 
 					<span class="input-group-btn">
-						<button onclick="send_request()"   class="btn btn-success">Send</button>
+						<button onclick="geto();" class="btn btn-success">Send</button>
 					</span>
 
 </div>
@@ -141,7 +179,7 @@ $('#params_string').val(string);
 
 
 
-</form>
+
 
 </div> <!-- for row -->
 

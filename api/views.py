@@ -34,9 +34,9 @@ def api_request(request):
 	request_type = request.POST['request_type']
 	project = Project.objects.get(uid=uid_project)
 
-	endpoint = request.POST['endpoint']
+	endpoint = request.POST['request_url']
 
-	string = request.POST['string']
+	string = request.POST['params_string']
 	print(string)
 	#string = "{'key':'value'}"
 	#string = '{"favorited": false, "contributors": true}'
@@ -77,11 +77,13 @@ def api_request(request):
 	headers = r.headers
 	cookies = r.cookies
 	time = r.elapsed.total_seconds()
+
+	return HttpResponse('successfully receieved the request')
 	
 	
 
 
-	return render(request, 'api/requests.html', { 'time':time,'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code': status_code,'reason':reason } )
+	#return render(request, 'api/requests.html', { 'time':time,'headers':headers, 'project':project, 'active':active, 'response':response, 'status_code': status_code,'reason':reason } )
 
 
 
