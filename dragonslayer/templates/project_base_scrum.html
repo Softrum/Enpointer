@@ -543,36 +543,36 @@ $('.content').each(function() {
 
 
 
-<a id="plan_menu" href="/project/read/{{project.uid}}" style="color:grey; font-size: 120%; text-align: center; text-decoration:none">
+<a id="plan_menu" href="/project/read/{{project.uid}}" style="color:grey; font-size: 110%; text-align: center; text-decoration:none">
 
 <img id="plan_menuimg" src="https://i.imgur.com/1xo2NnQ.png" width="35%" style="opacity: 0.4;"><br>
 
- Plan </a> <br><br><br>
+ Plan </a> <br><br>
 
 
 
 
 
-<a id="board_menu"  style="color:grey; font-size: 120%; text-decoration:none" href="/project/board/{{project.uid}}">
+<a id="board_menu"  style="color:grey; font-size: 110%; text-decoration:none" href="/project/board/{{project.uid}}">
 
 <img id="board_menuimg" src="https://i.imgur.com/pdOHFfo.png" width="35%" style="opacity: 0.4;"> <br>
  Board </a>
 
-<br><br><br>
+<br><br>
 
 
-<a id="reports_menu"  style="color:grey; font-size: 125%; text-decoration:none" href="/reports/home/{{project.uid}}/100">
+<a id="reports_menu"  style="color:grey; font-size: 110%; text-decoration:none" href="/reports/home/{{project.uid}}/100">
 
-<img id="reports_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/NqVeOrL.png" width="35%">
-
-
-
- Reports </a><br><br><br>
+<img id="reports_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/NqVeOrL.png" width="35%"><br>
 
 
 
+ Reports </a><br><br>
 
-<a id="releases_menu"  style="color:grey; font-size: 125%; text-decoration:none" href="/releases/{{project.uid}}">
+
+
+
+<a id="releases_menu"  style="color:grey; font-size: 110%; text-decoration:none" href="/releases/{{project.uid}}">
 
 <img id="releases_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/xvONnBu.png" width="35%">
 
@@ -581,7 +581,17 @@ $('.content').each(function() {
  Releases </a><br><br>
 
 
- <a id="api_menu"  style="color:grey; font-size: 125%; text-decoration:none" href="/api/{{project.uid}}">
+
+  <a id="api_menu"  style="color:grey; font-size: 110%; text-decoration:none" href="/api/{{project.uid}}">
+
+<img id="api_menuimg" style="opacity: 0.4;" src="http://www.meteotemplate.com/web/wiki/imgs/terminology.png" width="38%"><br>
+
+
+
+Wiki </a><br><br>
+
+
+ <a id="api_menu"  style="color:grey; font-size: 110%; text-decoration:none" href="/api/{{project.uid}}">
 
 <img id="api_menuimg" style="opacity: 0.6;" src="https://i.imgur.com/zBkmnid.png" width="45%"><br>
 
@@ -595,14 +605,14 @@ Q/A </a><br><br>-->
 <!--
 <a id="reports_menu" style="color:black;" href="/reports/sprints/{{project.uid}}/100/"> Reports </a><br> -->
 <!--<a id="releases_menu" style="color:black;" href="/project/releases/{{project.uid}}"> Releases </a><br> -->
-<a id="project_settings_menu" style="color:grey; font-size: 120%; text-decoration:none" href="/project_settings/general/{{project.uid}}/">
-<img id="project_settings_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/zO6Ps6v.png" width="35%">
+<a id="project_settings_menu" style="color:grey; font-size: 110%; text-decoration:none" href="/project_settings/general/{{project.uid}}/">
+<img id="project_settings_menuimg" style="opacity: 0.4;" src="https://i.imgur.com/zO6Ps6v.png" width="35%"><br>
  Settings </a><br><br>
 
 
-<br>
+
 {% if active == 'board_menu' %}
-<a id="filter" onclick="show_filters()" style="cursor: pointer; color: black; font-size: 120%; text-decoration:none" >
+<a id="filter" onclick="show_filters()" style="cursor: pointer; color: black; font-size: 110%; text-decoration:none" >
 <img style="opacity: 0.8;" src="https://i.imgur.com/YXY7gDt.png" width="50%">
 Filters..</a>
 {% endif %}
