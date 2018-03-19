@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 	'dragonslayer.apps.DragonslayerConfig',
 	'qa.apps.QaConfig',
 	'api.apps.ApiConfig',
+	'wiki.apps.WikiConfig',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.messages',
