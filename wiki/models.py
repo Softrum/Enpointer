@@ -14,7 +14,8 @@ class Category(models.Model):
 	title = models.CharField(max_length=100, null = True, blank = True)
 	project = models.ForeignKey(Project , null=True)
 
-
+	def __str__(self):
+		return self.title or ''
 
 
 class Version(models.Model):
@@ -24,6 +25,8 @@ class Version(models.Model):
 	author = models.ForeignKey(User)
 	created = models.DateTimeField(null=True, blank=True)
 
+	def __str__(self):
+		return self.title or ''
 
 class Page(models.Model):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -36,7 +39,8 @@ class Page(models.Model):
 	created = models.DateTimeField(default=datetime.now, blank=True)
 	updated = models.DateTimeField(null=True, blank=True)
 
-
+	def __str__(self):
+		return self.uid or ''
 
 
 
@@ -48,7 +52,8 @@ class History(models.Model):
 	created =models.DateTimeField(default=datetime.now, blank=True)
 	project =  models.ForeignKey(Project , null=True, related_name='history')
 		
-
+	def __str__(self):
+		return self.message or ''
 
 
 
