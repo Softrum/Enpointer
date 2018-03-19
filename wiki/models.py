@@ -39,8 +39,7 @@ class Page(models.Model):
 	created = models.DateTimeField(default=datetime.now, blank=True)
 	updated = models.DateTimeField(null=True, blank=True)
 
-	def __str__(self):
-		return self.uid or ''
+
 
 
 

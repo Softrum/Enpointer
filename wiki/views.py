@@ -5,7 +5,7 @@ from django.http import HttpResponse
 import requests
 import json
 
-from .models import Category
+from .models import Category, Page, Version, History
 
 from pygments import highlight
 from pygments.lexers import JsonLexer
@@ -23,3 +23,9 @@ def home(request, uid_project):
 	active = 'wiki_menu'
 	categories = Category.objects.filter(project=project)
 	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories})
+
+def page(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	project = page.project
+	active = 'wiki_menu'
+	return render(request, 'wiki/page.html', {'project':project, 'active':active, 'page':page})

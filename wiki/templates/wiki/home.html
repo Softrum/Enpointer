@@ -28,16 +28,18 @@
 
 <span style="font-size: 125%"><i class="fa fa-folder-o"></i> {{c.title}}</span><span style="color: grey"> | {{ c.pages.all.count }} Pages </span> <span class="pull-right btn btn-default">New</span>
 
-<hr>
+
 
 <div class="container-fluid" >
 
 {% for p in c.pages.all %}
 
-<div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> {{p.current_version.title}}
-</div>
 <hr>
+
+<div class="row" style="font-size: 110%">
+<i class="fa fa-file-text-o"></i><a style="color: black; text-decoration: none" href="/wiki/page/{{p.uid}}/"> {{p.current_version.title}}</a>
+</div>
+
 
 {% endfor %}
 

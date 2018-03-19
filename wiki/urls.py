@@ -6,5 +6,6 @@ urlpatterns = [
     
     
     url(r'^wiki/home/(?P<uid_project>[\w-]+)/$', views.home ),
+    url(r'^wiki/page/(?P<uid_page>[\w-]+)/$', views.page ),
 
    ]
