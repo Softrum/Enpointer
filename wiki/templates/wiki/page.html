@@ -3,12 +3,64 @@
 {% block content2 %}
 
 
-<div class="container panel panel-default" style="padding: 25">
+<div class="container-fluid">
 
-<h4>{{page.current_version.title}}</h4>
+
+<div class="row">
+
+<div class="col-md-2">
+
+<div class="container-fluid panel panel-default" style="padding: 25; font-size: 110%">
+<h4>{{page.category.title}}</h4>
+
+{% for p in page.category.pages.all %}
+
+<a style="color: grey" href="/wiki/page/{{p.uid}}"><i style="margin-right: 5" class="fa fa-file-text-o"></i> {{p.current_version.title}}</a><br>
+
+{% endfor %}
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="col-md-10">
+
+
+<div class="container-fluid panel panel-default" style="padding: 25">
+
+<h2>{{page.current_version.title}}</h2>
+<span style="color: grey">Last Edited by Ishaan Bhola 4 mins ago</span>
+<span class="pull-right"><i class="fa fa-pencil-square-o"></i> Edit</span> <span class="pull-right" style="margin-right: 10"> <i class="fa fa-history"></i> Page History</span>
+<br><hr>
 
 {{page.current_version.content}}
 
 </div>
+
+</div><!-- for col-md -10 -->
+
+
+
+
+
+
+
+
+</div> <!-- row-->
+
+
+</div>
+
+
+
 
 {% endblock %}
