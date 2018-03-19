@@ -5,6 +5,8 @@ from django.http import HttpResponse
 import requests
 import json
 
+from .models import Category
+
 from pygments import highlight
 from pygments.lexers import JsonLexer
 from pygments.formatters import HtmlFormatter
@@ -19,4 +21,5 @@ from django.http import JsonResponse
 def home(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	active = 'wiki_menu'
-	return render(request, 'wiki/home.html', {'project':project, 'active':active})
+	categories = Category.objects.filter(project=project)
+	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories})

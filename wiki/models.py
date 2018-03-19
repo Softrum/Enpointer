@@ -28,7 +28,7 @@ class Version(models.Model):
 class Page(models.Model):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 	project = models.ForeignKey(Project , null=True)
-	category = models.ForeignKey(Category, null=True)
+	category = models.ForeignKey(Category, null=True, related_name='pages')
 	published = models.BooleanField(default=False)
 	current_version = models.ForeignKey(Version, null=True)
 	versions = models.ManyToManyField(Version, related_name='versions')

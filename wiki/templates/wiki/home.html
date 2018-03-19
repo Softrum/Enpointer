@@ -8,7 +8,7 @@
 <h4>Wiki</h4>
 
 <span style="font-size: 120%; color: grey">
-5 Categories, 25 Pages</span><br><br>
+{{categories.count}} Categories, 25 Pages</span><br><br>
 
 
 
@@ -17,85 +17,41 @@
 
 
 
-<div class="panel panel-default" style="padding: 20">
 
 
-<span style="font-size: 125%"><i class="fa fa-folder-o"></i> Engineering </span><span style="color: grey"> | 5 Pages, 1 Folder</span> <span class="pull-right btn btn-default">New</span>
-
-<hr>
-
-<div class="container" >
-
-<div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> New Page
-</div>
-<hr>
-
-<div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> Product
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
+{% for c in categories %}
 
 
 
 <div class="panel panel-default" style="padding: 20">
 
 
-<span style="font-size: 125%"><i class="fa fa-folder-o"></i> Engineering </span><span style="color: grey"> | 5 Pages, 1 Folder</span> <span class="pull-right btn btn-default">New</span>
+<span style="font-size: 125%"><i class="fa fa-folder-o"></i> {{c.title}}</span><span style="color: grey"> | {{ c.pages.all.count }} Pages </span> <span class="pull-right btn btn-default">New</span>
 
 <hr>
 
-<div class="container" >
+<div class="container-fluid" >
+
+{% for p in c.pages.all %}
 
 <div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> New Page
+<i class="fa fa-file-text-o"></i> {{p.current_version.title}}
 </div>
 <hr>
 
-<div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> Product
-</div>
+{% endfor %}
+
+
+
+</div> 
 
 
 </div>
 
-
-</div>
-
+{% endfor %}
 
 
-<div class="panel panel-default" style="padding: 20">
 
-
-<span style="font-size: 125%"><i class="fa fa-folder-o"></i> Engineering </span><span style="color: grey"> | 5 Pages, 1 Folder</span> <span class="pull-right btn btn-default">New</span>
-
-<hr>
-
-<div class="container" >
-
-<div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> New Page
-</div>
-<hr>
-
-<div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i> Product
-</div>
-
-
-</div>
-
-
-</div>
 
 
 
