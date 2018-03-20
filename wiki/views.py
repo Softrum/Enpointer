@@ -29,3 +29,17 @@ def page(request, uid_page):
 	project = page.project
 	active = 'wiki_menu'
 	return render(request, 'wiki/page.html', {'project':project, 'active':active, 'page':page})
+
+
+def page_history(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	project = page.project
+	active = 'wiki_menu'
+	return render(request, 'wiki/page_history.html', {'project':project, 'active':active, 'page':page})
+
+
+def create_page(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	active = 'wiki_menu'
+
+	return render(request, 'wiki/create.html', {'project':project, 'active':active})

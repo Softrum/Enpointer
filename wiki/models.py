@@ -47,8 +47,9 @@ class Page(models.Model):
 class History(models.Model):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 	message = models.CharField(max_length=500, null=True, blank=True)
-	page = models.ForeignKey(Page)
+	page = models.ForeignKey(Page, related_name='history')
 	created =models.DateTimeField(default=datetime.now, blank=True)
+	version = models.ForeignKey(Version, null=True)
 	project =  models.ForeignKey(Project , null=True, related_name='history')
 		
 	def __str__(self):
