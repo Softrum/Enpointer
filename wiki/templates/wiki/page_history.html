@@ -20,8 +20,16 @@ wiki > {{page.category.title}} > Page History</span>
 
 {% for p in page.category.pages.all %}
 
-<a style="color: grey" href="/wiki/page/{{p.uid}}"><i style="margin-right: 5" class="fa fa-file-text-o"></i> {{p.current_version.title}}</a><br>
 
+{% if p.uid == page.uid %}
+
+<b><a style="color: black; font-weight: 200%" href="/wiki/page/{{p.uid}}"><i class="fa fa-file-o"></i>  {{p.current_version.title}}</a></b><br>
+
+{% else %}
+
+<a style="color: grey" href="/wiki/page/{{p.uid}}"><i class="fa fa-file-o"></i>  {{p.current_version.title}}</a><br>
+
+{% endif %}
 {% endfor %}
 
 </div>
