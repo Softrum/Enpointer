@@ -21,7 +21,7 @@
     Create</button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
       <li role="presentation"><a href="/wiki/page/create/{{project.uid}}">New Page</a></li>
-      <li role="presentation"><a href="">New Category</a></li>
+      <li role="presentation"><a data-toggle="modal" data-target="#create_category" href="">New Category</a></li>
         
     </ul>
   </span>
@@ -76,6 +76,41 @@
 
 
 
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div id="create_category" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+   <form action="/wiki/category/create/{{project.uid}}/" method="POST">
+   {% csrf_token %}
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create New Category</h4>
+      </div>
+      <div class="modal-body">
+
+     
+
+        <input type="text" class="form-control" name="title" placeholder="Name of Category">
+      </div>
+      <div class="modal-footer">
+        <button  class="btn btn-default" type="submit" >Create</button>
+      </div>
+    </div>
+
+    </form>
+
+  </div>
 </div>
 
 {% endblock %}
