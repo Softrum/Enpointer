@@ -32,7 +32,16 @@ button:focus {
   padding: 8px 8px;
   margin-right:10px;
 }
+.note-editor, .note-frame {
+	border: none !important;
+}
+
+.navbar-header {
+	padding-top: 5px;
+}
 </style>
+
+
 </head>
 
 
@@ -74,17 +83,17 @@ button:focus {
 </div>
 </nav>
 
-<br><br>
+<br>
 
 
 <div class="container" style="padding: 25; width: 60%">
 
-<input type="text"   style=" border: none; font-size: 300%" placeholder="Page Title" >
+<input type="text"   style=" border: none; font-size: 250%" placeholder="Page Title" >
 
 <br><br>
 
 
-  <div style="border: none" id="summernote"><p>Hello Summernote</p></div>
+  <div   id="summernote"></div>
 
 
 
@@ -107,19 +116,7 @@ button:focus {
        
 $('#summernote').summernote({
 
-	airMode:true,
-
-	toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']]
-  ],
-
-  popover: {
+	  popover: {
     air: [
     ['style', ['style']],
     ['font', ['strikethrough']],
@@ -133,13 +130,23 @@ $('#summernote').summernote({
     ['ul', ['ul']],
     ]
   },
+
+	airMode:false,
+
+
+
+
   
-  height: 500,                 // set editor height
+  height: 550,                 // set editor height
   minHeight: null,             // set minimum height of editor
-  maxHeight: null,             // set maximum height of editor
+  maxHeight: null, 
+  placeholder: 'write here...'           // set maximum height of editor
                    // set focus to editable area after initializing summernote
 });
 
+
+
+$('.note-resizebar').remove();
 
        
     });
