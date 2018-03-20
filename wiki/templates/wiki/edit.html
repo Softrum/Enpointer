@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>
-	Wiki - Create
+	Wiki - Edit
 		
 	</title>
 
@@ -50,7 +50,7 @@ button:focus {
 
 
     <div style="margin-left: 80%; " class="nav navbar-nav ">
-  <a href="#"  class="btn btn-default" > Publish</a>
+  <a href="#"  class="btn btn-default" > Publish Changes</a>
       
     </div>
 
@@ -68,10 +68,10 @@ button:focus {
 
 <div class="container" style="padding: 25; width: 60%">
 
-<input type="text"   style=" border: none; font-size: 300%" placeholder="Page Title" >
+<input type="text"   style=" border: none; font-size: 300%" value="{{page.current_version.title}}" >
 
 <br><br>
-<textarea  style="font-size: 130%; border: none; width: 100%;" rows=25 placeholder="Type Your Text.." ></textarea>
+<textarea  style="font-size: 130%; border: none; width: 100%;" rows=25  >{{page.current_version.content}}</textarea>
 </div>
 
 

@@ -43,3 +43,11 @@ def create_page(request, uid_project):
 	active = 'wiki_menu'
 
 	return render(request, 'wiki/create.html', {'project':project, 'active':active})
+
+
+def edit_page(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	project = page.project
+	active = 'wiki_menu'
+
+	return render(request, 'wiki/edit.html', {'project':project, 'active':active, 'page':page})
