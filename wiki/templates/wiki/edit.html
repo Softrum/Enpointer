@@ -50,7 +50,8 @@ button:focus {
 
 
 
-<nav style="margin:0px;margin-bottom: 0px; padding: 5px;background-color: white" class="navbar navbar-default">
+
+<nav style="margin:0px;margin-bottom: 0px; padding: 0px;background-color: white" class="navbar navbar-default">
 
 <div class="container-fluid" style="margin">
  
@@ -65,17 +66,24 @@ button:focus {
 
 
 
+   <ul  class="nav navbar-nav " style="margin-left: 2%">
 
-
-    <ul style="margin-left: 60%; padding: 20 " class="nav navbar-nav ">
-
-  <li style="margin-right: 10"><a href="#"  class="btn btn-default" > Publish Changes</a></li>
-
-      <li> <a href="/wiki/home/{{project.uid}}"  class="btn btn-default"  > Discard Changes</a></li>
+ <li><a id="cc" href="#"  value='asdasd'  data-toggle="modal" data-target="#choose_category" >Choose Category</a></li>
+   
       
     </ul>
 
 
+
+
+
+
+    <ul style="margin-left: 50%; " class="nav navbar-nav  ">
+
+ <li><a href="#"  class="btn btn-default" > Publish Changes</a></li>
+    <li> <a href="/wiki/home/{{project.uid}}"  class="btn btn-default"  > Discard Changes</a></li>
+      
+    </ul>
 
 
 
@@ -150,6 +158,73 @@ $('.note-resizebar').remove();
        
     });
   </script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function select_category() {
+        $('#choose_category').modal('toggle');
+        var selected_category = $('#category :selected').text();
+        var selected_category_uid = $('#category :selected').val();
+        
+        $('#cc').text(selected_category);
+        $('#cc').attr('value', selected_category_uid ) 
+        
+
+
+    }
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div id="choose_category" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Choose Category</h4>
+      </div>
+      <div class="modal-body">
+
+      <br>
+        
+
+        <select id="category" class="form-control">
+
+        {% for c in project.categories.all %}
+
+        <option value="{{c.uid}}">{{c.title}}</option>
+
+        {% endfor %}
+            
+
+        </select>
+
+<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="select_category()">Select</button>
+      </div>
+        
+    </div>
+
+  </div>
+</div>
+
+
 
 
 </body>
