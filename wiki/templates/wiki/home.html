@@ -10,7 +10,22 @@
 <span style="font-size: 120%; color: grey; opacity: 0.8" >
 {{categories.count}} Categories, 25 Pages</span>
 
+<!--
 <span class="pull-right"><a href="/wiki/page/create/{{project.uid}}" class="btn btn-default">Create</a></span>
+
+-->
+
+
+<span class="dropdown pull-right" >
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
+    Create</button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/wiki/page/create/{{project.uid}}">New Page</a></li>
+      <li role="presentation"><a href="">New Category</a></li>
+        
+    </ul>
+  </span>
+
 
 <br><br>
 
@@ -26,18 +41,18 @@
 
 
 
-<div class="panel panel-default" style="padding: 20">
+<div class="panel panel-default" style="padding: 40">
 
 
 <span style="font-size: 125%"><i class="fa fa-folder-o"></i> {{c.title}}</span><span style="color: grey; opacity: 0.6">  {{ c.pages.all.count }} Pages </span><!-- <span class="pull-right btn btn-default">New</span>-->
 
 
 
-<div class="container-fluid" >
+<div class="container-fluid" style="margin-left: 15" >
 
 {% for p in c.pages.all %}
 
-<hr>
+<br>
 
 <div class="row" style="font-size: 110%">
 <i class="fa fa-file-o"></i><a style="color: black; text-decoration: none" href="/wiki/page/{{p.uid}}/"> {{p.current_version.title}}</a>

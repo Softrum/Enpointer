@@ -45,10 +45,21 @@ wiki > {{page.category.title}}</span>
 <h2>{{page.current_version.title}}</h2>
 <span style="color: grey">Last Edited by Ishaan Bhola 4 mins ago</span>
 
-<a href="/wiki/page/edit/{{page.uid}}/" style="color: grey">
-<span class="pull-right"><i class="fa fa-pencil-square-o"></i> Edit</span></a>
 
- <a style="color: grey"  href="history"><span class="pull-right" style="margin-right: 10"> <i class="fa fa-history"></i> Page History</span></a>
+
+<span class="dropdown pull-right" >
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
+    <i class="glyphicon glyphicon-option-vertical"></i></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/wiki/page/edit/{{page.uid}}/"><i class="fa fa-pencil-square-o"></i> Edit</a></li>
+      <li role="presentation"><a href="history"> <i class="fa fa-history"></i> Page History</a></li>
+        
+    </ul>
+  </span>
+
+
+
+
 <br><hr>
 
 {{page.current_version.content}}
