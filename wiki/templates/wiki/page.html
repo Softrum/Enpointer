@@ -20,7 +20,15 @@ wiki > {{page.category.title}}</span>
 
 {% for p in page.category.pages.all %}
 
+{% if p.uid == page.uid %}
+
+<b><a style="color: black; font-weight: 200%" href="/wiki/page/{{p.uid}}"><i class="fa fa-file-o"></i>  {{p.current_version.title}}</a></b><br>
+
+{% else %}
+
 <a style="color: grey" href="/wiki/page/{{p.uid}}"><i class="fa fa-file-o"></i>  {{p.current_version.title}}</a><br>
+
+{% endif %}
 
 {% endfor %}
 
