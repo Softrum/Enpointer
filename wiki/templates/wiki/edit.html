@@ -16,6 +16,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+
 <style type="text/css">
 	input:focus,
 select:focus,
@@ -27,6 +32,14 @@ button:focus {
 .navbar-nav, .nav > li > a {
   padding: 8px 8px;
   margin-right:10px;
+}
+
+.note-editor, .note-frame {
+    border: none !important;
+}
+
+.navbar-header {
+    padding-top: 5px;
 }
 </style>
 </head>
@@ -81,8 +94,62 @@ button:focus {
 <input type="text"   style=" border: none; font-size: 300%" value="{{page.current_version.title}}" >
 
 <br><br>
-<textarea  style="font-size: 130%; border: none; width: 100%;" rows=25  >{{page.current_version.content}}</textarea>
+
+
+  <div  id="summernote">{{page.current_version.content}}</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    $(document).ready(function() {
+
+       
+$('#summernote').summernote({
+
+      popover: {
+    air: [
+    ['style', ['style']],
+    ['font', ['strikethrough']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']],
+    ['table', ['table']],
+    ['hr', ['hr']],
+    ['ol', ['ol']],
+    ['ul', ['ul']],
+    ]
+  },
+
+    airMode:false,
+
+
+
+
+  
+  height: 550,                 // set editor height
+  minHeight: null,             // set minimum height of editor
+  maxHeight: null, 
+  placeholder: 'write here...'           // set maximum height of editor
+                   // set focus to editable area after initializing summernote
+});
+
+
+
+$('.note-resizebar').remove();
+
+       
+    });
+  </script>
 
 
 </body>
