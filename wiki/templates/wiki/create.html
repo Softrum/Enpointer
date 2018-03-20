@@ -67,7 +67,7 @@ button:focus {
 
    <ul  class="nav navbar-nav " style="margin-left: 2%">
 
- <li><a href="#"  class=""  data-toggle="modal" data-target="#choose_category" >Choose Category</a></li>
+ <li><a id="cc" href="#"  value='asdasd'  data-toggle="modal" data-target="#choose_category" >Choose Category</a></li>
    
       
     </ul>
@@ -163,7 +163,19 @@ $('.note-resizebar').remove();
   </script>
 
 
+<script type="text/javascript">
+	function select_category() {
+		$('#choose_category').modal('toggle');
+		var selected_category = $('#category :selected').text();
+		var selected_category_uid = $('#category :selected').val();
+		
+		$('#cc').text(selected_category);
+		$('#cc').attr('value', selected_category_uid ) 
+		
 
+
+	}
+</script>
 
 
 
@@ -180,11 +192,27 @@ $('.note-resizebar').remove();
         <h4 class="modal-title">Choose Category</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+
+      <br>
+        
+
+        <select id="category" class="form-control">
+
+        {% for c in project.categories.all %}
+
+        <option value="{{c.uid}}">{{c.title}}</option>
+
+        {% endfor %}
+        	
+
+        </select>
+
+<br>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" onclick="select_category()">Select</button>
       </div>
+        
     </div>
 
   </div>

@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 	title = models.CharField(max_length=100, null = True, blank = True)
-	project = models.ForeignKey(Project , null=True)
+	project = models.ForeignKey(Project , null=True, related_name='categories')
 
 	def __str__(self):
 		return self.title or ''
