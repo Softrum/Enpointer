@@ -23,6 +23,10 @@ textarea:focus,
 button:focus {
     outline: none;
 }
+
+.navbar-nav, .nav > li > a {
+  padding: 8px 8px;
+}
 </style>
 </head>
 
@@ -32,7 +36,7 @@ button:focus {
 
 
 
-<nav style="margin:0px;margin-bottom: 0px; padding: 10px;background-color: white" class="navbar navbar-default">
+<nav style="margin:0px;margin-bottom: 0px; padding: 0px;background-color: white" class="navbar navbar-default">
 
 <div class="container-fluid" style="margin">
  
@@ -49,10 +53,12 @@ button:focus {
 
 
 
-    <div style="margin-left: 80%; " class="nav navbar-nav ">
-  <a href="#"  class="btn btn-default" > Publish</a>
+    <ul style="margin-left: 60%; " class="nav navbar-nav ">
+
+ <li><a href="#"  class="btn btn-default" > Publish</a></li>
+    <li> <a href="/wiki/home/{{project.uid}}"  class="btn btn-default"  > Discard Draft</a></li>
       
-    </div>
+    </ul>
 
 
 
