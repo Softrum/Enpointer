@@ -8,7 +8,7 @@
 <h4>Wiki</h4>
 
 <span style="font-size: 120%; color: grey; opacity: 0.8" >
-{{categories.count}} Categories, {{project.pages.all.count}} Pages</span>
+{{categories.count}} Categories, {{project.pages.a}} Pages</span>
 
 <!--
 <span class="pull-right"><a href="/wiki/page/create/{{project.uid}}" class="btn btn-default">Create</a></span>
@@ -69,6 +69,44 @@
 </div>
 
 {% endfor %}
+
+
+
+
+
+
+
+
+<div class="panel panel-default" style="padding: 40">
+
+
+<span style="font-size: 125%"><i class="fa fa-folder-o"></i> Other Pages</span><span style="color: grey; opacity: 0.6">  {{ other_pages.count }} Pages </span><!-- <span class="pull-right btn btn-default">New</span>-->
+
+
+
+<div class="container-fluid" style="margin-left: 15" >
+
+{% for p in other_pages %}
+
+<br>
+
+<div class="row" style="font-size: 110%">
+<i class="fa fa-file-o"></i><a style="color: black; text-decoration: none" href="/wiki/page/{{p.uid}}/"> {{p.current_version.title}}</a>
+</div>
+
+
+{% endfor %}
+
+
+
+</div> 
+
+
+</div>
+
+
+
+
 
 
 
