@@ -7,7 +7,7 @@
 
 <h4>Wiki</h4>
 
-<span style="font-size: 120%; color: grey">
+<span style="font-size: 120%; color: grey; opacity: 0.8" >
 {{categories.count}} Categories, 25 Pages</span>
 
 <span class="pull-right"><a href="/wiki/page/create/{{project.uid}}" class="btn btn-default">Create</a></span>
@@ -29,7 +29,7 @@
 <div class="panel panel-default" style="padding: 20">
 
 
-<span style="font-size: 125%"><i class="fa fa-folder-o"></i> {{c.title}}</span><span style="color: grey"> | {{ c.pages.all.count }} Pages </span> <span class="pull-right btn btn-default">New</span>
+<span style="font-size: 125%"><i class="fa fa-folder-o"></i> {{c.title}}</span><span style="color: grey; opacity: 0.6">  {{ c.pages.all.count }} Pages </span><!-- <span class="pull-right btn btn-default">New</span>-->
 
 
 
@@ -40,7 +40,7 @@
 <hr>
 
 <div class="row" style="font-size: 110%">
-<i class="fa fa-file-text-o"></i><a style="color: black; text-decoration: none" href="/wiki/page/{{p.uid}}/"> {{p.current_version.title}}</a>
+<i class="fa fa-file-o"></i><a style="color: black; text-decoration: none" href="/wiki/page/{{p.uid}}/"> {{p.current_version.title}}</a>
 </div>
 
 
