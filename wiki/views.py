@@ -15,6 +15,7 @@ from pygments.formatters import HtmlFormatter
 from django.utils.safestring import mark_safe
 
 import ast
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 
 
@@ -51,3 +52,13 @@ def edit_page(request, uid_page):
 	active = 'wiki_menu'
 
 	return render(request, 'wiki/edit.html', {'project':project, 'active':active, 'page':page})
+
+
+
+def create_category(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	c = Category.objects.create(project=project, title=request.POST['title'])
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
