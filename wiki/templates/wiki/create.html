@@ -15,6 +15,10 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
 
 <style type="text/css">
 	input:focus,
@@ -78,8 +82,68 @@ button:focus {
 <input type="text"   style=" border: none; font-size: 300%" placeholder="Page Title" >
 
 <br><br>
-<textarea  style="font-size: 130%; border: none; width: 100%;" rows=25 placeholder="Type Your Text.." ></textarea>
+
+
+  <div style="border: none" id="summernote"><p>Hello Summernote</p></div>
+
+
+
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    $(document).ready(function() {
+
+       
+$('#summernote').summernote({
+
+	airMode:true,
+
+	toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['strikethrough', 'superscript', 'subscript']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']]
+  ],
+
+  popover: {
+    air: [
+    ['style', ['style']],
+    ['font', ['strikethrough']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']],
+    ['table', ['table']],
+    ['hr', ['hr']],
+    ['ol', ['ol']],
+    ['ul', ['ul']],
+    ]
+  },
+  
+  height: 500,                 // set editor height
+  minHeight: null,             // set minimum height of editor
+  maxHeight: null,             // set maximum height of editor
+                   // set focus to editable area after initializing summernote
+});
+
+
+       
+    });
+  </script>
 
 
 </body>
