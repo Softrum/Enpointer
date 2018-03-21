@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from dragonslayer.models import Project
 from django.http import HttpResponse
@@ -67,6 +67,13 @@ def create_category(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	c = Category.objects.create(project=project, title=request.POST['title'])
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def publish(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	page.published=True
+	page.save()
+	return redirect('/wiki/page/'+ uid_page)
 
 
 
