@@ -52,11 +52,15 @@
 
 {% for p in c.pages.all %}
 
+{% if p.published == true %}
+
 <br>
 
 <div class="row" style="font-size: 110%">
 <i class="fa fa-file-o"></i><a style="color: black; text-decoration: none" href="/wiki/page/{{p.uid}}/"> {{p.current_version.title}}</a>
 </div>
+
+{% endif %}
 
 
 {% endfor %}

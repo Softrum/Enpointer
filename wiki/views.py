@@ -23,7 +23,7 @@ def home(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	active = 'wiki_menu'
 	categories = Category.objects.filter(project=project)
-	other_pages = Page.objects.filter(project=project).filter(category=None)
+	other_pages = Page.objects.filter(project=project).filter(category=None).filter(published=True)
 	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages})
 
 def page(request, uid_page):
