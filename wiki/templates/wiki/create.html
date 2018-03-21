@@ -183,7 +183,16 @@ $('.note-resizebar').remove();
 		category_uid = $('#cc').attr('value');
 		title = $('#title').val();
 		content = $('#summernote').summernote('code');
-		alert(category_uid + title+ content);
+		
+		$.ajax({
+			type:"POST",
+			url: "/wiki/page/publish/{{page.uid}}/",
+			data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'category_uid':category_uid, 'title':title, 'content':content},
+			success: function(){
+				
+				window.location.replace("/wiki/page/{{page.uid}}");
+			}
+		})
 	}
 </script>
 

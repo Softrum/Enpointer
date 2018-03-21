@@ -72,8 +72,15 @@ def create_category(request, uid_project):
 def publish(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
 	page.published=True
+	page.current_version.title = request.POST['title']
+	page.current_version.content = request.POST['content']
+	page.category = Category.objects.get(uid=request.POST['category_uid'])
+	print('page is published')
+	print(page.current_version.title)
+
 	page.save()
-	return redirect('/wiki/page/'+ uid_page)
+	page.current_version.save()
+	return HttpResponse('done')
 
 
 
