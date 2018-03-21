@@ -41,10 +41,17 @@ def page_history(request, uid_page):
 
 
 def create_page(request, uid_project):
+
 	project = Project.objects.get(uid=uid_project)
+	version = Version.objects.create(author=request.user)
+	page = Page.objects.create(project=project,author=request.user, current_version=version)
+	page.versions.add(version)
+	page.save()
+	history = History.objects.create(page=page, project=project, message='created new page', version=version)
+	print('new page and version is created')
 	active = 'wiki_menu'
 
-	return render(request, 'wiki/create.html', {'project':project, 'active':active})
+	return render(request, 'wiki/create.html', {'project':project, 'active':active, 'page':page})
 
 
 def edit_page(request, uid_page):
