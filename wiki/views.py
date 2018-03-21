@@ -62,6 +62,13 @@ def edit_page(request, uid_page):
 	return render(request, 'wiki/edit.html', {'project':project, 'active':active, 'page':page})
 
 
+def delete_page(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	uid_project = str(page.project.uid)
+	page.delete()
+	return redirect('/wiki/home/'+uid_project)
+
+
 
 def create_category(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
