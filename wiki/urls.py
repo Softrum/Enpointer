@@ -12,6 +12,16 @@ urlpatterns = [
 
     url(r'^wiki/page/delete/(?P<uid_page>[\w-]+)/$', views.delete_page ),
 
+
+    url(r'^wiki/page/versions/(?P<uid_page>[\w-]+)/$', views.versions ),
+
+    url(r'^wiki/page/save_version/(?P<uid_page>[\w-]+)/$', views.save_version ),
+
+    url(r'^wiki/page/commit_changes/(?P<uid_page>[\w-]+)/$', views.commit_changes ),
+
+    
+
+
     url(r'^wiki/page/edit/(?P<uid_page>[\w-]+)/$', views.edit_page ),
     url(r'^wiki/page/publish/(?P<uid_page>[\w-]+)/$', views.publish ),
     url(r'^wiki/category/create/(?P<uid_project>[\w-]+)/$', views.create_category ),

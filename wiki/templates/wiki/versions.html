@@ -4,10 +4,10 @@
 
 
 <br>
-<div class="container-fluid">
+<div class="container-fluid" style="overflow: scroll; height: 100%">
 
 <span style="opacity: 0.5">
-wiki > {{page.category.title}} > Page History</span>
+wiki > {{page.category.title}} > Versions</span>
 
 <div class="row">
 
@@ -50,13 +50,14 @@ wiki > {{page.category.title}} > Page History</span>
 
 <div class="container-fluid panel panel-default" style="padding: 25">
 
-<span style="font-size: 170%; margin-right: 20">Page History</span> <span>{{page.current_version.title}} </span>
 
-<br><br>
+<span style="font-size: 170%; margin-right: 20">Versions</span> <span>{{page.current_version.title}} </span>
+
+<br><hr>
 
 <div class="row">
 
-<div class="col-md-3">
+<div class="col-md-6">
 <b>Page Version</b>
 </div>
 
@@ -64,12 +65,9 @@ wiki > {{page.category.title}} > Page History</span>
 <b>Author</b>
 </div>
 
-<div class="col-md-3">
-<b>Message</b>
-</div>
 
 <div class="col-md-3">
-<b>Last Updated</b>
+<b>Created</b>
 </div>
 
 
@@ -77,31 +75,29 @@ wiki > {{page.category.title}} > Page History</span>
 
 
 
-
-{% for h in page.history.all %}
+{% for v in page.versions.all %}
 
 <hr>
 
 <div class="row">
 
-<div class="col-md-3">
-{{h.uid}}
+<div class="col-md-6">
+{{v.uid}}
 </div>
 
 <div class="col-md-3">
-{{h.version.author}}
+{{v.author}}
 </div>
+
+
 
 <div class="col-md-3">
-{{h.message}}
-</div>
-
-<div class="col-md-3">
-{{h.created|timesince}}
+{{v.created|timesince}}
 </div>
 
 
 </div>
+
 
 {% endfor %}
 
@@ -125,8 +121,10 @@ wiki > {{page.category.title}} > Page History</span>
 </div> <!-- row-->
 
 
-</div>
 
+<br><br><br><br><br><br>
+</div>
+<br><br><br>
 
 
 

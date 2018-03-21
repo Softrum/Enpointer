@@ -58,8 +58,32 @@ def edit_page(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
 	project = page.project
 	active = 'wiki_menu'
+	version = page.current_version
 
-	return render(request, 'wiki/edit.html', {'project':project, 'active':active, 'page':page})
+	return render(request, 'wiki/edit.html', {'project':project, 'active':active, 'page':page, 'version':version})
+
+def save_version(request, uid_page):
+	page = Page.objects.get(uid=uid_page)	
+	title = request.POST['title']
+	content = request.POST['content']
+	page.category = Category.objects.get(uid=request.POST['category_uid'])
+	version = Version.objects.create(title=title, content=content, author=request.user)
+	page.versions.add(version)
+	page.save()
+	return redirect('/wiki/page/versions/'+uid_page)
+
+
+def commit_changes(request, uid_page):
+	page = Page.objects.get(uid=uid_page)	
+	title = request.POST['title']
+	content = request.POST['content']
+	page.category = Category.objects.get(uid=request.POST['category_uid'])
+	version = Version.objects.create(title=title, content=content, author=request.user)
+	page.versions.add(version)
+	page.current_version = version
+	history = History.objects.create(page=page, project=page.project, version=version, message='new commit added')
+	page.save()
+	return redirect('/wiki/page/'+ uid_page)
 
 
 def delete_page(request, uid_page):
@@ -67,6 +91,10 @@ def delete_page(request, uid_page):
 	uid_project = str(page.project.uid)
 	page.delete()
 	return redirect('/wiki/home/'+uid_project)
+
+def versions(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	return render(request, 'wiki/versions.html', {'page':page})
 
 
 

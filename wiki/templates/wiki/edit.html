@@ -41,6 +41,20 @@ button:focus {
 .navbar-header {
     padding-top: 5px;
 }
+
+
+/*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
+.btn-primary {
+    color: #fff;
+    background-color: #0495c9;
+    border-color: #357ebd; /*set the color you want here*/
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #00b3db;
+    border-color: #285e8e; /*set the color you want here*/
+}
+.btn-primary:active:focus;
 </style>
 </head>
 
@@ -68,7 +82,16 @@ button:focus {
 
    <ul  class="nav navbar-nav " style="margin-left: 2%">
 
+   {% if page.category %}
+
+    <li><a id="cc" href="#"  value='{{page.category.uid}}'   >{{page.category.title}}</a></li>
+
+
+   {% else %}
+
  <li><a id="cc" href="#"  value='asdasd'  data-toggle="modal" data-target="#choose_category" >Choose Category</a></li>
+
+ {% endif %}
    
       
     </ul>
@@ -78,10 +101,12 @@ button:focus {
 
 
 
-    <ul style="margin-left: 50%; " class="nav navbar-nav  ">
+    <ul style="margin-left: 40%; " class="nav navbar-nav  ">
 
- <li><a href="#"  class="btn btn-default" > Publish Changes</a></li>
+ <li><a onclick="save_version()"  class="btn btn-default" > Save Version</a></li>
     <li> <a href="/wiki/home/{{project.uid}}"  class="btn btn-default"  > Discard Changes</a></li>
+
+      <li > <a onclick="commit_changes()" style="  text-decoration: none;  "  class="btn btn-default"  >Commit Changes</a></li>
       
     </ul>
 
@@ -99,12 +124,12 @@ button:focus {
 
 <div class="container" style="padding: 25; width: 60%">
 
-<input type="text"   style=" border: none; font-size: 300%" value="{{page.current_version.title}}" >
+<input id='title' type="text"   style=" border: none; font-size: 300%; width: 100%" value="{{version.title}}" >
 
 <br><br>
 
 
-  <div  id="summernote">{{page.current_version.content}}</div>
+  <div  id="summernote">{{version.content|safe}}</div>
 </div>
 
 
@@ -180,7 +205,46 @@ $('.note-resizebar').remove();
 </script>
 
 
+<script type="text/javascript">
+    function save_version() {
 
+        alert('hi');
+        category_uid = $('#cc').attr('value');
+        title = $('#title').val();
+        content = $('#summernote').summernote('code');
+        
+        $.ajax({
+            type:"POST",
+            url: "/wiki/page/save_version/{{page.uid}}/",
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'category_uid':category_uid, 'title':title, 'content':content},
+            success: function(){
+                
+                window.location.replace("/wiki/page/versions/{{page.uid}}");
+            }
+        })
+    }
+</script>
+
+
+<script type="text/javascript">
+    function commit_changes() {
+
+        alert('hi');
+        category_uid = $('#cc').attr('value');
+        title = $('#title').val();
+        content = $('#summernote').summernote('code');
+        
+        $.ajax({
+            type:"POST",
+            url: "/wiki/page/commit_changes/{{page.uid}}/",
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'category_uid':category_uid, 'title':title, 'content':content},
+            success: function(){
+                
+                window.location.replace("/wiki/page/{{page.uid}}");
+            }
+        })
+    }
+</script>
 
 
 
