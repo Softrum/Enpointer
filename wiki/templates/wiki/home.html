@@ -11,8 +11,20 @@
 
 <h4>Wiki</h4>
 
+
 <span style="font-size: 120%; color: grey; opacity: 0.8" >
 {{categories.count}} Categories, {{pages_count}} Pages</span>
+
+
+<span class="dropdown pull-right" >
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
+    <span class="glyphicon glyphicon-option-vertical"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/wiki/page/create/{{project.uid}}">Drafts</a></li>
+      <li role="presentation"><a data-toggle="modal" data-target="#create_category" href="">Manage Categories</a></li>
+        
+    </ul>
+  </span>
 
 <!--
 <span class="pull-right"><a href="/wiki/page/create/{{project.uid}}" class="btn btn-default">Create</a></span>
@@ -20,7 +32,7 @@
 -->
 
 
-<span class="dropdown pull-right" >
+<span class="dropdown pull-right" style="margin-right: 10" >
     <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
     Create</button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
