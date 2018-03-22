@@ -10,27 +10,28 @@
 
 <div class="container-fluid panel panel-default" style="padding: 10">
 
-<h4>Versions </h4><br>
+<h4>History </h4><br>
 
 
 
-{% for v in page.versions.all reversed %}
+{% for h in page.history.all reversed %}
 
 
-{% if v.uid == version.uid %}
+{% if h.uid == history.uid %}
 
 <b> 
-<i class="fa fa-file-o"></i> {{v.uid}}
+<i class="fa fa-file-o"></i> {{h.uid}}
 </b>
-<br><br>
+
 
 {% else %}
 
 
-<i class="fa fa-file-o"></i> {{v.uid}}<br><br>
+<i class="fa fa-file-o"></i> {{h.uid}}<br>
 
 {% endif %}
 
+<br><br>
 {% endfor %}
 
 
@@ -47,7 +48,7 @@
 
 <a href="/wiki/page/{{page.uid}}">Back to Page</a> 
 
-<h2>{{version.title}}</h2>
+<h2>{{history.version.title}}</h2>
 <span style="color: grey">Last Edited by Ishaan Bhola 4 mins ago</span>
 
 
@@ -65,12 +66,12 @@
     </ul>
   </span>
 
+<hr>
 
 
 
-<br>
 
-{{version.content|safe}}
+{{history.version.content|safe}}
 
 </div>
 

@@ -37,6 +37,7 @@ wiki > {{page.category.title}}</span>
 
 {% endif %}
 
+<br>
 {% endfor %}
 
 </div>
@@ -66,7 +67,7 @@ wiki > {{page.category.title}}</span>
     <i class="glyphicon glyphicon-option-vertical"></i></button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
       <li role="presentation"><a href="/wiki/page/edit/{{page.uid}}/"><i class="fa fa-pencil-square-o"></i> Edit</a></li>
-      <li role="presentation"><a href="history"> <i class="fa fa-history"></i> Page History</a></li>
+      <li role="presentation"><a href="/wiki/page/history/{{page.history.all.last.uid}}"> <i class="fa fa-history"></i> Page History</a></li>
       <li role="presentation"><a href="http://127.0.0.1:8000/wiki/page/version/{{page.versions.all.last.uid}}"> <i class="fa fa-file-text-o"></i> All Versions</a></li>
         <li role="presentation"><a href="/wiki/page/delete/{{page.uid}}"> <i class="fa fa-times"></i> Delete Page</a></li>
 

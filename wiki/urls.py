@@ -17,6 +17,8 @@ urlpatterns = [
 
     url(r'^wiki/page/version/(?P<uid_version>[\w-]+)/$', views.version ),
 
+    url(r'^wiki/page/history/(?P<uid_history>[\w-]+)/$', views.history ),
+
     url(r'^wiki/page/save_version/(?P<uid_page>[\w-]+)/$', views.save_version ),
 
     url(r'^wiki/page/commit_changes/(?P<uid_page>[\w-]+)/$', views.commit_changes ),

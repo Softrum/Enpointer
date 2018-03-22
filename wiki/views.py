@@ -22,9 +22,10 @@ from django.http import JsonResponse
 def home(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	active = 'wiki_menu'
+	pages_count = project.pages.all().count()
 	categories = Category.objects.filter(project=project)
 	other_pages = Page.objects.filter(project=project).filter(category=None).filter(published=True)
-	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages})
+	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages, 'pages_count':pages_count})
 
 def page(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
@@ -103,6 +104,14 @@ def version(request, uid_version):
 	project = page.project
 	active = 'wiki_menu'
 	return render(request, 'wiki/version.html', {'active':active, 'version':version, 'project':project, 'page':page})
+
+
+def history(request, uid_history):
+	history = History.objects.get(uid=uid_history)
+	page = history.page
+	project = history.project
+	active = 'wiki_menu'
+	return render(request, 'wiki/history.html', {'project':project, 'active':active, 'page':page, 'project':project, 'history':history})
 
 
 
