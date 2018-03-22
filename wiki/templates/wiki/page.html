@@ -23,6 +23,20 @@ wiki > {{page.category.title}}</span>
 
 
 <div class="container-fluid panel panel-default " style="padding: 25; font-size: 110%">
+
+{% if page.category == None %}
+
+<h4>Other Pages</h4>
+
+{% for p in other_pages %}
+
+{{p.current_version.title}}<br><br>
+
+{% endfor %}
+
+
+{% endif %}
+
 <h4>{{page.category.title}}</h4>
 
 {% for p in page.category.pages.all %}

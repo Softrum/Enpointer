@@ -31,7 +31,8 @@ def page(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
 	project = page.project
 	active = 'wiki_menu'
-	return render(request, 'wiki/page.html', {'project':project, 'active':active, 'page':page})
+	other_pages = Page.objects.filter(project=project).filter(category=None).filter(published=True)
+	return render(request, 'wiki/page.html', {'project':project, 'active':active, 'page':page, 'other_pages':other_pages})
 
 
 def page_history(request, uid_page):
@@ -126,7 +127,11 @@ def publish(request, uid_page):
 	page.published=True
 	page.current_version.title = request.POST['title']
 	page.current_version.content = request.POST['content']
-	page.category = Category.objects.get(uid=request.POST['category_uid'])
+	uid_category = request.POST.get('category_uid')
+	if uid_category != "asdasd":
+		page.category = Category.objects.get(uid=uid_category)
+
+	
 	print('page is published')
 	print(page.current_version.title)
 
