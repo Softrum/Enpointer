@@ -1,1 +1,87 @@
-sdasdasd
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+<div class="container-fluid" style="overflow: scroll; height: 100%; padding-top:25">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="container-fluid panel panel-default" style="padding: 10">
+
+<h4>Versions </h4><br>
+
+
+
+{% for v in page.versions.all reversed %}
+
+
+{% if v.uid == version.uid %}
+
+<b> 
+<i class="fa fa-file-o"></i> {{v.uid}}
+</b>
+<hr>
+
+{% else %}
+
+
+<i class="fa fa-file-o"></i> {{v.uid}}<hr>
+
+{% endif %}
+
+{% endfor %}
+
+
+
+</div>
+
+</div><!-- col-md-2-->
+
+
+
+<div class="col-md-9">
+
+<div class="container-fluid panel panel-default" style="padding: 50">
+
+<a href="/wiki/page/{{page.uid}}">Back to Page</a> 
+
+<h2>{{version.title}}</h2>
+<span style="color: grey">Last Edited by Ishaan Bhola 4 mins ago</span>
+
+
+
+<span class="dropdown pull-right" >
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
+    <i class="glyphicon glyphicon-option-vertical"></i></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/wiki/page/edit/{{page.uid}}/"><i class="fa fa-pencil-square-o"></i> Edit Version</a></li>
+
+
+        <li role="presentation"><a href="/wiki/page/delete/{{page.uid}}"> <i class="fa fa-times"></i> Delete Version</a></li>
+
+        
+    </ul>
+  </span>
+
+
+
+
+<br><hr>
+
+{{page.current_version.content|safe}}
+
+</div>
+
+</div><!-- col-md-2-->
+
+
+
+
+
+</div><!--row-->
+
+</div>
+
+{% endblock %}

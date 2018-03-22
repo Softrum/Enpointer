@@ -99,7 +99,10 @@ def versions(request, uid_page):
 
 def version(request, uid_version):
 	version = Version.objects.get(uid=uid_version)
-	return render(request, 'wiki/version.html', {'version':version})
+	page = version.version_page.all()[0]
+	project = page.project
+	active = 'wiki_menu'
+	return render(request, 'wiki/version.html', {'active':active, 'version':version, 'project':project, 'page':page})
 
 
 

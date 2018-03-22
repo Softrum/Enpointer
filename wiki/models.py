@@ -34,7 +34,7 @@ class Page(models.Model):
 	category = models.ForeignKey(Category, null=True, blank=True,  related_name='pages')
 	published = models.BooleanField(default=False)
 	current_version = models.ForeignKey(Version, null=True)
-	versions = models.ManyToManyField(Version, related_name='versions')
+	versions = models.ManyToManyField(Version, related_name='version_page')
 	author = models.ForeignKey(User, related_name='pages')
 	created = models.DateTimeField(default=datetime.now, blank=True)
 	updated = models.DateTimeField(null=True, blank=True)
