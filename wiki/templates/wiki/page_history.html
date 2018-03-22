@@ -6,6 +6,8 @@
 <br>
 <div class="container-fluid">
 
+
+
 <span style="opacity: 0.5">
 wiki > {{page.category.title}} > Page History</span>
 
@@ -49,6 +51,8 @@ wiki > {{page.category.title}} > Page History</span>
 
 
 <div class="container-fluid panel panel-default" style="padding: 25">
+<a href="/wiki/page/{{page.uid}}">Back to Page</a><br><br>
+
 
 <span style="font-size: 170%; margin-right: 20">Page History</span> <span>{{page.current_version.title}} </span>
 
@@ -78,7 +82,7 @@ wiki > {{page.category.title}} > Page History</span>
 
 
 
-{% for h in page.history.all %}
+{% for h in page.history.all reversed %}
 
 <hr>
 

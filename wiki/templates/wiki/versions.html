@@ -50,7 +50,7 @@ wiki > {{page.category.title}} > Versions</span>
 
 <div class="container-fluid panel panel-default" style="padding: 25">
 
-
+<a href="/wiki/page/{{page.uid}}">Back to Page</a><br><br>
 <span style="font-size: 170%; margin-right: 20">Versions</span> <span>{{page.current_version.title}} </span>
 
 <br><hr>
@@ -75,7 +75,7 @@ wiki > {{page.category.title}} > Versions</span>
 
 
 
-{% for v in page.versions.all %}
+{% for v in page.versions.all reversed %}
 
 <hr>
 
