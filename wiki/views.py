@@ -97,6 +97,11 @@ def versions(request, uid_page):
 	return render(request, 'wiki/versions.html', {'page':page})
 
 
+def version(request, uid_version):
+	version = Version.objects.get(uid=uid_version)
+	return render(request, 'wiki/version.html', {'version':version})
+
+
 
 def create_category(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
