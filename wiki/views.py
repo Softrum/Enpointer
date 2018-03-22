@@ -25,7 +25,8 @@ def home(request, uid_project):
 	pages_count = project.pages.all().count()
 	categories = Category.objects.filter(project=project)
 	other_pages = Page.objects.filter(project=project).filter(category=None).filter(published=True)
-	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages, 'pages_count':pages_count})
+	uid_draft =  Page.objects.filter(project=project).filter(published=False)[0].uid
+	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages, 'pages_count':pages_count, 'uid_draft':uid_draft})
 
 def page(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
@@ -75,6 +76,16 @@ def save_version(request, uid_page):
 	return redirect('/wiki/page/versions/'+uid_page)
 
 
+
+def draft(request, uid_page):
+	page = Page.objects.get(uid=uid_page)
+	project=page.project
+	drafts = Page.objects.filter(project=project).filter(published=False)
+	active = 'wiki_menu'
+	return render(request, 'wiki/draft.html', {'active':active, 'project':project, 'drafts':drafts, 'page':page})
+
+
+
 def commit_changes(request, uid_page):
 	page = Page.objects.get(uid=uid_page)	
 	title = request.POST['title']
@@ -91,8 +102,11 @@ def commit_changes(request, uid_page):
 def delete_page(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
 	uid_project = str(page.project.uid)
+	project = page.project
 	page.delete()
-	return redirect('/wiki/home/'+uid_project)
+	uid_draft =  Page.objects.filter(project=project).filter(published=False)[0].uid
+	return redirect('/wiki/draft/'+ str(uid_draft))
+	#return redirect('/wiki/home/'+uid_project)
 
 def versions(request, uid_page):
 	page = Page.objects.get(uid=uid_page)

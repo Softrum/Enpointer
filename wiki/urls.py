@@ -23,6 +23,8 @@ urlpatterns = [
 
     url(r'^wiki/page/commit_changes/(?P<uid_page>[\w-]+)/$', views.commit_changes ),
 
+    url(r'^wiki/draft/(?P<uid_page>[\w-]+)/$', views.draft ),
+
     
 
 

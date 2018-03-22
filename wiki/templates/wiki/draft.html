@@ -1,0 +1,108 @@
+{% extends 'project_base_scrum.html' %}
+
+{% block content2 %}
+
+
+
+
+<div class="container-fluid" style="overflow: scroll; height: 100%" >
+
+<br>
+<!--
+
+<span style="opacity: 0.5">
+wiki > {{page.category.title}}</span>
+
+-->
+
+<div class="row" style=" ">
+
+
+<div class="col-md-3 " >
+
+
+
+<div class="container-fluid panel panel-default " style="padding: 25; font-size: 110%">
+
+
+
+<h4>Drafts</h4>
+
+{% for p in drafts %}
+
+{% if p.uid == page.uid %}
+
+<b><a style="color: black; font-weight: 200%" href="/wiki/draft/{{p.uid}}"><i class="fa fa-file-o"></i>  {{p.current_version.title}}</a></b><br>
+
+{% else %}
+
+<a style="color: grey" href="/wiki/draft/{{p.uid}}"><i class="fa fa-file-o"></i>  {{p.current_version.title}}</a><br>
+
+{% endif %}
+
+<br>
+{% endfor %}
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-9" style=" overflow: auto; height: 100%">
+
+
+<div class="container-fluid panel panel-default" style="padding: 50">
+
+<h2>{{page.current_version.title}}</h2>
+<span style="color: grey">Last Edited by Ishaan Bhola 4 mins ago</span>
+
+
+
+<span class="dropdown pull-right" >
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="border: none; background-color: #f1f1f1">
+    <i class="glyphicon glyphicon-option-vertical"></i></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a href="/wiki/page/edit/{{page.uid}}/"><i class="fa fa-pencil-square-o"></i> Edit</a></li>
+      <li role="presentation"><a href="/wiki/page/history/{{page.history.all.last.uid}}"> <i class="fa fa-history"></i> Page History</a></li>
+      <li role="presentation"><a href="http://127.0.0.1:8000/wiki/page/version/{{page.versions.all.last.uid}}"> <i class="fa fa-file-text-o"></i> All Versions</a></li>
+        <li role="presentation"><a href="/wiki/page/delete/{{page.uid}}"> <i class="fa fa-times"></i> Delete Page</a></li>
+
+        
+    </ul>
+  </span>
+
+
+
+
+<br><hr>
+
+{{page.current_version.content|safe}}
+
+</div>
+
+</div><!-- for col-md -10 -->
+
+
+
+
+
+
+
+
+</div> <!-- row-->
+
+
+</div>
+
+
+
+
+
+{% endblock %}
