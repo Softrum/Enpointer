@@ -20,14 +20,14 @@
 {% if h.uid == history.uid %}
 
 <b> 
-<i class="fa fa-file-o"></i> {{h.uid}}
+<a style="color: black" href="/wiki/page/history/{{h.uid}}"><i class="fa fa-file-o"></i> {{h.uid}}</a>
 </b>
 
 
 {% else %}
 
 
-<i class="fa fa-file-o"></i> {{h.uid}}<br>
+<a style="color: black" href="/wiki/page/history/{{h.uid}}"><i class="fa fa-file-o"></i> {{h.uid}}</a><br>
 
 {% endif %}
 
