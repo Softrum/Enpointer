@@ -16,6 +16,18 @@ import ast
 from django.http import JsonResponse
 
 
-def home(request, uid_project):
+def source(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	return render(request, 'coda/home.html', {'project':project})
+
+def commits(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	return render(request, 'coda/commits.html', {'project':project})
+
+def branches(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	return render(request, 'coda/branches.html', {'project':project})
+
+def pull_requests(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	return render(request, 'coda/pull-requests.html', {'project':project})
