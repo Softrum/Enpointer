@@ -25,8 +25,8 @@ def home(request, uid_project):
 	pages_count = project.pages.all().count()
 	categories = Category.objects.filter(project=project)
 	other_pages = Page.objects.filter(project=project).filter(category=None).filter(published=True)
-	uid_draft =  Page.objects.filter(project=project).filter(published=False)[0].uid
-	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages, 'pages_count':pages_count, 'uid_draft':uid_draft})
+	drafts =  Page.objects.filter(project=project).filter(published=False)
+	return render(request, 'wiki/home.html', {'project':project, 'active':active, 'categories':categories, 'other_pages':other_pages, 'pages_count':pages_count, 'drafts':drafts})
 
 def page(request, uid_page):
 	page = Page.objects.get(uid=uid_page)
