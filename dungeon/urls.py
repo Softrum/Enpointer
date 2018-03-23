@@ -28,6 +28,7 @@ if settings.DEBUG == True:
 	url(r'^', include('qa.urls')),
 	url(r'^', include('api.urls')),
 	url(r'^', include('wiki.urls')),
+	url(r'^', include('coda.urls')),
 	url(r'^admin/', admin.site.urls),
 	
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -38,6 +39,7 @@ else:
 	url(r'^', include('qa.urls')),
 	url(r'^', include('api.urls')),
 	url(r'^', include('wiki.urls')),
+	url(r'^', include('coda.urls')),
 	url(r'^admin/', admin.site.urls),
 	
 ]

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 	'qa.apps.QaConfig',
 	'api.apps.ApiConfig',
 	'wiki.apps.WikiConfig',
+	'coda.apps.CodaConfig',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.messages',
