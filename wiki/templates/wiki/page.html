@@ -26,11 +26,19 @@ wiki > {{page.category.title}}</span>
 
 {% if page.category == None %}
 
-<h4>Other Pages</h4>
+<h4>Other Pages</h4><br>
 
 {% for p in other_pages %}
 
+{% if p.uid == page.uid %}
+
+<b><a href="/wiki/page/{{p.uid}}" style="color: black"><i class="fa fa-file-o"></i> {{p.current_version.title}}</a><br><br></b>
+
+{% else %}
+
 <a href="/wiki/page/{{p.uid}}" style="color: black"><i class="fa fa-file-o"></i> {{p.current_version.title}}</a><br><br>
+
+{% endif %}
 
 {% endfor %}
 
