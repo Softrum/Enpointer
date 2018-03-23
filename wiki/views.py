@@ -104,8 +104,8 @@ def delete_page(request, uid_page):
 	uid_project = str(page.project.uid)
 	project = page.project
 	page.delete()
-	uid_draft =  Page.objects.filter(project=project).filter(published=False)[0].uid
-	return redirect('/wiki/draft/'+ str(uid_draft))
+	#uid_draft =  Page.objects.filter(project=project).filter(published=False)[0].uid
+	return redirect('/wiki/home/'+ uid_project)
 	#return redirect('/wiki/home/'+uid_project)
 
 def versions(request, uid_page):
