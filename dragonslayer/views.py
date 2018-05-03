@@ -12,6 +12,7 @@ from django.contrib import messages
 import os.path
 import uuid
 import pytz
+import paramiko
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 
@@ -787,6 +788,30 @@ def create_default_screens(request, project):   #this function creates screens a
 	#rdfd
 
 
+#paramiko also needs to be installed in the project 
+
+def create_default_repo(request, project):
+	
+	
+	ssh = paramiko.SSHClient()
+	if request.get_host() == '127.0.0.1:8000':
+	    k = paramiko.RSAKey.from_private_key_file('/Users/ishaanbhola/.ssh/id_rsa', password='ishaan123') #file needs to be copied to ec2 and ecnrypted with password is required. 
+	else:
+		k = paramiko.RSAKey.from_private_key_file('/home/ubuntu/.ssh/id_rsa', password='ishaan123')
+
+	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+	ssh.connect(hostname='159.65.156.180', username='root', pkey=k)
+	p = project.title+'.git'
+	ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command('mkdir ' + p)
+	ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command('cd '+ p +'; git init --bare')
+	
+	
+	
+
+
+
+
+
 
 def create_default_status_columns(request, project):
 	c1 = Column.objects.create(title='Open', project=project, org=get_org(request), order=1)
@@ -1266,6 +1291,8 @@ def project(request, crud, uid):
 		foo = ['#9C27B0', '#E91E63', '#2196F3', '#009688', '#8BC34A', '#FFC107', '#455A64', '#795548', '#00BCD4', '#9C27B0', '#F44336', '#3F51B5', '#4CAF50', '#673AB7']
 		project.bg_color = random.choice(foo)
 		project.save()
+
+		create_default_repo(request, project)
 
 		
 		create_issue_types(request, project)
