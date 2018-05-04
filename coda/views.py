@@ -18,7 +18,8 @@ from django.http import JsonResponse
 
 def home(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
-	return render(request, 'coda/home.html', {'project':project})
+	active = 'code_menu'
+	return render(request, 'coda/home.html', {'project':project, 'active':active})
 
 def source(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
