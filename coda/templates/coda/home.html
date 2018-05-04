@@ -5,8 +5,58 @@
 <div class="panel panel-default" style="padding: 25">
 
 
-this is where all the code will come 
+Take this ssh key and add it to id_rsa file and save it in /users/.ssh/ directory<br><br>
 
+
+<button data-toggle="collapse" data-target="#demo">Show SSH Key</button><br><br>
+
+<div id="demo" class="collapse panel panel-default" style="padding: 25">
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED<br>
+DEK-Info: AES-128-CBC,E146EA1387D7C882883465A1223165FF<br><br>
+
+TWnlsWsA1OiHD2xL34zR00RLRF643uY74sJJhH6sCS11mOup/kddFLYeety2FA/r
+DGZmDRpo2GhZTHSnDEu3IDB/95WYuKuqNpt+nYoNN6mD7OY6+N2n+wpMZpwMGlNS
+bPGF7mJn7zOEDmqdUs1l+yWXlGMaIHft0ukzq5In3LWwJvIgyA5l7WTeBkl1yiy9
+uEMYrdiP0ipNdclsBYsAsNBdVpt+8EcwvbtcA+39WfdFj+Dq6SXaSoHkOq6UAOiT
+/Ggxif9gKzgkwhOMLo9r6i4L+AHqKH4s5hz6TuTV+Ah79YCsRXYInrrcpZTfLal7
+Z1ou9ThowV1mB+37xfT+QC4Ab1zwKGMpjSwWjWjlEFl4JoBJOOVxvqZ0/SxfYrrG
+/cQ0h5YNAa+vxgV7gZFYmWI1JjgsbiWZDwbrNiUvJmoIP7Za5uGj3GYilijhjoHq
+3ER763LJwtv+SJTwf3OCC4v+f9ZDG59c1ZlMbgfH2V8f1EiBgnUcbkqGyUeEUfDd
+M4dplv8VqGoftAbx5GTDXQPDoQ7sPhVqMyxKzQK2JRsqOrGlxfdiHqmpaRyj7zdy
+XPZ8toGDWr6+YTZuvcc9vVsk9iGh6L/kXxnzw6v0RLCvCnX9EYD2jzGVRgpC4Dr4
+LMa1hbQaC5X9v8EoR9rZ2jaWA9quyhhO6akvCqewIQN/f9PsiP7+uO6J/5hAeNz2
+xfXwn3XnoCMe51CL8D4auxWFQPwACKOWIi9gSyiZHaLyWwqYYLKpr39tGsHXi26z
+hDJRXP2vvlG/79q1oF2ZBVP6/3BcKxIfRWd2fjWv625Dz5O6Cbg2atavA3M30WxM
+DaHTaJxnoTFzMURItbtj+FNpzXvi1euFHN/R0GWlj+q4rqMI4jZLJWWhtBq6KHBY
+JowFa9gTHblbl6F/SVdaR++D2P4Cd7ZuFlSnfQomU2EN9GJOF+WEWBfNdEQsAUon
+c+2/1/J0OXsEwDxCSuamoyEEpX+UA3lBaJYK9jCUtVEF8q/xtscMz/gGSDIv+yp+
+nlLTzvVLsm2ieUM9QL5+ALMUjJ0gN7bobGQj0EFyr0/2KELO0qID9I4J7+xmg2tr
+fOoAeXkvydco6Jffar/jlZmBl7peuYVQTvOqge8VzVyJ/VoLCfXQPwrv/YrrVqWl
+ijzIaKNte5z/TeudIHaogQITBiahzFEEVHqbdp7mQtGN364440thfOvdGXx3f9hz
+n/M5ls2Tb64dQNtqY6WeCFM6ywDH0Ye9AV618mNVeM0eoQLJCNwB9RoL6kz54lee
+dU7r5/dp6/AfJnlj/kCjfMDa9XPnX13ALzsieiM9BMMxYWxg2uKQ6e/CCHExQx6J
+HwxX0ysP4+2GVtzj6NDWMrmO0EhnwsnKFw/IkITAF0z/qzJLnSiRLO2skwE+SQh8
+xdVPubHbNvKMKCKRvOwyWFgHhgH+MT9Aj25YishLY3WFOQA2T0zfZ+QCmJ0Em/ds
+VSNXEqgAKgDhZ6SoyadKf2V8voqsJpceta731c9XDu+lgDcCEtJ8a74i2/7wjmXN
+3Ihu1rqoo4gJYcw+Rer2GSL1lKlnFP6MYrSK+YAkR4u/KlJHbZbh+eTmfYnH1Ck2<br><br>
+-----END RSA PRIVATE KEY-----<br><br>
+</div><br>
+
+
+Add remote origin in your local git directory:<br>
+
+<code>
+git remote add origin ssh://root@159.65.156.180:/root/{{project.title}}.git/
+</code><br><br>
+
+Simply Stage and push the code  :<br>
+<code>
+git add .<br>
+git push origin master <br>
+</code>
+
+<br><br>
 </div>
 
 {% endblock %}

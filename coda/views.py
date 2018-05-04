@@ -16,9 +16,13 @@ import ast
 from django.http import JsonResponse
 
 
-def source(request, uid_project):
+def home(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
 	return render(request, 'coda/home.html', {'project':project})
+
+def source(request, uid_project):
+	project = Project.objects.get(uid=uid_project)
+	return render(request, 'coda/source.html', {'project':project})
 
 def commits(request, uid_project):
 	project = Project.objects.get(uid=uid_project)
